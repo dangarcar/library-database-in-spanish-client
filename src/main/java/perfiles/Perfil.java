@@ -1,8 +1,8 @@
-package personas;
+package perfiles;
 
 import java.time.LocalDate;
 
-public class Usuario {
+public class Perfil {
 	private final char[] letrasDNI = {'T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E'};
 	private String nombre;
 	private String apellido;
@@ -12,16 +12,16 @@ public class Usuario {
 	private int DNI;
 	
 	/**
-	 * Constructor del Usuario base
+	 * Constructor del perfil base
 	 * @param nombre
 	 * @param apellido
 	 * @param fecha
 	 * @param dni
 	 * @param direccionCasa
 	 * @param correoElectronico
-	 * @throws ExcepcionUsuario
+	 * @throws Excepcionperfil
 	 */
-	public Usuario(String nombre, String apellido, LocalDate fecha, int dni, String direccionCasa, String correoElectronico) throws ExcepcionUsuario{
+	public Perfil(String nombre, String apellido, LocalDate fecha, int dni, String direccionCasa, String correoElectronico) throws ExcepcionPerfil{
 		setNombre(nombre);
 		setApellido(apellido);
 		setDNI(dni);
@@ -45,12 +45,12 @@ public class Usuario {
 	 * @param fechaNacimiento
 	 * @throws ExcepcionEdadPersona 
 	 */
-	public void setFechaNacimiento(LocalDate fechaDeNacimiento) throws ExcepcionUsuario {
+	public void setFechaNacimiento(LocalDate fechaDeNacimiento) throws ExcepcionPerfil {
 		if (getEdad(fechaDeNacimiento) < 6) {
-			throw new ExcepcionUsuario("La fecha introducida es demasiado reciente, debe ser mayor de 6 años",this);
+			throw new ExcepcionPerfil("La fecha introducida es demasiado reciente, debe ser mayor de 6 años",this);
 		}
 		if (getEdad(fechaDeNacimiento) > 120) {
-			throw new ExcepcionUsuario("La fecha introducida es demasiado antigua, debe ser menor de 120 años",this);
+			throw new ExcepcionPerfil("La fecha introducida es demasiado antigua, debe ser menor de 120 años",this);
 		}
 		this.fechaNacimiento = fechaDeNacimiento;
 	}
@@ -59,16 +59,16 @@ public class Usuario {
 		this.direccionDeCasa = direccionDeCasa;
 	}
 
-	public void setCorreoElectronico(String correoElectronico) throws ExcepcionUsuario {
+	public void setCorreoElectronico(String correoElectronico) throws ExcepcionPerfil {
 		if (!(correoElectronico.contains("@"))) {
-			throw new ExcepcionUsuario("La direccion de correo electronico no contiene arroba, no es valida",this);
+			throw new ExcepcionPerfil("La direccion de correo electronico no contiene arroba, no es valida",this);
 		}
 		this.correoElectronico = correoElectronico;
 	}
 
-	public void setDNI(int dni) throws ExcepcionDNIUsuario {
+	public void setDNI(int dni) throws ExcepcionDNIPerfil {
 		if (dni > 99999999 || dni < 0) {
-			throw new ExcepcionDNIUsuario("El numero de DNI no es correcto",this);
+			throw new ExcepcionDNIPerfil("El numero de DNI no es correcto",this);
 		}
 		DNI = dni;
 	}
@@ -105,7 +105,7 @@ public class Usuario {
 	}
 	
 	/**
-	 * Devuelve la edad en años del usuario respecto a la actual
+	 * Devuelve la edad en años del perfil respecto a la actual
 	 * @return
 	 */
 	public int getEdad() {
@@ -146,12 +146,11 @@ public class Usuario {
 	 * @param persona
 	 * @return
 	 */
-	public boolean equals(Usuario user) {
+	public boolean equals(Perfil user) {
 		if(user.getDNI() == this.DNI) {
 			return true;
 		}
 		return false;
 	}
-	
-	
+
 }
