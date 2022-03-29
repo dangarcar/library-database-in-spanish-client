@@ -75,34 +75,13 @@ public class Perfil {
 
 	
 	/* Getters */
-	public String getNombre() {
-		return nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public LocalDate getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	public String getDireccionDeCasa() {
-		return direccionDeCasa;
-	}
-
-	public String getCorreoElectronico() {
-		return correoElectronico;
-	}
-
-	public int getDNI() {
-		return DNI;
-	}
-
-	public char getLetraDNI() {
-		int resto = this.DNI % 23;
-		return this.letrasDNI[resto];
-	}
+	public String getNombre() { return nombre; }
+	public String getApellido() { return apellido; }
+	public LocalDate getFechaNacimiento() { return fechaNacimiento; }
+	public String getDireccionDeCasa() { return direccionDeCasa; }
+	public String getCorreoElectronico() { return correoElectronico; }
+	public int getDNI() { return DNI; }
+	public char getLetraDNI() { return this.letrasDNI[DNI % 23]; }
 	
 	/**
 	 * Devuelve la edad en años del perfil respecto a la actual
