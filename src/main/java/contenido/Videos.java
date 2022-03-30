@@ -10,9 +10,9 @@ public class Videos extends Audio{
 	private int edadRecomendada;
 	private int calidad;
 	
-	public Videos(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int edadRecomendada, double duracionEnMinutos, int edad, int calidad) 
+	public Videos(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, double duracionEnMinutos, int edad, int calidad) 
 			throws ExcepcionAno, ExcepcionEdadRecomendada, ExcepcionDuracion, ExcepcionCalidad, ExcepcionSoporte {
-		super(titulo, autor, descripcion, ano, idioma, prestable, soporte, edadRecomendada, duracionEnMinutos);
+		super(titulo, autor, descripcion, ano, idioma, prestable, soporte, duracionEnMinutos);
 		if (!(soporte.isAudiovisual())) {
 			throw new ExcepcionSoporte("El soporte seleccionado no es compatible con video",this,soporte);
 		}

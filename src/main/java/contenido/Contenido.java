@@ -3,6 +3,7 @@ package contenido;
 import java.time.LocalDate;
 
 import contenido.excepciones.ExcepcionAno;
+import contenido.excepciones.ExcepcionDisponibilidad;
 
 abstract public class Contenido {
 	private String titulo;
@@ -44,7 +45,7 @@ abstract public class Contenido {
 	public int getAno() { return ano; }
 	public String getIdioma() { return idioma; }
 	public boolean getPrestable() { return prestable; }
-	public boolean getDisponibilildad() { return disponible; }
+	public boolean getDisponibilidad() { return disponible; }
 	public Soporte getSoporte() { return soporte; }
 	public LocalDate getFechaDisponibilidad() { return fechaDisponibilidad; }
 	
@@ -53,9 +54,12 @@ abstract public class Contenido {
 		fechaDisponibilidad = null;
 	}
 	
-	public void setDisponibilidad(int diaDePrestamo) {
-		disponible = false;
+	public void setDisponibilidad(int diaDePrestamo) throws ExcepcionDisponibilidad {
+		if(diaDePrestamo < 1) {
+			throw new ExcepcionDisponibilidad("Un préstamo debe durar al menos un día",this,diaDePrestamo);
+		}
 		fechaDisponibilidad = LocalDate.now().plusDays(diaDePrestamo);
+		disponible=false;
 	}
 
 }
