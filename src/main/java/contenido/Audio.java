@@ -7,6 +7,20 @@ import contenido.excepciones.ExcepcionSoporte;
 public class Audio extends Contenido{
 	private double duracion;
 	
+	/**
+	 * 
+	 * @param titulo
+	 * @param autor
+	 * @param descripcion
+	 * @param ano
+	 * @param idioma
+	 * @param prestable
+	 * @param soporte
+	 * @param duracionEnMinutos
+	 * @throws ExcepcionAno
+	 * @throws ExcepcionDuracion
+	 * @throws ExcepcionSoporte
+	 */
 	public Audio(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, double duracionEnMinutos) 
 			throws ExcepcionAno, ExcepcionDuracion, ExcepcionSoporte {
 		super(titulo, autor, descripcion, ano, idioma, prestable, soporte);

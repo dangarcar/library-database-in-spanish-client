@@ -2,7 +2,12 @@ package perfiles;
 
 import java.time.LocalDate;
 
-public class Perfil {
+import BBDD.EscribibleEnBBDD;
+import perfiles.excepciones.ExcepcionDNIPerfil;
+import perfiles.excepciones.ExcepcionPerfil;
+
+public class Perfil implements EscribibleEnBBDD{
+	private static final long serialVersionUID = -4197699727833110283L;
 	private final char[] letrasDNI = {'T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E'};
 	private String nombre;
 	private String apellido;
@@ -10,6 +15,7 @@ public class Perfil {
 	private String direccionDeCasa;
 	private String correoElectronico;
 	private int DNI;
+	private int ID;
 	
 	/**
 	 * Constructor del perfil base
@@ -28,7 +34,7 @@ public class Perfil {
 		setFechaNacimiento(fecha);
 		setDireccionDeCasa(direccionCasa);
 		setCorreoElectronico(correoElectronico);
-		
+		this.ID = hashCode();
 	}
 
 	/* Setters: Aquí compruebo si son correctos los datos */
@@ -82,6 +88,7 @@ public class Perfil {
 	public String getCorreoElectronico() { return correoElectronico; }
 	public int getDNI() { return DNI; }
 	public char getLetraDNI() { return this.letrasDNI[DNI % 23]; }
+	public int getID() { return ID; }
 	
 	/**
 	 * Devuelve la edad en años del perfil respecto a la actual
@@ -126,10 +133,18 @@ public class Perfil {
 	 * @return
 	 */
 	public boolean equals(Perfil user) {
-		if(user.getDNI() == this.DNI) {
+		if(user.getDNI() == this.DNI && user.getCorreoElectronico().equals(this.correoElectronico) ) {
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		int hash = 15;
+		hash = hash + 13 * DNI;
+		hash = hash - 2 * nombre.hashCode();
+		return hash;
 	}
 
 }

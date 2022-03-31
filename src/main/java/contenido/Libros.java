@@ -13,7 +13,23 @@ public class Libros extends Contenido{
 	private long ISBN;
 	private int paginas;
 	private String editorial;
-
+	
+	/**
+	 * 
+	 * @param titulo
+	 * @param autor
+	 * @param descripcion
+	 * @param ano
+	 * @param idioma
+	 * @param prestable
+	 * @param soporte
+	 * @param isbn
+	 * @param pags
+	 * @param editorial
+	 * @throws ExcepcionAno
+	 * @throws ExcepcionSoporte
+	 * @throws ExcepcionPaginas
+	 */
 	public Libros(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, long isbn, int pags, String editorial) 
 			throws ExcepcionAno, ExcepcionSoporte, ExcepcionPaginas {
 		super(titulo, autor, descripcion, ano, idioma, prestable, soporte);

@@ -10,6 +10,24 @@ public class Videos extends Audio{
 	private int edadRecomendada;
 	private int calidad;
 	
+	/**
+	 * 
+	 * @param titulo
+	 * @param autor
+	 * @param descripcion
+	 * @param ano
+	 * @param idioma
+	 * @param prestable
+	 * @param soporte
+	 * @param duracionEnMinutos
+	 * @param edad
+	 * @param calidad
+	 * @throws ExcepcionAno
+	 * @throws ExcepcionEdadRecomendada
+	 * @throws ExcepcionDuracion
+	 * @throws ExcepcionCalidad
+	 * @throws ExcepcionSoporte
+	 */
 	public Videos(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, double duracionEnMinutos, int edad, int calidad) 
 			throws ExcepcionAno, ExcepcionEdadRecomendada, ExcepcionDuracion, ExcepcionCalidad, ExcepcionSoporte {
 		super(titulo, autor, descripcion, ano, idioma, prestable, soporte, duracionEnMinutos);

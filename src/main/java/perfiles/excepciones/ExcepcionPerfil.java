@@ -1,4 +1,6 @@
-package perfiles;
+package perfiles.excepciones;
+
+import perfiles.Perfil;
 
 public class ExcepcionPerfil extends Exception {
 	private static final long serialVersionUID = 1L;
