@@ -7,6 +7,7 @@ import contenido.excepciones.ExcepcionEdadRecomendada;
 import contenido.excepciones.ExcepcionSoporte;
 
 public class Videos extends Audio{
+	private static final long serialVersionUID = 168879872457815054L;
 	private int edadRecomendada;
 	private int calidad;
 	
@@ -28,9 +29,9 @@ public class Videos extends Audio{
 	 * @throws ExcepcionCalidad
 	 * @throws ExcepcionSoporte
 	 */
-	public Videos(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, double duracionEnMinutos, int edad, int calidad) 
+	public Videos(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo, double duracionEnMinutos, int edad, int calidad) 
 			throws ExcepcionAno, ExcepcionEdadRecomendada, ExcepcionDuracion, ExcepcionCalidad, ExcepcionSoporte {
-		super(titulo, autor, descripcion, ano, idioma, prestable, soporte, duracionEnMinutos);
+		super(titulo, autor, descripcion, ano, idioma, prestable, soporte, diasDePrestamo, duracionEnMinutos);
 		if (!(soporte.isAudiovisual())) {
 			throw new ExcepcionSoporte("El soporte seleccionado no es compatible con video",this,soporte);
 		}

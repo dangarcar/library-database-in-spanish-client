@@ -1,13 +1,13 @@
 package perfiles;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDate;
-
-import BBDD.EscribibleEnBBDD;
 import perfiles.excepciones.ExcepcionDNIPerfil;
 import perfiles.excepciones.ExcepcionPerfil;
 
-public class Perfil implements EscribibleEnBBDD{
-	private static final long serialVersionUID = -4197699727833110283L;
+abstract public class Perfil implements Serializable{
+	private static final long serialVersionUID = 8775700157993623247L;
 	private final char[] letrasDNI = {'T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E'};
 	private String nombre;
 	private String apellido;
@@ -15,7 +15,7 @@ public class Perfil implements EscribibleEnBBDD{
 	private String direccionDeCasa;
 	private String correoElectronico;
 	private int DNI;
-	private int ID;
+	private final int ID;
 	
 	/**
 	 * Constructor del perfil base
@@ -25,9 +25,11 @@ public class Perfil implements EscribibleEnBBDD{
 	 * @param dni
 	 * @param direccionCasa
 	 * @param correoElectronico
+	 * @throws ExcepcionNoID 
+	 * @throws IOException 
 	 * @throws Excepcionperfil
 	 */
-	public Perfil(String nombre, String apellido, LocalDate fecha, int dni, String direccionCasa, String correoElectronico) throws ExcepcionPerfil{
+	public Perfil(String nombre, String apellido, LocalDate fecha, int dni, String direccionCasa, String correoElectronico) throws ExcepcionPerfil, IOException{
 		setNombre(nombre);
 		setApellido(apellido);
 		setDNI(dni);
@@ -89,6 +91,12 @@ public class Perfil implements EscribibleEnBBDD{
 	public int getDNI() { return DNI; }
 	public char getLetraDNI() { return this.letrasDNI[DNI % 23]; }
 	public int getID() { return ID; }
+	public static int getID(int dni, String nombrer) {
+		int id = 15;
+		id = id + 13 * dni;
+		id =id - 2 * nombrer.hashCode();
+		return id;
+	}
 	
 	/**
 	 * Devuelve la edad en años del perfil respecto a la actual
@@ -133,7 +141,7 @@ public class Perfil implements EscribibleEnBBDD{
 	 * @return
 	 */
 	public boolean equals(Perfil user) {
-		if(user.getDNI() == this.DNI && user.getCorreoElectronico().equals(this.correoElectronico) ) {
+		if(user.getDNI() == this.DNI) {
 			return true;
 		}
 		return false;

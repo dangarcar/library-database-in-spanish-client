@@ -10,7 +10,10 @@ public class ExcepcionDisponibilidad extends ExcepcionContenido{
 		super(s, contenido);
 		this.dias = dias;
 	}
-
+	
+	public int getDias() {
+		return dias;
+	}
 	public String getMessage() {
 		return super.getMessage()+" con "+dias+" días";
 	}

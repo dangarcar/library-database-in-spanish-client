@@ -5,6 +5,7 @@ import contenido.excepciones.ExcepcionDuracion;
 import contenido.excepciones.ExcepcionSoporte;
 
 public class Audio extends Contenido{
+	private static final long serialVersionUID = -549498529487274208L;
 	private double duracion;
 	
 	/**
@@ -21,9 +22,9 @@ public class Audio extends Contenido{
 	 * @throws ExcepcionDuracion
 	 * @throws ExcepcionSoporte
 	 */
-	public Audio(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, double duracionEnMinutos) 
+	public Audio(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo, double duracionEnMinutos) 
 			throws ExcepcionAno, ExcepcionDuracion, ExcepcionSoporte {
-		super(titulo, autor, descripcion, ano, idioma, prestable, soporte);
+		super(titulo, autor, descripcion, ano, idioma, prestable, soporte,diasDePrestamo);
 		if (!(soporte.isMultimedia())) {
 			throw new ExcepcionSoporte("El soporte seleccionado no es compatible con audio",this,soporte);
 		}

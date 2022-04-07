@@ -1,13 +1,12 @@
 package contenido;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-
-import BBDD.EscribibleEnBBDD;
 import contenido.excepciones.ExcepcionAno;
 import contenido.excepciones.ExcepcionDisponibilidad;
 
-abstract public class Contenido implements EscribibleEnBBDD{
-	private static final long serialVersionUID = -8863156718555060860L;
+abstract public class Contenido implements Serializable{
+	private static final long serialVersionUID = 4858763186223118216L;
 	private String titulo;
 	private String autor;
 	private String descripcion;
@@ -17,7 +16,8 @@ abstract public class Contenido implements EscribibleEnBBDD{
 	private boolean prestable;
 	private boolean disponible;
 	private LocalDate fechaDisponibilidad;
-	private int ID;
+	private final int ID;
+	private int diasDePrestamo;
 	
 	/**
 	 * Constructor de la clase abstracta Contenido
@@ -30,7 +30,7 @@ abstract public class Contenido implements EscribibleEnBBDD{
 	 * @param Un elemento del enum Soporte en el que se guarda el contenido
 	 * @throws ExcepcionAno
 	 */
-	public Contenido(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte) throws ExcepcionAno {
+	public Contenido(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo) throws ExcepcionAno {
 		this.titulo = titulo;
 		this.autor = autor;
 		this.descripcion = descripcion;
@@ -41,6 +41,7 @@ abstract public class Contenido implements EscribibleEnBBDD{
 		this.disponible = true;
 		this.fechaDisponibilidad = null;
 		this.ID = hashCode();
+		this.setDiasDePrestamo((diasDePrestamo > 0)? diasDePrestamo: null);
 	}
 
 	public void setAno(int ano) throws ExcepcionAno {
@@ -64,6 +65,12 @@ abstract public class Contenido implements EscribibleEnBBDD{
 	public Soporte getSoporte() { return soporte; }
 	public LocalDate getFechaDisponibilidad() { return fechaDisponibilidad; }
 	public int getID() { return ID; }
+	public static int getID(String autorr, String titulor) {
+		int hash = 67;
+		hash = hash + 13 * autorr.hashCode();
+		hash = hash + 2 * titulor.hashCode();
+		return hash;
+	}
 	
 	public void setDisponibilidad(boolean disp) {
 		disponible = disp;
@@ -88,10 +95,13 @@ abstract public class Contenido implements EscribibleEnBBDD{
 	
 	@Override
 	public boolean equals(Object o) {
-		if(o.hashCode() == hashCode() && this.fechaDisponibilidad.equals(((Contenido)o).getFechaDisponibilidad())) {
+		if(((Contenido) o).getID() == getID()) {
 			return true;
 		}
 		return false;
 	}
-	
+
+	public int getDiasDePrestamo() { return diasDePrestamo; }
+
+	public void setDiasDePrestamo(int dias) { this.diasDePrestamo = (dias > 0)? dias:this.diasDePrestamo; }
 }
