@@ -7,6 +7,7 @@ import contenido.excepciones.ExcepcionSoporte;
 public class Audio extends Contenido{
 	private static final long serialVersionUID = -549498529487274208L;
 	private double duracion;
+	private final int ID;
 	
 	/**
 	 * 
@@ -29,6 +30,7 @@ public class Audio extends Contenido{
 			throw new ExcepcionSoporte("El soporte seleccionado no es compatible con audio",this,soporte);
 		}
 		setDuracion(duracionEnMinutos);
+		this.ID = getIdentifier();
 	}
 	
 	public double getDuracion() { return duracion; }
@@ -39,4 +41,10 @@ public class Audio extends Contenido{
 		}
 		this.duracion = duracion;
 	}
+	
+	public int getID() { return ID; }
+	private int getIdentifier() {
+		return (int) (getTitulo().hashCode()+Math.sqrt(duracion));
+	}
+	
 }

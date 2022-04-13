@@ -11,7 +11,7 @@ import contenido.excepciones.ExcepcionSoporte;
  */
 public class Libros extends Contenido{
 	private static final long serialVersionUID = 7380692865029324516L;
-	private long ISBN;
+	private final int ISBN;
 	private int paginas;
 	private String editorial;
 	
@@ -31,7 +31,7 @@ public class Libros extends Contenido{
 	 * @throws ExcepcionSoporte
 	 * @throws ExcepcionPaginas
 	 */
-	public Libros(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo, long isbn, int pags, String editorial) 
+	public Libros(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo, int isbn, int pags, String editorial) 
 			throws ExcepcionAno, ExcepcionSoporte, ExcepcionPaginas {
 		super(titulo, autor, descripcion, ano, idioma, prestable, soporte, diasDePrestamo);
 		if (soporte.isMultimedia()) {
@@ -46,6 +46,7 @@ public class Libros extends Contenido{
 	public long getISBN() { return ISBN; }
 	public int getPaginas() { return paginas; }
 	public String getEditorial() { return editorial; }
+	public int getID() { return ISBN; }
 
 	
 	public void setPaginas(int pags) throws ExcepcionPaginas {

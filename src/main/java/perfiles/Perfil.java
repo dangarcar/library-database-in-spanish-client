@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import perfiles.excepciones.ExcepcionDNIPerfil;
 import perfiles.excepciones.ExcepcionPerfil;
 
-abstract public class Perfil implements Serializable{
+public class Perfil implements Serializable{
 	private static final long serialVersionUID = 8775700157993623247L;
 	private final char[] letrasDNI = {'T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E'};
 	private String nombre;
@@ -15,7 +15,6 @@ abstract public class Perfil implements Serializable{
 	private String direccionDeCasa;
 	private String correoElectronico;
 	private int DNI;
-	private final int ID;
 	
 	/**
 	 * Constructor del perfil base
@@ -29,14 +28,17 @@ abstract public class Perfil implements Serializable{
 	 * @throws IOException 
 	 * @throws Excepcionperfil
 	 */
-	public Perfil(String nombre, String apellido, LocalDate fecha, int dni, String direccionCasa, String correoElectronico) throws ExcepcionPerfil, IOException{
+	public Perfil(String nombre, String apellido, LocalDate fecha, int dni, String direccionCasa, String correoElectronico) throws ExcepcionPerfil, ExcepcionDNIPerfil{
 		setNombre(nombre);
 		setApellido(apellido);
 		setDNI(dni);
-		setFechaNacimiento(fecha);
+		try{
+			setFechaNacimiento(fecha);
+		} catch(ExcepcionPerfil e) {
+			fechaNacimiento = null;
+		}
 		setDireccionDeCasa(direccionCasa);
 		setCorreoElectronico(correoElectronico);
-		this.ID = hashCode();
 	}
 
 	/* Setters: Aquí compruebo si son correctos los datos */
@@ -68,8 +70,10 @@ abstract public class Perfil implements Serializable{
 	}
 
 	public void setCorreoElectronico(String correoElectronico) throws ExcepcionPerfil {
-		if (!(correoElectronico.contains("@"))) {
-			throw new ExcepcionPerfil("La direccion de correo electronico no contiene arroba, no es valida",this);
+		if(correoElectronico != null) {	
+			if (!(correoElectronico.contains("@"))) {
+				throw new ExcepcionPerfil("La direccion de correo electronico no contiene arroba, no es valida",this);
+			}
 		}
 		this.correoElectronico = correoElectronico;
 	}
@@ -90,13 +94,7 @@ abstract public class Perfil implements Serializable{
 	public String getCorreoElectronico() { return correoElectronico; }
 	public int getDNI() { return DNI; }
 	public char getLetraDNI() { return this.letrasDNI[DNI % 23]; }
-	public int getID() { return ID; }
-	public static int getID(int dni, String nombrer) {
-		int id = 15;
-		id = id + 13 * dni;
-		id =id - 2 * nombrer.hashCode();
-		return id;
-	}
+	public int getID() { return DNI; }
 	
 	/**
 	 * Devuelve la edad en años del perfil respecto a la actual
@@ -113,14 +111,14 @@ abstract public class Perfil implements Serializable{
 	 * @return
 	 */
 	public int getEdad(LocalDate fecha) {
-		int edad = LocalDate.now().getYear() - fecha.getYear();
+		int edad = (fecha == null)? 0:LocalDate.now().getYear() - fecha.getYear();
 		return edad;
 	}
 	
 	@Override
 	/* Metodos sobreescritos de la clase Object, toString y equals*/
 	public String toString() {
-		return "Nombre: "+nombre+"\nApellidos: "+apellido+"\nFecha de nacimiento: "+fechaNacimiento.toString()+"\nDNI: "+DNI+getLetraDNI();
+		return "Nombre: "+nombre+"\nApellidos: "+apellido+"\nFecha de nacimiento: "+((fechaNacimiento != null)? fechaNacimiento.toString():"No existe")+"\nDNI: "+DNI+getLetraDNI();
 	}
 	
 	/**

@@ -29,4 +29,8 @@ public enum Soporte {
 	boolean isAudiovisual() {
 		return audiovisual;
 	}
+	
+	public String toString() {
+		return this.name();
+	}
 }

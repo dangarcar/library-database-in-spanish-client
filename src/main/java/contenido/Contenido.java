@@ -16,7 +16,6 @@ abstract public class Contenido implements Serializable{
 	private boolean prestable;
 	private boolean disponible;
 	private LocalDate fechaDisponibilidad;
-	private final int ID;
 	private int diasDePrestamo;
 	
 	/**
@@ -40,7 +39,6 @@ abstract public class Contenido implements Serializable{
 		this.soporte = soporte;
 		this.disponible = true;
 		this.fechaDisponibilidad = null;
-		this.ID = hashCode();
 		this.setDiasDePrestamo((diasDePrestamo > 0)? diasDePrestamo: null);
 	}
 
@@ -64,13 +62,7 @@ abstract public class Contenido implements Serializable{
 	public boolean getDisponibilidad() { return disponible; }
 	public Soporte getSoporte() { return soporte; }
 	public LocalDate getFechaDisponibilidad() { return fechaDisponibilidad; }
-	public int getID() { return ID; }
-	public static int getID(String autorr, String titulor) {
-		int hash = 67;
-		hash = hash + 13 * autorr.hashCode();
-		hash = hash + 2 * titulor.hashCode();
-		return hash;
-	}
+	public abstract int getID();
 	
 	public void setDisponibilidad(boolean disp) {
 		disponible = disp;

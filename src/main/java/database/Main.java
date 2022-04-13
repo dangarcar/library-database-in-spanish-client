@@ -1,8 +1,10 @@
 package database;
 
+import interfaz.Ventana;
+
 public class Main {
 
 	public static void main(String [] args){
-		System.out.println("Hola Mundo");
+		new Ventana();
 	}
 }
