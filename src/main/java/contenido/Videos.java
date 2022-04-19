@@ -1,5 +1,7 @@
 package contenido;
 
+import java.time.LocalDate;
+
 import contenido.excepciones.ExcepcionAno;
 import contenido.excepciones.ExcepcionCalidad;
 import contenido.excepciones.ExcepcionDuracion;
@@ -12,7 +14,7 @@ public class Videos extends Audio{
 	private int calidad;
 	
 	/**
-	 * 
+	 * Constructor del objeto para crear el objeto desde cero
 	 * @param titulo
 	 * @param autor
 	 * @param descripcion
@@ -32,6 +34,35 @@ public class Videos extends Audio{
 	public Videos(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo, double duracionEnMinutos, int edad, int calidad) 
 			throws ExcepcionAno, ExcepcionEdadRecomendada, ExcepcionDuracion, ExcepcionCalidad, ExcepcionSoporte {
 		super(titulo, autor, descripcion, ano, idioma, prestable, soporte, diasDePrestamo, duracionEnMinutos);
+		if (!(soporte.isAudiovisual())) {
+			throw new ExcepcionSoporte("El soporte seleccionado no es compatible con video",this,soporte);
+		}
+		setEdadRecomendada(edad);
+		setCalidad(calidad);
+	}
+	
+	/**
+	 * 
+	 * @param titulo
+	 * @param autor
+	 * @param descripcion
+	 * @param ano
+	 * @param idioma
+	 * @param prestable
+	 * @param soporte
+	 * @param diasDePrestamo
+	 * @param duracionEnMinutos
+	 * @param edad
+	 * @param calidad
+	 * @throws ExcepcionAno
+	 * @throws ExcepcionEdadRecomendada
+	 * @throws ExcepcionDuracion
+	 * @throws ExcepcionCalidad
+	 * @throws ExcepcionSoporte
+	 */
+	public Videos(int id,String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo, boolean disponible, LocalDate fechaDisponibilidad, int IDAudio, double duracionEnMinutos, int edad, int calidad) 
+			throws ExcepcionAno, ExcepcionEdadRecomendada, ExcepcionDuracion, ExcepcionCalidad, ExcepcionSoporte {
+		super(id,titulo, autor, descripcion, ano, idioma, prestable, soporte, diasDePrestamo, disponible, fechaDisponibilidad, duracionEnMinutos, IDAudio);
 		if (!(soporte.isAudiovisual())) {
 			throw new ExcepcionSoporte("El soporte seleccionado no es compatible con video",this,soporte);
 		}

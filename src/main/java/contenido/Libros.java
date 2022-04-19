@@ -1,5 +1,7 @@
 package contenido;
 
+import java.time.LocalDate;
+
 import contenido.excepciones.ExcepcionAno;
 import contenido.excepciones.ExcepcionPaginas;
 import contenido.excepciones.ExcepcionSoporte;
@@ -11,12 +13,12 @@ import contenido.excepciones.ExcepcionSoporte;
  */
 public class Libros extends Contenido{
 	private static final long serialVersionUID = 7380692865029324516L;
-	private final int ISBN;
+	private final long ISBN;
 	private int paginas;
 	private String editorial;
 	
 	/**
-	 * 
+	 * Constructor de la clase Libros para crear el objeto desde cero
 	 * @param titulo
 	 * @param autor
 	 * @param descripcion
@@ -31,9 +33,40 @@ public class Libros extends Contenido{
 	 * @throws ExcepcionSoporte
 	 * @throws ExcepcionPaginas
 	 */
-	public Libros(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo, int isbn, int pags, String editorial) 
+	public Libros(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo, long isbn, int pags, String editorial) 
 			throws ExcepcionAno, ExcepcionSoporte, ExcepcionPaginas {
 		super(titulo, autor, descripcion, ano, idioma, prestable, soporte, diasDePrestamo);
+		if (soporte.isMultimedia()) {
+			throw new ExcepcionSoporte("El soporte seleccionado no es compatible con video",this,soporte);
+		}
+		setPaginas(pags);
+		this.editorial = editorial;
+		this.ISBN = isbn;
+	}
+	
+	/**
+	 * El constructor para el objeto sacado de la BBDD
+	 * @param id
+	 * @param titulo
+	 * @param autor
+	 * @param descripcion
+	 * @param ano
+	 * @param idioma
+	 * @param prestable
+	 * @param soporte
+	 * @param diasDePrestamo
+	 * @param disponible
+	 * @param fechaDisponibilidad
+	 * @param isbn
+	 * @param pags
+	 * @param editorial
+	 * @throws ExcepcionAno
+	 * @throws ExcepcionSoporte
+	 * @throws ExcepcionPaginas
+	 */
+	public Libros(int id, String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo, boolean disponible, LocalDate fechaDisponibilidad, long isbn, int pags, String editorial) 
+			throws ExcepcionAno, ExcepcionSoporte, ExcepcionPaginas {
+		super(id,titulo, autor, descripcion, ano, idioma, prestable, soporte, diasDePrestamo,prestable,fechaDisponibilidad);
 		if (soporte.isMultimedia()) {
 			throw new ExcepcionSoporte("El soporte seleccionado no es compatible con video",this,soporte);
 		}
@@ -46,7 +79,6 @@ public class Libros extends Contenido{
 	public long getISBN() { return ISBN; }
 	public int getPaginas() { return paginas; }
 	public String getEditorial() { return editorial; }
-	public int getID() { return ISBN; }
 
 	
 	public void setPaginas(int pags) throws ExcepcionPaginas {

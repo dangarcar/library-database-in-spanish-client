@@ -17,9 +17,11 @@ abstract public class Contenido implements Serializable{
 	private boolean disponible;
 	private LocalDate fechaDisponibilidad;
 	private int diasDePrestamo;
+	private final int ID;
 	
 	/**
-	 * Constructor de la clase abstracta Contenido
+	 * Constructor de la clase abstracta Contenido<br>
+	 * Para construir el objeto por primera vez
 	 * @param titulo Titulo del contenido
 	 * @param autor Autor del contenido
 	 * @param descripcion Un breve texto hablando sobre el contenido
@@ -40,6 +42,36 @@ abstract public class Contenido implements Serializable{
 		this.disponible = true;
 		this.fechaDisponibilidad = null;
 		this.setDiasDePrestamo((diasDePrestamo > 0)? diasDePrestamo: null);
+		this.ID = hashCode();
+	}
+	
+	/**
+	 * Constructor de la clase abstracta contenido , pero definiendo las variables disponible y fecha de disponibilidad<br>
+	 * Para construir la clase una vez ya sacada de la base de datos
+	 * @param titulo
+	 * @param autor
+	 * @param descripcion
+	 * @param ano
+	 * @param idioma
+	 * @param prestable
+	 * @param soporte
+	 * @param diasDePrestamo
+	 * @param disponible
+	 * @param fechaDisponibilidad
+	 * @throws ExcepcionAno
+	 */
+	public Contenido(int id, String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo,boolean disponible,LocalDate fechaDisponibilidad) throws ExcepcionAno {
+		this.titulo = titulo;
+		this.autor = autor;
+		this.descripcion = descripcion;
+		setAno(ano);
+		this.idioma = idioma;
+		this.prestable = prestable;
+		this.soporte = soporte;
+		this.disponible = disponible;
+		this.fechaDisponibilidad = fechaDisponibilidad;
+		this.setDiasDePrestamo((diasDePrestamo > 0)? diasDePrestamo: null);
+		this.ID = id;
 	}
 
 	public void setAno(int ano) throws ExcepcionAno {
@@ -62,19 +94,25 @@ abstract public class Contenido implements Serializable{
 	public boolean getDisponibilidad() { return disponible; }
 	public Soporte getSoporte() { return soporte; }
 	public LocalDate getFechaDisponibilidad() { return fechaDisponibilidad; }
-	public abstract int getID();
+	public int getID() { return ID; }
 	
-	public void setDisponibilidad(boolean disp) {
-		disponible = disp;
+	/**
+	 * Este método modifica el valor de la variable disponible y fecha disponibilidad
+	 */
+	public void devolverContenido() {
+		disponible = true;
 		fechaDisponibilidad = null;
 	}
 	
-	public void setDisponibilidad(int diaDePrestamo) throws ExcepcionDisponibilidad {
-		if(diaDePrestamo < 1) {
-			throw new ExcepcionDisponibilidad("Un préstamo debe durar al menos un día",this,diaDePrestamo);
-		}
-		fechaDisponibilidad = LocalDate.now().plusDays(diaDePrestamo);
-		disponible=false;
+	/**
+	 * Este método modifica el valor de la variable disponible y fecha disponibilidad
+	 * @throws ExcepcionDisponibilidad 
+	 */
+	public void prestarContenido() throws ExcepcionDisponibilidad{
+		if(disponible) {
+			fechaDisponibilidad = LocalDate.now().plusDays(this.diasDePrestamo);
+			disponible=false;
+		} else throw new ExcepcionDisponibilidad("El contenido que pide no está actualmente disponible",this);
 	}
 	
 	@Override
@@ -83,14 +121,6 @@ abstract public class Contenido implements Serializable{
 		hash = hash + 13 * autor.hashCode();
 		hash = hash + 2 * titulo.hashCode();
 		return hash;
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		if(((Contenido) o).getID() == getID()) {
-			return true;
-		}
-		return false;
 	}
 
 	public int getDiasDePrestamo() { return diasDePrestamo; }

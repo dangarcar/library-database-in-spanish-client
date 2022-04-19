@@ -52,7 +52,7 @@ public class PerfilSQL {
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				fechaDeNacimiento = LocalDate.parse(resultado.getString("FechaDeNacimiento"),formatter);
 			} catch(DateTimeParseException e) {
-				JOptionPane.showMessageDialog(null, "¿Eres admin?");
+				System.out.println("¿Eres admin?");
 			}
 			DNI = resultado.getInt("DNI");
 			direccionCasa = resultado.getString("DireccionCasa");
@@ -69,7 +69,7 @@ public class PerfilSQL {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ExcepcionPerfil e) {
-			JOptionPane.showMessageDialog(null, "Error con el perfil que coincide con el siguiente DNI: "+dni);
+			System.out.println("Error con el perfil que coincide con el siguiente DNI: "+dni);
 			e.printStackTrace();
 		}  finally {
 			//Si la conexion a la base de datos existe, la cierro
@@ -110,7 +110,7 @@ public class PerfilSQL {
 				st.executeUpdate();
 				st.clearParameters();
 				
-				JOptionPane.showMessageDialog(null, "Se ha guardado el perfil en la base de datos");
+				System.out.println("Se ha guardado el perfil en la base de datos");
 			
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -126,9 +126,9 @@ public class PerfilSQL {
 	}
 	
 	/**
-	 * Esta función escribe en la base de datos el admin pasado por parámetros si es correcto<br>
+	 * Este método escribe en la base de datos el admin pasado por parámetros si es correcto<br>
 	 * esta función no es válida para los perfiles de usuario normales
-	 * @param perfil El objeto de tipo admi a ser pasado
+	 * @param perfil El objeto de tipo admin a ser pasado
 	 * @throws ExcepcionPerfil 
 	 */
 	public static void writeAdmin(Admin perfil) throws ExcepcionPerfil {
@@ -154,7 +154,7 @@ public class PerfilSQL {
 				st.executeUpdate();
 				st.clearParameters();
 				
-				JOptionPane.showMessageDialog(null, "Se ha guardado el administrador en la base de datos");
+				System.out.println("Se ha guardado el administrador en la base de datos");
 			
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -196,7 +196,7 @@ public class PerfilSQL {
 				
 				admin = new Admin(perfil.getNombre(),perfil.getApellido(),perfil.getFechaNacimiento(),perfil.getDNI(),perfil.getDireccionDeCasa(),perfil.getCorreoElectronico());
 				
-				JOptionPane.showMessageDialog(null, "El perfil: "+perfil.getDNI()+" ha pasado a ser administrador");
+				System.out.println("El perfil: "+perfil.getDNI()+" ha pasado a ser administrador");
 			
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -241,7 +241,7 @@ public class PerfilSQL {
 				
 				perfil = new Perfil(admin.getNombre(),admin.getApellido(),admin.getFechaNacimiento(),admin.getDNI(),admin.getDireccionDeCasa(),admin.getCorreoElectronico());
 				
-				JOptionPane.showMessageDialog(null, "El admin: "+admin.getDNI()+" ha pasado a ser un usuario normal");
+				System.out.println("El admin: "+admin.getDNI()+" ha pasado a ser un usuario normal");
 			
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -282,7 +282,7 @@ public class PerfilSQL {
 				st.executeUpdate();
 				st.clearParameters();
 				
-				JOptionPane.showMessageDialog(null, "Se ha borrado el perfil de la base de datos");
+				System.out.println("Se ha borrado el perfil de la base de datos");
 			
 			} catch (SQLException e) {
 				e.printStackTrace();
