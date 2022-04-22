@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import contenido.Contenido;
 import contenido.Libros;
@@ -15,6 +17,7 @@ import contenido.excepciones.ExcepcionContenido;
 import contenido.excepciones.ExcepcionDisponibilidad;
 import contenido.excepciones.ExcepcionPaginas;
 import contenido.excepciones.ExcepcionSoporte;
+import perfiles.Perfil;
 import perfiles.excepciones.ExcepcionPerfil;
 
 public class ContenidoSQL {
@@ -26,15 +29,27 @@ public class ContenidoSQL {
 	 * @return El objeto de la clase Libro que corresponda a ese ISBN
 	 * @throws ExcepcionContenido 
 	 */
-	public static Libros getLibro(long isbn) throws ExcepcionContenido {
+	public static ArrayList<Libros> getLibro(long isbn,Boolean d) throws ExcepcionContenido {
 		Libros libro = null;
 		ConectorSQL conector = null;
 		ResultSet resultado = null;
+		ArrayList<Libros> libros = new ArrayList<Libros>();
 		
 		String peticionSQL = "SELECT ID,Titulo,Autor,Descripcion,Año,Idioma,Soporte,DiasDePrestamo,Prestable,Disponible,FechadeDisponibilidad,Detalles_Libro,DT.Paginas,DT.Editorial "
 				+ "FROM Contenidos LEFT OUTER JOIN Detalles_libros AS DT ON Detalles_Libro = DT.ISBN "
-				+ "WHERE Detalles_Libro = "+isbn+" "
-				+ "GROUP BY Detalles_Libro;";
+				+ "WHERE Detalles_Libro = "+isbn;
+		if(d != null) {
+			System.out.println("Estoy en el d");
+			if(d == true) {
+				peticionSQL = peticionSQL.concat(" AND Disponible = 1;");
+				System.out.println(true);
+			} else {
+				peticionSQL = peticionSQL.concat(" AND Disponible = 0;");
+				System.out.println(false);
+			}
+		}
+		
+		System.out.println(peticionSQL);
 		
 		String titulo;
 		String autor;
@@ -59,23 +74,25 @@ public class ContenidoSQL {
 			//Hago al peticion SQL a la base de datos y almaceno el ResultSet
 			resultado = conector.seleccionar(peticionSQL);
 			
-			titulo = resultado.getString("Titulo");
-			autor = resultado.getString("Autor");
-			descripcion = resultado.getString("Descripcion");
-			ano = resultado.getInt("Año");
-			idioma = resultado.getString("Idioma");
-			soporte = Soporte.valueOf(resultado.getString("Soporte"));
-			diasDePrestamo = resultado.getInt("DiasDePrestamo");
-			prestable = resultado.getBoolean("Prestable");
-			ISBN = resultado.getLong("Detalles_Libro");
-			paginas = resultado.getInt("Paginas");
-			editorial = resultado.getString("Editorial");
-			disponible = resultado.getBoolean("Disponible");
-			fechaDisponibilidad = (resultado.getString("FechaDeDisponibilidad") != null)? LocalDate.parse(resultado.getString("FechaDeDisponibilidad"),formatter):null;
-			ID = resultado.getInt("ID");
+			while(resultado.next()) {
+				titulo = resultado.getString("Titulo");
+				autor = resultado.getString("Autor");
+				descripcion = resultado.getString("Descripcion");
+				ano = resultado.getInt("Año");
+				idioma = resultado.getString("Idioma");
+				soporte = Soporte.valueOf(resultado.getString("Soporte"));
+				diasDePrestamo = resultado.getInt("DiasDePrestamo");
+				prestable = resultado.getBoolean("Prestable");
+				ISBN = resultado.getLong("Detalles_Libro");
+				paginas = resultado.getInt("Paginas");
+				editorial = resultado.getString("Editorial");
+				disponible = resultado.getBoolean("Disponible");
+				fechaDisponibilidad = (resultado.getString("FechaDeDisponibilidad") != null)? LocalDate.parse(resultado.getString("FechaDeDisponibilidad"),formatter):null;
+				ID = resultado.getInt("ID");
 			
-			libro = new Libros(ID,titulo,autor,descripcion,ano,idioma,prestable,soporte,diasDePrestamo,disponible,fechaDisponibilidad,ISBN,paginas,editorial);
-			
+				libros.add(new Libros(ID,titulo,autor,descripcion,ano,idioma,prestable,soporte,diasDePrestamo,disponible,fechaDisponibilidad,ISBN,paginas,editorial));
+			}
+
 		} catch (SQLException e) {
 			throw new ExcepcionContenido("Hubo un error con la base de datos, es probable que el contenido que buscas no exista en esta biblioteca",libro);
 		} catch (ExcepcionAno e) {
@@ -91,7 +108,7 @@ public class ContenidoSQL {
 			}
 		}
 		
-		return libro;
+		return libros;
 	}
 	
 	/**
@@ -112,30 +129,30 @@ public class ContenidoSQL {
 				connect = conector.conectar();
 				connect.setAutoCommit(false);
 				
-				String peticionSQLContenidos = "INSERT INTO Contenidos(ID,Titulo,Autor,Descripcion,Año,Idioma,Soporte,DiasDePrestamo,Prestable,Disponible,FechaDeDisponibilidad,Detalles_Libro) "
-						+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
-				String peticionSQLDetalles = "INSERT INTO Detalles_libros (ISBN,Paginas,Editorial) VALUES (?,?,?)";
+				String peticionSQLContenidos = "INSERT INTO Contenidos(Titulo,Autor,Descripcion,Año,Idioma,Soporte,DiasDePrestamo,Prestable,Disponible,FechaDeDisponibilidad,Detalles_Libro) "
+						+ "VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+				String peticionSQLDetalles = "INSERT INTO Detalles_libros (ISBN,Paginas,Editorial) SELECT ?,?,? WHERE NOT EXISTS (SELECT ISBN FROM Detalles_libros WHERE ISBN = ?);";
 			
 				stDetalles = connect.prepareStatement(peticionSQLDetalles);
 				stDetalles.setLong(1, libro.getISBN());
 				stDetalles.setInt(2, libro.getPaginas());
 				stDetalles.setString(3, libro.getEditorial());
+				stDetalles.setLong(4, libro.getISBN());
 				stDetalles.executeUpdate();
 				stDetalles.clearParameters();
 				
 				st = connect.prepareStatement(peticionSQLContenidos);
-				st.setInt(1, libro.getID());
-				st.setString(2, libro.getTitulo());
-				st.setString(3, libro.getAutor());
-				st.setString(4, libro.getDescripcion());
-				st.setInt(5, libro.getAno());
-				st.setString(6, libro.getIdioma());
-				st.setString(7, libro.getSoporte().toString());
-				st.setInt(8, libro.getDiasDePrestamo());
-				st.setBoolean(9, libro.getPrestable());
-				st.setBoolean(10, libro.getDisponibilidad());
-				st.setString(11, (libro.getFechaDisponibilidad() != null)? libro.getFechaDisponibilidad().format(formatter):null);
-				st.setLong(12, libro.getISBN());
+				st.setString(1, libro.getTitulo());
+				st.setString(2, libro.getAutor());
+				st.setString(3, libro.getDescripcion());
+				st.setInt(4, libro.getAno());
+				st.setString(5, libro.getIdioma());
+				st.setString(6, libro.getSoporte().toString());
+				st.setInt(7, libro.getDiasDePrestamo());
+				st.setBoolean(8, libro.getPrestable());
+				st.setBoolean(9, libro.getDisponibilidad());
+				st.setString(10, (libro.getFechaDisponibilidad() != null)? libro.getFechaDisponibilidad().format(formatter):null);
+				st.setLong(11, libro.getISBN());
 				st.executeUpdate();
 				st.clearParameters();
 				
@@ -165,52 +182,150 @@ public class ContenidoSQL {
 	/**
 	 * Este método modifica el objeto Contenido pasado por parámetro en la BBDD<br>
 	 * @param c El objeto que hereda de Contenido a ser prestado y figurar como ello en la BBDD
+	 * @param p El perfil que toma prestado el contenido c
 	 * @throws ExcepcionContenido
 	 * @throws ExcepcionDsiponibilidad
 	 */
-	public static void prestarBBDD(Contenido c) throws ExcepcionDisponibilidad, ExcepcionContenido {
+	public static boolean prestarBBDD(Contenido c,Perfil p) throws ExcepcionDisponibilidad, ExcepcionContenido {
 		ConectorSQL conector = null;
 		PreparedStatement st;
 		Connection connect = null;
+		boolean t = false;
 		
-		if (c != null) {
-			if (c.getDisponibilidad()) {
-				try{
-					//Me conecto a la base de datos
-					conector = new ConectorSQL();
-					connect = conector.conectar();
+		if (c != null && p != null) {
+			try{
+				//Me conecto a la base de datos
+				conector = new ConectorSQL();
+				connect = conector.conectar();
+				connect.setAutoCommit(false);
 				
+				//Compruebo que el contenido esté disponible en la base de datos y en el objeto
+				st = connect.prepareStatement("SELECT Disponible FROM Contenidos WHERE ID = ?");
+				st.setInt(1, c.getID());
+				ResultSet rs = st.executeQuery();
+				st.clearParameters();
+				t = rs.getBoolean("Disponible");
+					
+				if(t && c.getDisponibilidad()) {
 					//Modifico los valores de la variable disponible y fecha de disponibilidad
 					c.prestarContenido();
 					
-					String peticionSQLContenidos = "UPDATE Contenidos SET Disponible = ?, FechaDeDisponibilidad = ? WHERE ID = ?";
+					String peticionSQLContenidos = "UPDATE Contenidos SET Disponible = 0, FechaDeDisponibilidad = ? WHERE ID = ? AND Disponible = 1";
 			
 					st = connect.prepareStatement(peticionSQLContenidos);
-					st.setBoolean(1, c.getDisponibilidad());
-					st.setString(2, c.getFechaDisponibilidad().format(formatter));
-					st.setInt(3, c.getID());
+					st.setString(1, c.getFechaDisponibilidad().format(formatter));
+					st.setInt(2, c.getID());
 					st.executeUpdate();
 					st.clearParameters();
-
+				
+					//Modifico tambien la base de datos de los perfiles añadiendo el contenido a la lista de prestados del perfil pasado por parámetro
+					PerfilSQL.prestarPerfilBBDD(connect,c, p);
 					
+					connect.commit();
 					
 					System.out.println("Se ha prestado el contenido en la base de datos");
-			
-				} catch (SQLException e) {
-					e.printStackTrace();
-					//Si ha habido un error en el SQL, deshacer el prestarContenido()
-					c.devolverContenido();
-				} finally {
-					//Si la conexión a la base de datos existe, la cierro
-					if(conector != null) {
-						conector.cerrar();
-					}
+					
+					t = true;
+				} else {
+					t = false;
+					connect.rollback();
 				}
-			} else {
-				throw new ExcepcionContenido("El contenido seleccionado no está disponible",c);
+					
+			} catch (SQLException e) {
+				t = false;
+				e.printStackTrace();
+				//Si ha habido un error en el SQL, deshacer el prestarContenido()
+				c.devolverContenido();
+				p.devolverPerfil(c);
+				try {
+					connect.rollback();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			} finally {
+				//Si la conexión a la base de datos existe, la cierro
+				if(conector != null) {
+					conector.cerrar();
+				}					
 			}
-		} else {
-			throw new ExcepcionContenido("El contenido seleccionado no es válido",c);
 		}
+		
+		return t;
+	}
+	
+	/**
+	 * 
+	 * @param c El objeto que hereda de Contenido a ser devuelto y figurar como ello en la BBDD
+	 * @param p El perfil que devuelve el objeto
+	 * @throws ExcepcionDisponibilidad
+	 */
+	public static boolean devolverBBDD(Contenido c, Perfil p) throws ExcepcionDisponibilidad {
+		ConectorSQL conector = null;
+		PreparedStatement st;
+		Connection connect = null;
+		boolean t = false;
+		
+		if(c != null && p != null) {
+			try {
+				//Me conecto a la base de datos
+				conector = new ConectorSQL();
+				connect = conector.conectar();
+				connect.setAutoCommit(false);
+				
+				//Compruebo que el contenido no esté disponible en la base de datos y en el objeto
+				st = connect.prepareStatement("SELECT Disponible FROM Contenidos WHERE ID = ?");
+				st.setInt(1, c.getID());
+				ResultSet rs = st.executeQuery();
+				st.clearParameters();
+				//Compruebo que el contenido no está disponible ni en la base de datos ni en el objeto en sí
+				t = !(rs.getBoolean("Disponible"));
+				
+				//Si el contenido no está disponible y el perfil que devuelve es propietario actualmente de ese contenido
+				if(t && p.getEnPrestamo().contains(c.getID())) {
+					//Modifico los valores de la variable disponible y fecha de disponibilidad
+					c.devolverContenido();
+						
+					String peticionSQLContenidos = "UPDATE Contenidos SET Disponible = 1, FechaDeDisponibilidad = NULL WHERE ID = ? AND Disponible = 0";
+			
+					st = connect.prepareStatement(peticionSQLContenidos);
+					st.setInt(1, c.getID());
+					st.executeUpdate();
+					st.clearParameters();
+				
+					//Modifico tambien la base de datos de los perfiles añadiendo el contenido a la lista de prestados del perfil pasado por parámetro
+					PerfilSQL.devolverPerfilBBDD(connect,c, p);
+					
+					connect.commit();
+					
+					System.out.println("Se ha devuelto el contenido en la base de datos");
+					
+					t = true;
+				} else {
+					t = false;
+					connect.rollback();
+				}
+				
+			} catch(SQLException e) {
+				t = false;
+				e.printStackTrace();
+				//Si ha habido un error en el SQL, deshacer el prestarContenido()
+				c.prestarContenido();
+				p.prestarPerfil(c);
+				try {
+					connect.rollback();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			} finally {
+				//Si la conexión a la base de datos existe, la cierro
+				if(conector != null) {
+					conector.cerrar();
+				}
+			}
+		}
+		
+		return t;
 	}
 }

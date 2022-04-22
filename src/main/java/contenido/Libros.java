@@ -66,7 +66,7 @@ public class Libros extends Contenido{
 	 */
 	public Libros(int id, String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo, boolean disponible, LocalDate fechaDisponibilidad, long isbn, int pags, String editorial) 
 			throws ExcepcionAno, ExcepcionSoporte, ExcepcionPaginas {
-		super(id,titulo, autor, descripcion, ano, idioma, prestable, soporte, diasDePrestamo,prestable,fechaDisponibilidad);
+		super(id,titulo, autor, descripcion, ano, idioma, prestable, soporte, diasDePrestamo,disponible,fechaDisponibilidad);
 		if (soporte.isMultimedia()) {
 			throw new ExcepcionSoporte("El soporte seleccionado no es compatible con video",this,soporte);
 		}

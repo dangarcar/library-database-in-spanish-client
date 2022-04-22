@@ -1,5 +1,6 @@
 package SQL;
 
+import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,9 +8,16 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import org.json.JSONML;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import contenido.Contenido;
 import perfiles.Admin;
 import perfiles.Perfil;
 import perfiles.excepciones.ExcepcionDNIPerfil;
@@ -35,7 +43,7 @@ public class PerfilSQL {
 		String correoElectronico;
 		boolean admin;
 		
-		String peticionSQL = "SELECT Nombre,Apellidos,FechaDeNacimiento,DNI,DireccionCasa,CorreoElectronico,Admin FROM Perfiles WHERE DNI = "+dni+";";
+		String peticionSQL = "SELECT Nombre,Apellidos,FechaDeNacimiento,DNI,DireccionCasa,CorreoElectronico,Admin,ContenidoEnPrestamo FROM Perfiles WHERE DNI = "+dni+";";
 		
 		try {
 			//Creo un objeto con el que conectarme a la base de datos y me conecto a la base de datos
@@ -61,9 +69,11 @@ public class PerfilSQL {
 			
 			if(admin == true) {
 				perfil = new Admin(nombre,apellidos,fechaDeNacimiento,DNI,direccionCasa,correoElectronico);
+				perfil.setEnPrestamo(inputEnPrestamo(resultado.getString("ContenidoEnPrestamo")));
 			}
 			else {
 				perfil = new Perfil(nombre,apellidos,fechaDeNacimiento,DNI,direccionCasa,correoElectronico);
+				perfil.setEnPrestamo((inputEnPrestamo(resultado.getString("ContenidoEnPrestamo")) != null)? inputEnPrestamo(resultado.getString("ContenidoEnPrestamo")):new ArrayList<Integer>());
 			}
 			
 		} catch (SQLException e) {
@@ -98,7 +108,7 @@ public class PerfilSQL {
 				Connection connect = conector.conectar();
 				
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-				String peticionSQL = "INSERT INTO Perfiles(Nombre,Apellidos,FechaDeNacimiento,DNI,DireccionCasa,CorreoElectronico) VALUES(?,?,?,?,?,?);";
+				String peticionSQL = "INSERT INTO Perfiles(Nombre,Apellidos,FechaDeNacimiento,DNI,DireccionCasa,CorreoElectronico,ContenidoEnPrestamo) VALUES(?,?,?,?,?,?,?);";
 			
 				st = connect.prepareStatement(peticionSQL);
 				st.setString(1, perfil.getNombre());
@@ -107,6 +117,7 @@ public class PerfilSQL {
 				st.setInt(4, perfil.getDNI());
 				st.setString(5, perfil.getDireccionDeCasa());
 				st.setString(6, perfil.getCorreoElectronico());
+				st.setString(7, outputEnPrestamo(perfil.getEnPrestamo()));
 				st.executeUpdate();
 				st.clearParameters();
 				
@@ -142,7 +153,7 @@ public class PerfilSQL {
 				Connection connect = conector.conectar();
 				
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-				String peticionSQL = "INSERT INTO Perfiles(Nombre,Apellidos,FechaDeNacimiento,DNI,DireccionCasa,CorreoElectronico,Admin) VALUES(?,?,?,?,?,?,1);";
+				String peticionSQL = "INSERT INTO Perfiles(Nombre,Apellidos,FechaDeNacimiento,DNI,DireccionCasa,CorreoElectronico,Admin,ContenidoEnPrestamo) VALUES(?,?,?,?,?,?,?,1);";
 			
 				st = connect.prepareStatement(peticionSQL);
 				st.setString(1, perfil.getNombre());
@@ -151,6 +162,7 @@ public class PerfilSQL {
 				st.setInt(4, perfil.getDNI());
 				st.setString(5, perfil.getDireccionDeCasa());
 				st.setString(6, perfil.getCorreoElectronico());
+				st.setString(7, outputEnPrestamo(perfil.getEnPrestamo()));
 				st.executeUpdate();
 				st.clearParameters();
 				
@@ -295,5 +307,80 @@ public class PerfilSQL {
 		} else {
 			throw new ExcepcionPerfil("El perfil seleccionado no es válido",perfil);
 		}
+	}
+	
+	/**
+	 * Modifica el perfil añadiendo  el contenido c pasado por parámetro a la lista de contenidos en préstamo<br>
+	 * También modifica el perfi en la base de datos
+	 * @param connect El objeto de clase Connection del SQL
+	 * @param c El contenido a prestar
+	 * @param p El perfil que toma prestado el contenido
+	 */
+	public static void prestarPerfilBBDD(Connection connect,Contenido c,Perfil p) {
+		PreparedStatement st;
+		
+		try {
+			//Modifico la lista de contenidos en préstamo
+			p.prestarPerfil(c);
+			
+			//Lo guardo en la BBDD
+			st = connect.prepareStatement("UPDATE Perfiles SET ContenidoEnPrestamo = ? WHERE DNI = ?");
+			st.setString(1, outputEnPrestamo(p.getEnPrestamo()));
+			st.setInt(2, p.getDNI());
+			st.executeUpdate();
+			st.clearParameters();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Modifica el perfil y elimina de la lista de prestados el contenido c pasado por parámetro<br>
+	 * También modifica el perfil de la base de datos
+	 * @param connect El objeto de clase Connection del SQL
+	 * @param c El contenido a prestar
+	 * @param p El perfil que toma prestado el contenido
+	 */
+	public static void devolverPerfilBBDD(Connection connect,Contenido c,Perfil p) {
+		PreparedStatement st;
+		
+		try {
+			//Modifico la lista de contenidos en préstamo
+			p.devolverPerfil(c);
+			
+			//Lo guardo en la BBDD
+			st = connect.prepareStatement("UPDATE Perfiles SET ContenidoEnPrestamo = ? WHERE DNI = ?");
+			st.setString(1, outputEnPrestamo(p.getEnPrestamo()));
+			st.setInt(2, p.getDNI());
+			st.executeUpdate();
+			st.clearParameters();
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Convierte de string de la BBDD a arrayList de contenidos en prestamo
+	 * @param array
+	 * @return
+	 */
+	private static ArrayList<Integer> inputEnPrestamo(String array){
+		Gson gson = new Gson();
+		Type type = new TypeToken<ArrayList<Integer>>() {}.getType();
+		ArrayList<Integer> a = gson.fromJson(array, type);
+		return a;
+	}
+	
+	/**
+	 * Convierte de arrayList de objetos en prestamo a String grabable en la BBDD
+	 * @param p
+	 * @return
+	 */
+	private static String outputEnPrestamo(ArrayList<Integer> p){
+		Gson gson = new Gson();
+		String outputString = gson.toJson(p);
+		return outputString;
 	}
 }

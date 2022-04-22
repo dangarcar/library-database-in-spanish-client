@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.JOptionPane;
 
 public class ConectorSQL {
@@ -49,8 +51,8 @@ public class ConectorSQL {
 	public ResultSet seleccionar(String sentenciaSQL) {
 		ResultSet resultado = null;
 		try {
-			PreparedStatement st = connect.prepareStatement(sentenciaSQL);
-			resultado = st.executeQuery();
+			Statement st = connect.createStatement();
+			resultado = st.executeQuery(sentenciaSQL);
 		
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "No se ha podido realizar la peticion correctamente");

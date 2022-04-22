@@ -17,7 +17,7 @@ abstract public class Contenido implements Serializable{
 	private boolean disponible;
 	private LocalDate fechaDisponibilidad;
 	private int diasDePrestamo;
-	private final int ID;
+	private int ID;
 	
 	/**
 	 * Constructor de la clase abstracta Contenido<br>
@@ -42,7 +42,6 @@ abstract public class Contenido implements Serializable{
 		this.disponible = true;
 		this.fechaDisponibilidad = null;
 		this.setDiasDePrestamo((diasDePrestamo > 0)? diasDePrestamo: null);
-		this.ID = hashCode();
 	}
 	
 	/**

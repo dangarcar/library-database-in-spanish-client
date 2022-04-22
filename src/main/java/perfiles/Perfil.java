@@ -3,6 +3,9 @@ package perfiles;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+
+import contenido.Contenido;
 import perfiles.excepciones.ExcepcionDNIPerfil;
 import perfiles.excepciones.ExcepcionPerfil;
 
@@ -15,6 +18,7 @@ public class Perfil implements Serializable{
 	private String direccionDeCasa;
 	private String correoElectronico;
 	private int DNI;
+	private ArrayList<Integer> contenidosEnPrestamo = new ArrayList<Integer>();
 	
 	/**
 	 * Constructor del perfil base
@@ -95,6 +99,9 @@ public class Perfil implements Serializable{
 	public int getDNI() { return DNI; }
 	public char getLetraDNI() { return this.letrasDNI[DNI % 23]; }
 	public int getID() { return DNI; }
+	public ArrayList<Integer> getEnPrestamo() { return contenidosEnPrestamo; }
+	
+	public void setEnPrestamo(ArrayList<Integer> a) { contenidosEnPrestamo = a; }
 	
 	/**
 	 * Devuelve la edad en años del perfil respecto a la actual
@@ -153,4 +160,21 @@ public class Perfil implements Serializable{
 		return hash;
 	}
 
+	/**
+	 * Este método añade el identificador del contenido pasado por parámetro<br>
+	 * a la lista de contenidos en préstamo del perfil
+	 * @param c El contenido a ser prestado
+	 */
+	public void prestarPerfil(Contenido c) {
+		contenidosEnPrestamo.add(c.getID());
+	}
+	
+	/**
+	 * Este método elimina el identificador del contenido pasado por parámetro<br>
+	 * a la lista de contenidos en préstamo del perfil
+	 * @param c El contenido a ser prestado
+	 */
+	public void devolverPerfil(Contenido c) {
+		contenidosEnPrestamo.remove((Object)c.getID());
+	}
 }
