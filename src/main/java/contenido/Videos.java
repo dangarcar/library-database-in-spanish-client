@@ -60,7 +60,7 @@ public class Videos extends Audio{
 	 * @throws ExcepcionCalidad
 	 * @throws ExcepcionSoporte
 	 */
-	public Videos(int id,String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo, boolean disponible, LocalDate fechaDisponibilidad, int IDAudio, double duracionEnMinutos, int edad, int calidad) 
+	public Videos(int id,String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo, boolean disponible, LocalDate fechaDisponibilidad, double duracionEnMinutos, int IDAudio, int edad, int calidad) 
 			throws ExcepcionAno, ExcepcionEdadRecomendada, ExcepcionDuracion, ExcepcionCalidad, ExcepcionSoporte {
 		super(id,titulo, autor, descripcion, ano, idioma, prestable, soporte, diasDePrestamo, disponible, fechaDisponibilidad, duracionEnMinutos, IDAudio);
 		if (!(soporte.isAudiovisual())) {
