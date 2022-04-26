@@ -54,7 +54,7 @@ public class ContenidoSQL {
 			}
 		}
 		
-		System.out.println(peticionSQL);
+		//System.out.println(peticionSQL);
 		
 		String titulo;
 		String autor;
