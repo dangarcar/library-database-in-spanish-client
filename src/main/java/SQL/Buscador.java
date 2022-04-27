@@ -37,7 +37,7 @@ public class Buscador {
 					contenidos.addAll(ContenidoSQL.getLibro(resultado.getLong("ISBN"),null));
 				}
 			}
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			//throw new ExcepcionContenido("Hubo un error con la base de datos, es probable que el contenido que buscas no exista en esta biblioteca",contenidos.get(0));

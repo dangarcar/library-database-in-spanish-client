@@ -508,4 +508,34 @@ public class ContenidoSQL {
 		
 		return t;
 	}
+	
+	public static void deleteContenido(Contenido c) {
+		ConectorSQL conector = null;
+		PreparedStatement st;
+		Connection connect = null;
+		
+		if(c != null ) {
+			try {
+				//Me conecto a la base de datos
+				conector = new ConectorSQL();
+				connect = conector.conectar();
+				
+				//Compruebo que el contenido no esté disponible en la base de datos y en el objeto
+				st = connect.prepareStatement("DELETE FROM Contenidos WHERE ID = ?");
+				st.setInt(1, c.getID());
+				st.executeUpdate();
+				st.clearParameters();
+				
+				System.out.println("Se ha eliminado el libro de la base de datos");
+				
+			} catch(SQLException e) {
+				e.printStackTrace();
+			} finally {
+				//Si la conexión a la base de datos existe, la cierro
+				if(conector != null) {
+					conector.cerrar();
+				}
+			}
+		}
+	}
 }

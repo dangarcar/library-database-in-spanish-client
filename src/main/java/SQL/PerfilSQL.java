@@ -366,7 +366,7 @@ public class PerfilSQL {
 	 * @param array
 	 * @return
 	 */
-	private static ArrayList<Integer> inputEnPrestamo(String array){
+	public static ArrayList<Integer> inputEnPrestamo(String array){
 		Gson gson = new Gson();
 		Type type = new TypeToken<ArrayList<Integer>>() {}.getType();
 		ArrayList<Integer> a = gson.fromJson(array, type);
@@ -378,7 +378,7 @@ public class PerfilSQL {
 	 * @param p
 	 * @return
 	 */
-	private static String outputEnPrestamo(ArrayList<Integer> p){
+	public static String outputEnPrestamo(ArrayList<Integer> p){
 		Gson gson = new Gson();
 		String outputString = gson.toJson(p);
 		return outputString;
