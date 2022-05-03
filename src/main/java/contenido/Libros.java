@@ -90,5 +90,10 @@ public class Libros extends Contenido{
 		}
 		this.paginas = pags;
 	}
+
+	@Override
+	public long getSpecificID() {
+		return ISBN;
+	}
 	
 }

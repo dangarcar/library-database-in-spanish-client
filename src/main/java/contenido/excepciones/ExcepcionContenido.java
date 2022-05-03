@@ -23,6 +23,6 @@ public class ExcepcionContenido extends Exception {
 	
 	@Override
 	public String getMessage() {
-		return info+" in contenido "+contenido.getClass()+" "+contenido.getTitulo();
+		return info+" in contenido "+" "+contenido.getTitulo();
 	}
 }

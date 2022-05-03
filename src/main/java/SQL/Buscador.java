@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import contenido.Contenido;
 import contenido.excepciones.ExcepcionContenido;
 import perfiles.Perfil;
@@ -16,16 +18,16 @@ public class Buscador {
 	 * @return La lista de contenidos que coinciden conesa búsqueda
 	 * @throws ExcepcionContenido
 	 */
-	public static ArrayList<Contenido> buscarContenido(String busqueda) throws ExcepcionContenido {
+	public static List<Contenido> buscarContenido(String busqueda) throws ExcepcionContenido {
 		ConectorSQL conector = null;
 		ResultSet resultado = null;
 		Connection conexion = null;
 		PreparedStatement st = null;
 		//ArrayList<Integer> contenidosID = new ArrayList<Integer>();
-		ArrayList<Contenido> contenidos = new ArrayList<Contenido>();
+		List<Contenido> contenidos = new ArrayList<Contenido>();
 		
 		String peticionSQL = "SELECT IDAudio,ISBN FROM BusquedaContenidos(?) GROUP BY ISBN, IDAudio ORDER BY rank;";	
-		
+		if(busqueda != null) {
 		try {
 			//Creo el objeto con el que conectarme a la BD
 			conector = new ConectorSQL();
@@ -54,6 +56,7 @@ public class Buscador {
 				conector.cerrar();
 			}
 		}
+		}
 		
 		return contenidos;
 	}
@@ -63,7 +66,7 @@ public class Buscador {
 	 * @param busqueda texto en el que se basa la búsqueda
 	 * @return La lista de perfiles que coinciden con esa búsqueda
 	 */
-	public static ArrayList<Perfil> buscarPerfiles(String busqueda){
+	public static List<Perfil> buscarPerfiles(String busqueda){
 		ConectorSQL conector = null;
 		ResultSet resultado = null;
 		Connection conexion = null;
@@ -72,6 +75,7 @@ public class Buscador {
 		
 		String peticionSQL = "SELECT DNI,Nombre,Apellidos,CorreoElectronico FROM BusquedaPerfiles(?) ORDER BY rank;";	
 		
+		if(busqueda != null) {
 		try {
 			//Creo el objeto con el que conectarme a la BD
 			conector = new ConectorSQL();
@@ -95,6 +99,7 @@ public class Buscador {
 			if(conector != null) {
 				conector.cerrar();
 			}
+		}
 		}
 		
 		return perfiles;

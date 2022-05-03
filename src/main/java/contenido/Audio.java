@@ -78,5 +78,10 @@ public class Audio extends Contenido{
 	private int getIdentifier() {
 		return (int) (getTitulo().hashCode()+Math.sqrt(duracion));
 	}
+
+	@Override
+	public long getSpecificID() {
+		return IDAudio;
+	}
 	
 }

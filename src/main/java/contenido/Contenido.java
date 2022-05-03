@@ -1,11 +1,16 @@
 package contenido;
 
-import java.io.Serializable;
+import java.awt.Component;
 import java.time.LocalDate;
+
+import javax.swing.JPanel;
+
 import contenido.excepciones.ExcepcionAno;
 import contenido.excepciones.ExcepcionDisponibilidad;
+import database.DatabaseWritable;
+import interfaz.GUIObjetosBiblioteca;
 
-abstract public class Contenido implements Serializable{
+abstract public class Contenido implements DatabaseWritable{
 	private static final long serialVersionUID = 4858763186223118216L;
 	private String titulo;
 	private String autor;
@@ -125,4 +130,14 @@ abstract public class Contenido implements Serializable{
 	public int getDiasDePrestamo() { return diasDePrestamo; }
 
 	public void setDiasDePrestamo(int dias) { this.diasDePrestamo = (dias > 0)? dias:this.diasDePrestamo; }
+	
+	@Override
+	public Component getGUIRepresentation() {
+		return GUIObjetosBiblioteca.createGUIContenido(this);
+	}
+	
+	@Override
+	public JPanel getExtendedGUIRepresentation() {
+		return GUIObjetosBiblioteca.createExtendedGUIContenido(this);
+	}
 }

@@ -1,15 +1,19 @@
 package perfiles;
 
+import java.awt.Component;
 import java.io.IOException;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
 import contenido.Contenido;
+import database.DatabaseWritable;
+import interfaz.GUIObjetosBiblioteca;
 import perfiles.excepciones.ExcepcionDNIPerfil;
 import perfiles.excepciones.ExcepcionPerfil;
 
-public class Perfil implements Serializable{
+public class Perfil implements DatabaseWritable{
 	private static final long serialVersionUID = 8775700157993623247L;
 	private final char[] letrasDNI = {'T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E'};
 	private String nombre;
@@ -176,5 +180,20 @@ public class Perfil implements Serializable{
 	 */
 	public void devolverPerfil(Contenido c) {
 		contenidosEnPrestamo.remove((Object)c.getID());
+	}
+
+	@Override
+	public Component getGUIRepresentation() {
+		return GUIObjetosBiblioteca.createGUIPerfil(this);
+	}
+
+	@Override
+	public JPanel getExtendedGUIRepresentation() {
+		return GUIObjetosBiblioteca.createExtendedGUIPerfil(this);
+	}
+
+	@Override
+	public long getSpecificID() {
+		return DNI;
 	}
 }
