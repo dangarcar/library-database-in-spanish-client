@@ -1,14 +1,18 @@
 package contenido;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import contenido.excepciones.ExcepcionAno;
 import contenido.excepciones.ExcepcionDisponibilidad;
 import database.DatabaseWritable;
 import interfaz.GUIObjetosBiblioteca;
+import perfiles.excepciones.ExcepcionPerfil;
 
 abstract public class Contenido implements DatabaseWritable{
 	private static final long serialVersionUID = 4858763186223118216L;
@@ -132,12 +136,14 @@ abstract public class Contenido implements DatabaseWritable{
 	public void setDiasDePrestamo(int dias) { this.diasDePrestamo = (dias > 0)? dias:this.diasDePrestamo; }
 	
 	@Override
-	public Component getGUIRepresentation() {
-		return GUIObjetosBiblioteca.createGUIContenido(this);
+	public JButton getGUIRepresentation(List<? extends DatabaseWritable> listaD) throws ExcepcionPerfil {
+		GUIObjetosBiblioteca gui = new GUIObjetosBiblioteca(this,listaD);
+		return gui.createGUIContenido();
 	}
 	
 	@Override
-	public JPanel getExtendedGUIRepresentation() {
-		return GUIObjetosBiblioteca.createExtendedGUIContenido(this);
+	public JPanel getExtendedGUIRepresentation(List<? extends DatabaseWritable> listaD) {
+		GUIObjetosBiblioteca gui = new GUIObjetosBiblioteca(this,listaD);
+		return gui.createExtendedGUIContenido();
 	}
 }

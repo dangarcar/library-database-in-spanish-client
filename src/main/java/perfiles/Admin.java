@@ -2,6 +2,8 @@ package perfiles;
 
 import java.time.LocalDate;
 
+import javax.swing.ImageIcon;
+
 import perfiles.excepciones.ExcepcionDNIPerfil;
 import perfiles.excepciones.ExcepcionPerfil;
 
@@ -38,6 +40,10 @@ public class Admin extends Perfil{
 	
 	public String toString() {
 		return super.toString()+"\nSoy Admin";
+	}
+	
+	public ImageIcon getIcon() {
+		return new ImageIcon("files/images/admin.png");
 	}
 	
 }

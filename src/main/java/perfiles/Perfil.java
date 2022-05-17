@@ -1,13 +1,19 @@
 package perfiles;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import contenido.Contenido;
+import contenido.excepciones.ExcepcionContenido;
 import database.DatabaseWritable;
 import interfaz.GUIObjetosBiblioteca;
 import perfiles.excepciones.ExcepcionDNIPerfil;
@@ -183,17 +189,23 @@ public class Perfil implements DatabaseWritable{
 	}
 
 	@Override
-	public Component getGUIRepresentation() {
-		return GUIObjetosBiblioteca.createGUIPerfil(this);
-	}
-
-	@Override
-	public JPanel getExtendedGUIRepresentation() {
-		return GUIObjetosBiblioteca.createExtendedGUIPerfil(this);
+	public JButton getGUIRepresentation(List<? extends DatabaseWritable> listaD) throws ExcepcionContenido {
+		GUIObjetosBiblioteca gui = new GUIObjetosBiblioteca(this,listaD);
+		return gui.createGUIPerfil();
 	}
 
 	@Override
 	public long getSpecificID() {
 		return DNI;
+	}
+
+	@Override
+	public JPanel getExtendedGUIRepresentation(List<? extends DatabaseWritable> listaD) {
+		GUIObjetosBiblioteca gui = new GUIObjetosBiblioteca(this,listaD);
+		return gui.createExtendedGUIPerfil();
+	}
+	
+	public ImageIcon getIcon() {
+		return new ImageIcon("files/images/perfilFino.png");
 	}
 }

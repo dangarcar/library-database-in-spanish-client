@@ -1,19 +1,25 @@
 package contenido;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 public enum Soporte {
-	FISICO(false),E_BOOK(false),CD(true,true),DVD(true,true),BLURAY(true,true),VINILO(true,false),CASETE(true,false);
+	FISICO(false,new ImageIcon("files/images/libro.png")),E_BOOK(false,new ImageIcon("files/images/ebook.png")),CD(true,true,new ImageIcon("files/images/cd.png")),DVD(true,true,new ImageIcon("files/images/dvd.png")),BLURAY(true,true,new ImageIcon("files/images/bluray.png")),VINILO(true,false,new ImageIcon("files/images/vinilo.png")),CASETE(true,false,new ImageIcon("files/images/casete.png"));
 	
 	private boolean multimedia;
 	private boolean audiovisual;
+	private ImageIcon icono;
 	
-	Soporte(boolean multimedia) {
+	Soporte(boolean multimedia,ImageIcon ico) {
 		this.multimedia = multimedia;
 		this.audiovisual = false;
+		icono = ico;
 	}
 	
-	Soporte(boolean multimedia, boolean audiovisual){
+	Soporte(boolean multimedia, boolean audiovisual,ImageIcon ico){
 		this.multimedia = multimedia;
 		this.audiovisual = audiovisual;
+		icono = ico;
 	}
 	
 	/**
@@ -30,6 +36,11 @@ public enum Soporte {
 		return audiovisual;
 	}
 	
+	public ImageIcon getIcon() {
+		return icono;
+	}
+	
+	@Override
 	public String toString() {
 		return this.name();
 	}
