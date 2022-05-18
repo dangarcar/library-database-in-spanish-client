@@ -4,14 +4,15 @@ import javax.swing.*;
 
 import SQL.*;
 import contenido.*;
+import contenido.excepciones.ExcepcionContenido;
 import database.DatabaseWritable;
 import perfiles.*;
+import perfiles.excepciones.ExcepcionPerfil;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.border.LineBorder;
 
 
 public class Ventana extends JFrame{
@@ -27,11 +28,10 @@ public class Ventana extends JFrame{
 		setTitle("App Biblioteca");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("files\\images\\icon.png"));
 		setBounds(100,100,1000,700);
-		getContentPane().setLayout(windowSwitcher);
+		getContentPane().setLayout(getWindowSwitcher());
 		
 		getContentPane().add(pantallaInicio());
-		//getContentPane().add(resultadoTXT(new ArrayList<Contenido>()),"Resultado");
-		
+
 		setVisible(true);
 	}
 	
@@ -55,7 +55,7 @@ public class Ventana extends JFrame{
 		perfilLogoLabel.setIcon(new ImageIcon(perfilLogoEscalado));
 		pantallaInicio.add(perfilLogoLabel);
 	
-		pantallaInicio.add(txtFieldPerfiles);
+		pantallaInicio.add(getTxtFieldPerfiles());
 		
 		JLabel contenidosLogoLabel = new JLabel("Contenidos");
 		contenidosLogoLabel.setLocation(705, 352);
@@ -68,7 +68,7 @@ public class Ventana extends JFrame{
 		pantallaInicio.add(contenidosLogoLabel);
 		
 		
-		pantallaInicio.add(txtFieldContenidos);
+		pantallaInicio.add(getTxtFieldContenidos());
 		
 		JLabel logo = new JLabel();
 		logo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -79,148 +79,225 @@ public class Ventana extends JFrame{
 		logo.setIcon(new ImageIcon("D:\\Programaci\u00F3n\\Java\\library-database\\files\\images\\logo.png"));
 		pantallaInicio.add(logo);
 		
-		pantallaInicio.add(new BotonBuscarContenidos());
-		pantallaInicio.add(new BotonBuscarPerfiles());
+		pantallaInicio.add(new BotonBuscarContenidos(this));
+		pantallaInicio.add(new BotonBuscarPerfiles(this));
+		
+		JPopupMenu popupMenu = new JPopupMenu();
+		popupMenu.setFont(new Font("Segoe UI",16,Font.BOLD));
+		popupMenu.setSize(200, 300);
+		popupMenu.setBackground(new Color(240,240,240));
+		JMenuItem perfilesMenu = new JMenuItem("Perfiles");
+		popupMenu.add(perfilesMenu);
+		JMenuItem contenidosMenu = new JMenuItem("Contenidos");
+		popupMenu.add(contenidosMenu);
+		JMenuItem ayudaMenu = new JMenuItem("Ayuda");
+		popupMenu.add(ayudaMenu);
+		JMenuItem informacionMenu = new JMenuItem("M\u00E1s informaci\u00F3n");
+		popupMenu.add(informacionMenu);
+		
+		JButton botonMenu = new JButton();
+		botonMenu.setBackground(Color.RED);
+		botonMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		botonMenu.setBorderPainted(false);
+		botonMenu.setIcon(new ImageIcon((new ImageIcon("D:\\Programaci\u00F3n\\Java\\library-database\\files\\images\\menu.png")).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)));
+		botonMenu.setToolTipText("Ver m\u00E1s opciones");
+		botonMenu.setContentAreaFilled(false);
+		botonMenu.setBounds(950, 0, 32, 32);
+		botonMenu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				popupMenu.show(pantallaInicio, pantallaInicio.getWidth()-popupMenu.getWidth(), 0);
+			}	
+		});
+		pantallaInicio.add(botonMenu);
 		
 		return pantallaInicio;
 	}
+
+	public CardLayout getWindowSwitcher() {return windowSwitcher;}
+
+	public void setWindowSwitcher(CardLayout windowSwitcher) {this.windowSwitcher = windowSwitcher;}
+
+	public TxtFieldContenidos getTxtFieldContenidos() {return txtFieldContenidos;}
+
+	public void setTxtFieldContenidos(TxtFieldContenidos txtFieldContenidos) {this.txtFieldContenidos = txtFieldContenidos;}
+
+	public TxtFieldPerfiles getTxtFieldPerfiles() {return txtFieldPerfiles;}
+
+	public void setTxtFieldPerfiles(TxtFieldPerfiles txtFieldPerfiles) {this.txtFieldPerfiles = txtFieldPerfiles;}
 	
-	private JPanel resultadoTXT(List<? extends DatabaseWritable> resultado) {		
-		JPanel panelResultado = new JPanel();
-		panelResultado.setBackground(Color.LIGHT_GRAY);
-		panelResultado.setBounds(0, 0, 984, 661);
-		panelResultado.setLayout(new BorderLayout(0, 0));
+	
+}
+
+class ResultadoTXT extends JPanel {
+	private static final long serialVersionUID = -810498298324250318L;
+	private List<? extends DatabaseWritable> resultado = new ArrayList<DatabaseWritable>();
+	private JLabel tituloResultadoBusqueda;
+	private JSplitPane splitPane;
+	private JPanel panelLateral;
+	private JPanel panelBotones;
+	private JScrollPane scrollPane;
+	private JButton botonVolverAtras;
+	private JScrollPane scrollPanelLateral;
+	
+	public ResultadoTXT(List<? extends DatabaseWritable> resultado,Ventana parent) {
+		setBackground(Color.LIGHT_GRAY);
+		setBounds(0, 0, 984, 661);
+		setLayout(new BorderLayout(0, 0));
 		
-		JLabel tituloResultadoBusqueda = new JLabel("Resultado de b\u00FAsqueda");
+		this.resultado = resultado;
+		
+		tituloResultadoBusqueda = new JLabel("Resultado de b\u00FAsqueda");
 		tituloResultadoBusqueda.setBackground(Color.WHITE);
 		tituloResultadoBusqueda.setSize(new Dimension(0, 100));
 		tituloResultadoBusqueda.setHorizontalAlignment(SwingConstants.CENTER);
 		tituloResultadoBusqueda.setFont(new Font("Segoe UI", Font.BOLD, 24));
-		panelResultado.add(tituloResultadoBusqueda, BorderLayout.NORTH);
+		add(tituloResultadoBusqueda, BorderLayout.NORTH);		
+
+		splitPane = new JSplitPane();
+		splitPane.setBackground(Color.BLACK);
+		splitPane.setBorder(UIManager.getBorder("SplitPane.border"));
+		add(splitPane, BorderLayout.CENTER);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBorder(new LineBorder(new Color(130, 135, 144), 8));
-		panelResultado.add(scrollPane, BorderLayout.CENTER);
+		panelLateral = new JPanel();
+		panelLateral.setBackground(Color.GRAY);
+		panelLateral.setPreferredSize(new Dimension(450, 0));
+		panelLateral.setLayout(new BorderLayout(0, 0));
+		scrollPanelLateral = new JScrollPane();
+		scrollPanelLateral.setViewportView(panelLateral);
+		splitPane.setLeftComponent(scrollPanelLateral);
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(0, 1, 10, 0));
-		panel.setBackground(Color.WHITE);
-		if(resultado != null) {
+		panelBotones = new JPanel();
+		panelBotones.setLayout(new GridLayout(0, 1, 10, 0));
+		panelBotones.setBackground(Color.WHITE);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setMinimumSize(new Dimension(200, 0));
+		splitPane.setRightComponent(scrollPane);
+		
+		//Para cada objeto no repetido, creo un botón
+		for(DatabaseWritable o:searchObjects()) {
+			JButton boton = null;
+			try {
+				boton = o.getGUIRepresentation(resultado);
+				boton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						splitPane.updateUI();
+						panelLateral.removeAll();
+						panelLateral.add(o.getExtendedGUIRepresentation(resultado));
+					}
+				});;
+			} catch (ExcepcionContenido e1) {
+				e1.printStackTrace();
+			} catch (ExcepcionPerfil e1) {
+				e1.printStackTrace();
+			}
+			panelBotones.add(boton,Component.CENTER_ALIGNMENT);
+		}
+		scrollPane.setViewportView(panelBotones);
+		
+		botonVolverAtras = new JButton("Volver");
+		botonVolverAtras.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				parent.getWindowSwitcher().first(((Container)e.getSource()).getParent().getParent());
+				parent.getTxtFieldContenidos().setText("");
+				parent.getTxtFieldPerfiles().setText("");
+			}
+		});
+		add(botonVolverAtras, BorderLayout.SOUTH);
+	}
+	
+	/**
+	 * Devuelve los objetos de la lista delresultado de búsqueda no repetidos
+	 * @return ArrayList de DatabaseWritable
+	 */
+	public List<? extends DatabaseWritable> searchObjects(){
+		List<DatabaseWritable> resultados = new ArrayList<DatabaseWritable>();
+		
+		if(this.resultado != null) {
 			List<Long> listaIDS = new ArrayList<Long>();
 			for (DatabaseWritable o:resultado){
 				if(!(listaIDS.contains(o.getSpecificID()))) {
 					if(o != null) {
-						panel.add(o.getGUIRepresentation(),Component.CENTER_ALIGNMENT);
+						resultados.add(o);
 						listaIDS.add(o.getSpecificID());
 					}
 				}
 			}
 			if (resultado.isEmpty()){
-				new Thread(new Runnable() { @Override public void run() {JOptionPane.showMessageDialog(panel,"No existe ningún objeto que coincida con la búsqueda");} }).start();;
+				new Thread(new Runnable() { @Override public void run() {JOptionPane.showMessageDialog(panelBotones,"No existe ningún objeto que coincida con la búsqueda");} }).start();;
 			}
 		}
-		scrollPane.setViewportView(panel);
-		
-		JButton botonVolverAtras = new JButton("Volver");
-		panelResultado.add(botonVolverAtras, BorderLayout.SOUTH);
-		botonVolverAtras.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				windowSwitcher.first(((Container)e.getSource()).getParent().getParent());
-				txtFieldContenidos.setText("");
-				txtFieldPerfiles.setText("");
-			}
-			
-		});
-		
-		return panelResultado;
+		return resultados;
 	}
 	
-	private class BotonBuscarContenidos extends JButton implements ActionListener{
-		private static final long serialVersionUID = -3472324132940058042L;
-		private List<Contenido> contenidos;
-		
-		public BotonBuscarContenidos() {
-			super("Buscar contenido");
-			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			setFont(new Font("Segoe UI", Font.BOLD, 16));
-			setBorderPainted(false);
-			setBackground(new Color(14, 209, 69));
-			setBounds(750, 535, 200, 34);
-			addActionListener(this);
-		}
+}
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println(txtFieldContenidos.getText()+"\n");
-			
-			try {
-				contenidos = Buscador.buscarContenido((txtFieldContenidos.getText().equals("")? null:txtFieldContenidos.getText()));
-				getContentPane().add(resultadoTXT(contenidos),"Resultado");
-				windowSwitcher.show(getContentPane(), "Resultado");
-				List<Long> listaID = new ArrayList<Long>();
-				for (Contenido c:contenidos) {
-					if(!(listaID.contains(c.getSpecificID()))) {
-						System.out.println(c.getTitulo()+"\n");
-						System.out.println(c.getAutor()+"\n");
-						System.out.println(((Integer)c.getAno()).toString()+"\n");
-						System.out.println(c.getClass().getName()+"\n\n");
-						listaID.add(c.getSpecificID());
-					}
-				}
-			} catch (Exception e1) {
-				JOptionPane.showMessageDialog(this, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE, new ImageIcon("files\\images\\error.png"));
-			}
-		}
-		
-		@SuppressWarnings("unused")
-		public List<Contenido> getContenido(){
-			return contenidos;
-		}
+class BotonBuscarContenidos extends JButton implements ActionListener{
+	private static final long serialVersionUID = -3472324132940058042L;
+	private List<Contenido> contenidos;
+	private Ventana parent;
+	
+	public BotonBuscarContenidos(Ventana parent) {
+		super("Buscar contenido");
+		this.parent = parent;
+		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		setFont(new Font("Segoe UI", Font.BOLD, 16));
+		setBorderPainted(false);
+		setBackground(new Color(14, 209, 69));
+		setBounds(750, 535, 200, 34);
+		addActionListener(this);
 	}
 
-	private class BotonBuscarPerfiles extends JButton implements ActionListener{
-		private static final long serialVersionUID = -3472324189940058042L;
-		private List<Perfil> perfiles;
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//System.out.println(parent.getTxtFieldContenidos().getText()+"\n");
 		
-		public BotonBuscarPerfiles() {
-			super("Buscar usuario");
-			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			setBorderPainted(false);
-			setBackground(new Color(14,209,69));
-			setFont(new Font("Segoe UI", Font.BOLD, 16));
-			setBounds(45, 535, 200, 34);
-			addActionListener(this);
+		try {
+			contenidos = Buscador.buscarContenido((parent.getTxtFieldContenidos().getText().equals("")? null:parent.getTxtFieldContenidos().getText()));
+			parent.getContentPane().add(new ResultadoTXT(contenidos,parent),"Resultado");
+			parent.getWindowSwitcher().show(parent.getContentPane(), "Resultado");
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(this, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE, new ImageIcon("files\\images\\error.png"));
 		}
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println(txtFieldPerfiles.getText());
-			
-			perfiles = Buscador.buscarPerfiles((txtFieldPerfiles.getText().equals("")? null:txtFieldPerfiles.getText()));
-			getContentPane().add(resultadoTXT(perfiles),"Resultado");
-			windowSwitcher.show(getContentPane(), "Resultado");
-			/*List<Integer> listaDNI = new ArrayList<Integer>();
-			for (Perfil c:perfiles) {
-				if(!(listaDNI.contains(c.getDNI()))) {
-					txtResultado.append(((Integer)c.getDNI()).toString()+c.getLetraDNI()+"\n");
-					txtResultado.append(c.getNombre()+" "+c.getApellido()+"\n");
-					txtResultado.append((c.getFechaNacimiento().toString())+"\n");
-					txtResultado.append(c.getClass().getName()+"\n\n");
-					listaDNI.add(c.getDNI());
-				}
-			}
-			*/
-		}
-		
-		@SuppressWarnings("unused") 
-		public List<Perfil> getPerfiles(){
-			return perfiles;
-		}
+	}
+	
+	public List<Contenido> getContenido(){
+		return contenidos;
 	}
 }
 
+class BotonBuscarPerfiles extends JButton implements ActionListener{
+	private static final long serialVersionUID = -3472324189940058042L;
+	private List<Perfil> perfiles;
+	private Ventana parent;
+	
+	public BotonBuscarPerfiles(Ventana parent) {
+		super("Buscar usuario");
+		this.parent = parent;
+		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		setBorderPainted(false);
+		setBackground(new Color(14,209,69));
+		setFont(new Font("Segoe UI", Font.BOLD, 16));
+		setBounds(45, 535, 200, 34);
+		addActionListener(this);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//System.out.println(parent.getTxtFieldPerfiles().getText());
+		
+		perfiles = Buscador.buscarPerfiles((parent.getTxtFieldPerfiles().getText().equals("")? null:parent.getTxtFieldPerfiles().getText()));
+		parent.getContentPane().add(new ResultadoTXT(perfiles,parent),"Resultado");
+		parent.getWindowSwitcher().show(parent.getContentPane(), "Resultado");
+	}
+	
+	public List<Perfil> getPerfiles(){
+		return perfiles;
+	}
+}
 
 class TxtFieldPerfiles extends JTextField {
 	private static final long serialVersionUID = 4302638240358094946L;

@@ -403,7 +403,7 @@ public class ContenidoSQL {
 					
 					connect.commit();
 					
-					System.out.println("Se ha prestado el contenido en la base de datos");
+					//System.out.println("Se ha prestado el contenido en la base de datos");
 					
 					t = true;
 				} else {

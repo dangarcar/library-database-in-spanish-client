@@ -29,8 +29,10 @@ public class PerfilSQL {
 	 * Es válida para los admins
 	 * @param dni El DNI de la persona
 	 * @return El objeto del tipo Perfil
+	 * @throws ExcepcionPerfil 
+	 * @throws ExcepcionDNIPerfil 
 	 */
-	public static Perfil getPerfil(int dni) {
+	public static Perfil getPerfil(int dni) throws ExcepcionDNIPerfil, ExcepcionPerfil {
 		Perfil perfil = null;
 		ResultSet resultado = null;
 		ConectorSQL conector = null;
@@ -69,7 +71,7 @@ public class PerfilSQL {
 			
 			if(admin == true) {
 				perfil = new Admin(nombre,apellidos,fechaDeNacimiento,DNI,direccionCasa,correoElectronico);
-				perfil.setEnPrestamo(inputEnPrestamo(resultado.getString("ContenidoEnPrestamo")));
+				perfil.setEnPrestamo((inputEnPrestamo(resultado.getString("ContenidoEnPrestamo")) != null)? inputEnPrestamo(resultado.getString("ContenidoEnPrestamo")):new ArrayList<Integer>());
 			}
 			else {
 				perfil = new Perfil(nombre,apellidos,fechaDeNacimiento,DNI,direccionCasa,correoElectronico);
@@ -78,10 +80,7 @@ public class PerfilSQL {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ExcepcionPerfil e) {
-			System.out.println("Error con el perfil que coincide con el siguiente DNI: "+dni);
-			e.printStackTrace();
-		}  finally {
+		} finally {
 			//Si la conexion a la base de datos existe, la cierro
 			if(conector != null) {
 				conector.cerrar();

@@ -10,6 +10,7 @@ import java.util.List;
 import contenido.Contenido;
 import contenido.excepciones.ExcepcionContenido;
 import perfiles.Perfil;
+import perfiles.excepciones.ExcepcionPerfil;
 
 public class Buscador {
 	/**
@@ -91,7 +92,7 @@ public class Buscador {
 				perfiles.add(PerfilSQL.getPerfil(resultado.getInt("DNI")));
 			}
 			
-		} catch (SQLException e) {
+		} catch (SQLException | ExcepcionPerfil e) {
 			e.printStackTrace();
 			//throw new ExcepcionContenido("Hubo un error con la base de datos, es probable que el contenido que buscas no exista en esta biblioteca",contenidos.get(0));
 		} finally {

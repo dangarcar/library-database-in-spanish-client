@@ -64,7 +64,7 @@ public class ExtendedGUIContenido extends JPanel{
 		gbl_prestamoTab.columnWidths = new int[]{419, 0};
 		gbl_prestamoTab.rowHeights = new int[]{40, 191, 44, 0};
 		gbl_prestamoTab.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_prestamoTab.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_prestamoTab.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
 		prestamoTab.setLayout(gbl_prestamoTab);
 		
 		JLabel lblPrestamo = new JLabel("Pr\u00E9stamos y ejemplares disponibles");
@@ -120,7 +120,7 @@ public class ExtendedGUIContenido extends JPanel{
 					return;
 				}
 				
-				PrestarContenidoGUI ventana = new PrestarContenidoGUI(c);
+				PrestarContenidoGUI ventana = new PrestarContenidoGUI(co);
 				ventana.setVisible(true);
 			}
 			
