@@ -1,20 +1,13 @@
 package interfaz;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.swing.*;
 
 import contenido.Contenido;
-import contenido.Libros;
-import contenido.Soporte;
-import contenido.excepciones.ExcepcionAno;
 import contenido.excepciones.ExcepcionContenido;
-import contenido.excepciones.ExcepcionPaginas;
-import contenido.excepciones.ExcepcionSoporte;
 import database.DatabaseWritable;
 import perfiles.Perfil;
 import perfiles.excepciones.ExcepcionPerfil;
@@ -30,10 +23,12 @@ public class GUIObjetosBiblioteca {
 	private List<DatabaseWritable> listaC = new ArrayList<DatabaseWritable>();	
 	
 	public GUIObjetosBiblioteca(DatabaseWritable d,List<? extends DatabaseWritable> listaD) {
-		for (DatabaseWritable o: listaD) {
-			if(o.getSpecificID() == d.getSpecificID()) {
-				listaC.add(o);
-				//System.out.println(((Contenido)o).getTitulo());
+		if(listaD != null) {
+			for (DatabaseWritable o: listaD) {
+				if(o.getSpecificID() == d.getSpecificID()) {
+					listaC.add(o);
+					//System.out.println(((Contenido)o).getTitulo());
+				}
 			}
 		}
 		this.c = d;
@@ -44,7 +39,7 @@ public class GUIObjetosBiblioteca {
 		
 		if(c instanceof Contenido) {
 			boton.setFont(new Font("Segoe UI",Font.CENTER_BASELINE,16));
-			boton.setText("<html><body>"+((Contenido) c).getTitulo()+"<br> "+((Contenido) c).getAutor()+"<br> "+((Contenido) c).getAno()+"</body></html>");
+			boton.setText("<html><body><p>"+((Contenido) c).getTitulo()+"<br> "+((Contenido) c).getAutor()+"<br> "+((Contenido) c).getAno()+"</p></body></html>");
 			boton.setPreferredSize(new Dimension(0,300));
 			boton.setBackground(Color.WHITE);
 			boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -69,10 +64,12 @@ public class GUIObjetosBiblioteca {
 		return boton;
 	}
 
+	@SuppressWarnings("unchecked")
 	public JPanel  createExtendedGUIContenido() {
 		return new ExtendedGUIContenido((Contenido)c,(List<? extends Contenido>) listaC); 
 	}
 	
+	@SuppressWarnings("unchecked")
 	public JPanel createExtendedGUIPerfil() {
 		return new ExtendedGUIPerfil((Perfil)c,(List<? extends Perfil>) listaC);
 	}

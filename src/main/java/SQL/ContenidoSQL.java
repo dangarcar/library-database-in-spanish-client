@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
 import contenido.Audio;
 import contenido.Contenido;
@@ -23,7 +22,6 @@ import contenido.excepciones.ExcepcionEdadRecomendada;
 import contenido.excepciones.ExcepcionPaginas;
 import contenido.excepciones.ExcepcionSoporte;
 import perfiles.Perfil;
-import perfiles.excepciones.ExcepcionPerfil;
 
 public class ContenidoSQL {
 	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -220,7 +218,99 @@ public class ContenidoSQL {
 		return audiovisuales;
 	}
 	
-
+	/**
+	 * Este método consigue un contenido de la BD según su ID absoluto de la biblioteca
+	 * @param id El identificador dentro de la biblioteca
+	 * @return El contenido con ese ID si existe;
+	 */
+	public static Contenido getContenidoByID(int id) throws ExcepcionContenido{
+		ConectorSQL conector = null;
+		ResultSet resultado = null;
+		Contenido c = null;
+		String peticionSQL = "SELECT ID,Titulo,Autor,Descripcion,Año,Idioma,Soporte,DiasDePrestamo,Prestable,Disponible,FechadeDisponibilidad,Detalles_Audiovisual,Detalles_Libro "
+				+ "FROM Contenidos "
+				+ "WHERE ID = "+id+";";
+		
+		String titulo;
+		String autor;
+		String descripcion;
+		int ano;
+		String idioma;
+		Soporte soporte;
+		int diasDePrestamo;
+		boolean prestable;
+		boolean disponible;
+		LocalDate fechaDisponibilidad;
+		int IDAudio;
+		long ISBN;
+		
+		try {
+			//Creo el objeto con el que conectarme a la BD
+			conector = new ConectorSQL();
+			conector.conectar();
+			
+			//Hago al peticion SQL a la base de datos y almaceno el ResultSet
+			resultado = conector.seleccionar(peticionSQL);
+			
+			titulo = resultado.getString("Titulo");
+			autor = resultado.getString("Autor");
+			descripcion = resultado.getString("Descripcion");
+			ano = resultado.getInt("Año");
+			idioma = resultado.getString("Idioma");
+			soporte = Soporte.valueOf(resultado.getString("Soporte"));
+			diasDePrestamo = resultado.getInt("DiasDePrestamo");
+			prestable = resultado.getBoolean("Prestable");
+			disponible = resultado.getBoolean("Disponible");
+			fechaDisponibilidad = (resultado.getString("FechaDeDisponibilidad") != null)? LocalDate.parse(resultado.getString("FechaDeDisponibilidad"),formatter):null;
+			IDAudio = resultado.getInt("Detalles_Audiovisual");
+			ISBN = resultado.getLong("Detalles_Libro");
+			
+			//Si es audiovisual
+			if(IDAudio != 0) {
+				String peticionSQL2 = "SELECT Duracion,IsVideo,EdadRecomendada,Calidad FROM Detalles_Audiovisual WHERE IDAudio = "+IDAudio+";";
+				ResultSet resultado2 = conector.seleccionar(peticionSQL2);
+				double duracion = resultado2.getDouble("Duracion");
+				boolean isVideo = resultado2.getBoolean("IsVideo");
+				int edadRecomendada = resultado2.getInt("EdadRecomendada");
+				int calidad = resultado2.getInt("Calidad");
+				
+				if(isVideo) {
+					//Creo un video
+					c = new Videos(id,titulo,autor,descripcion,ano,idioma,prestable,soporte,diasDePrestamo,disponible,fechaDisponibilidad,duracion, IDAudio,edadRecomendada,calidad);
+				} else {
+					//Creo un audio
+					c =new Audio(id,titulo,autor,descripcion,ano,idioma,prestable,soporte,diasDePrestamo,disponible,fechaDisponibilidad,duracion, IDAudio);
+				}
+			}
+			//Si es un libro
+			else if(ISBN != 0){
+				//Creo un libro
+				String peticionSQL2 = "SELECT Paginas,Editorial FROM Detalles_libros WHERE ISBN = "+ISBN+";";
+				ResultSet resultado2 = conector.seleccionar(peticionSQL2);
+				String editorial = resultado2.getString("Editorial");
+				int paginas = resultado2.getInt("Paginas");
+				c = new Libros(id,titulo,autor,descripcion,ano,idioma,prestable,soporte,diasDePrestamo,disponible,fechaDisponibilidad,ISBN,paginas,editorial);
+			}
+			//Si no es nada
+			else {
+				throw new ExcepcionContenido("Esa ID no corresponde con nada que haya en la biblioteca",c);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//throw new ExcepcionContenido("Hubo un error con la base de datos, es probable que el contenido que buscas no exista en esta biblioteca",audiovisuales.get(0));
+		} catch (ExcepcionAno|ExcepcionSoporte|ExcepcionDuracion|ExcepcionEdadRecomendada|ExcepcionPaginas|ExcepcionCalidad e) {
+			System.out.println("Error: "+e.getMessage());
+		} finally {
+			//Si la conexion a la base de datos existe, la cierro
+			if(conector != null) {
+				conector.cerrar();
+			}
+		}
+		
+		return c;
+	}
+	
 	/**
 	 * Este método guarda un libro pasado por parámetro en la base de datos
 	 * @param libro El objeto libora ser guardado en la BBDD

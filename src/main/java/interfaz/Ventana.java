@@ -197,6 +197,7 @@ class ResultadoTXT extends JPanel {
 		}
 		scrollPane.setViewportView(panelBotones);
 		
+		//El botón de volver ala pantalla principal
 		botonVolverAtras = new JButton("Volver");
 		botonVolverAtras.addActionListener(new ActionListener() {
 			@Override

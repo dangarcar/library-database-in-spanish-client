@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -14,23 +15,26 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import SQL.ContenidoSQL;
+import contenido.Contenido;
+import contenido.excepciones.ExcepcionContenido;
 import perfiles.Admin;
 import perfiles.Perfil;
+
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.GridBagConstraints;
 import javax.swing.JTabbedPane;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.JTextPane;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
 
 class ExtendedGUIPerfil extends JPanel{
 	private static final long serialVersionUID = 7322827919145869636L;
@@ -61,6 +65,7 @@ class ExtendedGUIPerfil extends JPanel{
 		add(lblTitulo, gbc_lblTitulo);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
 		gbc_tabbedPane.insets = new Insets(10, 10, 10, 10);
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
@@ -69,6 +74,7 @@ class ExtendedGUIPerfil extends JPanel{
 		add(tabbedPane, gbc_tabbedPane);
 		
 		JPanel panelDescripcion = new JPanel();
+		panelDescripcion.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		tabbedPane.addTab("Descripcion", null, panelDescripcion, null);
 		GridBagLayout gbl_panelDescripcion = new GridBagLayout();
 		gbl_panelDescripcion.columnWidths = new int[]{425, 0};
@@ -89,6 +95,7 @@ class ExtendedGUIPerfil extends JPanel{
 		panelDescripcion.add(txtDescripcion, gbc_txtDescripcion);
 		
 		JButton btnID = new JButton("Copiar ID");
+		btnID.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		GridBagConstraints gbc_btnID = new GridBagConstraints();
 		gbc_btnID.fill = GridBagConstraints.BOTH;
 		gbc_btnID.gridx = 0;
@@ -109,7 +116,59 @@ class ExtendedGUIPerfil extends JPanel{
 			
 		});
 		panelDescripcion.add(btnID, gbc_btnID);
+		
+		JPanel panelContenidos = new JPanel();
+		tabbedPane.addTab("Contenidos en pr\u00E9stamo", null, panelContenidos, null);
+		GridBagLayout gbl_panelContenidos = new GridBagLayout();
+		gbl_panelContenidos.columnWidths = new int[]{0, 0};
+		gbl_panelContenidos.rowHeights = new int[]{173, 0, 0};
+		gbl_panelContenidos.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panelContenidos.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		panelContenidos.setLayout(gbl_panelContenidos);
+		
+		ArrayList<Contenido> contenidosEnPrestamo = new ArrayList<Contenido>();
+		for(int i:p.getEnPrestamo()) {
+			Contenido c = null;
+			try {
+				c = ContenidoSQL.getContenidoByID(i);
+				contenidosEnPrestamo.add(c);
+			} catch (ExcepcionContenido e1) {
+				System.out.println(e1.getMessage());
+			}
+		}
+		
+		if(!contenidosEnPrestamo.isEmpty()) {
+			JScrollPane scrollPaneEnPrestamo = new JScrollPane();
+			GridBagConstraints gbc_scrollPaneEnPrestamo = new GridBagConstraints();
+			gbc_scrollPaneEnPrestamo.insets = new Insets(0, 0, 5, 0);
+			gbc_scrollPaneEnPrestamo.fill = GridBagConstraints.BOTH;
+			gbc_scrollPaneEnPrestamo.gridx = 0;
+			gbc_scrollPaneEnPrestamo.gridy = 0;
+			panelContenidos.add(scrollPaneEnPrestamo, gbc_scrollPaneEnPrestamo);
+			
+			JList<Contenido> list = new ListaContenido(contenidosEnPrestamo,false);
+			scrollPaneEnPrestamo.setViewportView(list);
+		
+			JButton btnDevolver = new JButton("New button");
+			btnDevolver.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			GridBagConstraints gbc_btnDevolver = new GridBagConstraints();
+			gbc_btnDevolver.fill = GridBagConstraints.BOTH;
+			gbc_btnDevolver.gridx = 0;
+			gbc_btnDevolver.gridy = 1;
+			panelContenidos.add(btnDevolver, gbc_btnDevolver);
+		} else {
+			JLabel lblSeSiente = new JLabel("Este perfil no tiene contenidos actualmente en préstamo");
+			lblSeSiente.setFont(new Font("Segoe UI",Font.PLAIN,14));
+			lblSeSiente.setHorizontalAlignment(SwingConstants.CENTER);
+			GridBagConstraints gbc_lblSeSiente = new GridBagConstraints();
+			gbc_lblSeSiente.fill = GridBagConstraints.BOTH;
+			gbc_lblSeSiente.gridx = 0;
+			gbc_lblSeSiente.gridy = 0;
+			panelContenidos.add(lblSeSiente, gbc_lblSeSiente);
+		}
 	}
+	
+	
 	
 	public String getExtendedDescripcion() {
 		return "<html><body><p style = \"font-family:Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;\">"+
