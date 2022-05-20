@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import SQL.ContenidoSQL;
 import contenido.Contenido;
 import contenido.excepciones.ExcepcionContenido;
+import contenido.excepciones.ExcepcionDisponibilidad;
 import perfiles.Admin;
 import perfiles.Perfil;
 
@@ -149,12 +150,34 @@ class ExtendedGUIPerfil extends JPanel{
 			JList<Contenido> list = new ListaContenido(contenidosEnPrestamo,false);
 			scrollPaneEnPrestamo.setViewportView(list);
 		
-			JButton btnDevolver = new JButton("New button");
+			JButton btnDevolver = new JButton("Devolver");
 			btnDevolver.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			GridBagConstraints gbc_btnDevolver = new GridBagConstraints();
 			gbc_btnDevolver.fill = GridBagConstraints.BOTH;
 			gbc_btnDevolver.gridx = 0;
 			gbc_btnDevolver.gridy = 1;
+			btnDevolver.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Contenido c = list.getSelectedValue();
+					
+					if(JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres devolver el contenido seleccionado?", "Confirmación", JOptionPane.YES_NO_OPTION) == 0) {
+						try {
+							if(ContenidoSQL.devolverBBDD(c, p)) {
+								list.remove(list.getSelectedIndex());
+								JOptionPane.showMessageDialog(null, "Gracias por haber devuelto el contenido "+c.getID(),"Operación realizada correctamente",JOptionPane.INFORMATION_MESSAGE);
+							} else {
+								JOptionPane.showMessageDialog(null, "No se ha podido devolver el contenido", "Error", JOptionPane.ERROR_MESSAGE);
+							}
+						} catch (ExcepcionDisponibilidad e1) {
+							JOptionPane.showMessageDialog(null, "No se ha podido devolver el contenido, el contenido no está disponible", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					
+				}
+				
+			});
 			panelContenidos.add(btnDevolver, gbc_btnDevolver);
 		} else {
 			JLabel lblSeSiente = new JLabel("Este perfil no tiene contenidos actualmente en préstamo");
