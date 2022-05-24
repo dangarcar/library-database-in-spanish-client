@@ -133,6 +133,8 @@ public class ExtendedGUIContenido extends JPanel{
 		gbl_descripcionTab.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		descripcionTab.setLayout(gbl_descripcionTab);
 		
+		JScrollPane scrollDescripcion = new JScrollPane();
+		
 		JTextPane txtDescripcion = new JTextPane();
 		GridBagConstraints gbc_txtDescripcion = new GridBagConstraints();
 		gbc_txtDescripcion.fill = GridBagConstraints.BOTH;
@@ -142,7 +144,8 @@ public class ExtendedGUIContenido extends JPanel{
 		txtDescripcion.setFont(new Font("Segoe UI",Font.BOLD,14));
 		txtDescripcion.setContentType("text/html");
 		txtDescripcion.setText(getExtendedDescripcion());
-		descripcionTab.add(txtDescripcion, gbc_txtDescripcion);
+		scrollDescripcion.setViewportView(txtDescripcion);
+		descripcionTab.add(scrollDescripcion, gbc_txtDescripcion);
 	}
 	
 	public String getExtendedDescripcion() {
