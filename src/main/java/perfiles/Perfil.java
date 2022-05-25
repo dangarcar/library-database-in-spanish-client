@@ -1,13 +1,10 @@
 package perfiles;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;

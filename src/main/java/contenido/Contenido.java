@@ -1,7 +1,5 @@
 package contenido;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.time.LocalDate;
 import java.util.List;
 

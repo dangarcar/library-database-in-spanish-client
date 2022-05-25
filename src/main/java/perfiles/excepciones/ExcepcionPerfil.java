@@ -23,6 +23,6 @@ public class ExcepcionPerfil extends Exception {
 	
 	public String getMessage() {
 		
-		return info+" in perfil "+user.getDNI()+user.getLetraDNI();
+		return info+" in perfil "+((user != null)? user.getDNI()+user.getLetraDNI():"");
 	}
 }

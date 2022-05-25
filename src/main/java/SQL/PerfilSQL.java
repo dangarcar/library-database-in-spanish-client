@@ -10,10 +10,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
-import org.json.JSONML;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -79,7 +75,7 @@ public class PerfilSQL {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ExcepcionPerfil("La base de datos ha tenido un problema", null);
 		} finally {
 			//Si la conexion a la base de datos existe, la cierro
 			if(conector != null) {
@@ -120,10 +116,10 @@ public class PerfilSQL {
 				st.executeUpdate();
 				st.clearParameters();
 				
-				System.out.println("Se ha guardado el perfil en la base de datos");
+				//System.out.println("Se ha guardado el perfil en la base de datos");
 			
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new ExcepcionPerfil("La base de datos ha tenido un problema", null);
 			} finally {
 				//Si la conexión a la base de datos existe, la cierro
 				if(conector != null) {
@@ -152,7 +148,7 @@ public class PerfilSQL {
 				Connection connect = conector.conectar();
 				
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-				String peticionSQL = "INSERT INTO Perfiles(Nombre,Apellidos,FechaDeNacimiento,DNI,DireccionCasa,CorreoElectronico,Admin,ContenidoEnPrestamo) VALUES(?,?,?,?,?,?,?,1);";
+				String peticionSQL = "INSERT INTO Perfiles(Nombre,Apellidos,FechaDeNacimiento,DNI,DireccionCasa,CorreoElectronico,Admin,ContenidoEnPrestamo) VALUES(?,?,?,?,?,?,1,?);";
 			
 				st = connect.prepareStatement(peticionSQL);
 				st.setString(1, perfil.getNombre());
@@ -165,10 +161,10 @@ public class PerfilSQL {
 				st.executeUpdate();
 				st.clearParameters();
 				
-				System.out.println("Se ha guardado el administrador en la base de datos");
+				//System.out.println("Se ha guardado el administrador en la base de datos");
 			
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new ExcepcionPerfil("La base de datos ha tenido un problema", null);
 			} finally {
 				//Si la conexión a la base de datos existe, la cierro
 				if(conector != null) {
@@ -207,12 +203,12 @@ public class PerfilSQL {
 				
 				admin = new Admin(perfil.getNombre(),perfil.getApellido(),perfil.getFechaNacimiento(),perfil.getDNI(),perfil.getDireccionDeCasa(),perfil.getCorreoElectronico());
 				
-				System.out.println("El perfil: "+perfil.getDNI()+" ha pasado a ser administrador");
+				//System.out.println("El perfil: "+perfil.getDNI()+" ha pasado a ser administrador");
 			
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new ExcepcionPerfil("La base de datos ha tenido un problema", null);
 			} catch(ExcepcionPerfil e){
-				JOptionPane.showMessageDialog(null, "El perfil no se ha podido convertir en admin");
+				throw new ExcepcionPerfil("El perfil no se ha podido convertir en admin",perfil);
 			} finally {
 				//Si la conexión a la base de datos existe, la cierro
 				if(conector != null) {
@@ -252,12 +248,12 @@ public class PerfilSQL {
 				
 				perfil = new Perfil(admin.getNombre(),admin.getApellido(),admin.getFechaNacimiento(),admin.getDNI(),admin.getDireccionDeCasa(),admin.getCorreoElectronico());
 				
-				System.out.println("El admin: "+admin.getDNI()+" ha pasado a ser un usuario normal");
+				//System.out.println("El admin: "+admin.getDNI()+" ha pasado a ser un usuario normal");
 			
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new ExcepcionPerfil("La base de datos ha tenido un problema", null);
 			} catch (ExcepcionPerfil e) {
-				JOptionPane.showMessageDialog(null, "El admin no se ha podido convertir en perfil");
+				throw new ExcepcionPerfil("El admin no se ha podido convertir en perfil",null);
 			} finally {
 				//Si la conexión a la base de datos existe, la cierro
 				if(conector != null) {
@@ -293,10 +289,10 @@ public class PerfilSQL {
 				st.executeUpdate();
 				st.clearParameters();
 				
-				System.out.println("Se ha borrado el perfil de la base de datos");
+				//System.out.println("Se ha borrado el perfil de la base de datos");
 			
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new ExcepcionPerfil("La base de datos ha tenido un problema", null);
 			} finally {
 				//Si la conexión a la base de datos existe, la cierro
 				if(conector != null) {
@@ -314,8 +310,9 @@ public class PerfilSQL {
 	 * @param connect El objeto de clase Connection del SQL
 	 * @param c El contenido a prestar
 	 * @param p El perfil que toma prestado el contenido
+	 * @throws ExcepcionPerfil 
 	 */
-	public static void prestarPerfilBBDD(Connection connect,Contenido c,Perfil p) {
+	public static void prestarPerfilBBDD(Connection connect,Contenido c,Perfil p) throws ExcepcionPerfil {
 		PreparedStatement st;
 		
 		try {
@@ -330,7 +327,7 @@ public class PerfilSQL {
 			st.clearParameters();
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ExcepcionPerfil("La base de datos ha tenido un problema", null);
 		}
 	}
 	
@@ -340,8 +337,9 @@ public class PerfilSQL {
 	 * @param connect El objeto de clase Connection del SQL
 	 * @param c El contenido a prestar
 	 * @param p El perfil que toma prestado el contenido
+	 * @throws ExcepcionPerfil 
 	 */
-	public static void devolverPerfilBBDD(Connection connect,Contenido c,Perfil p) {
+	public static void devolverPerfilBBDD(Connection connect,Contenido c,Perfil p) throws ExcepcionPerfil {
 		PreparedStatement st;
 		
 		try {
@@ -356,7 +354,7 @@ public class PerfilSQL {
 			st.clearParameters();
 			
 		} catch(SQLException e) {
-			e.printStackTrace();
+			throw new ExcepcionPerfil("La base de datos ha tenido un problema", null);
 		}
 	}
 	

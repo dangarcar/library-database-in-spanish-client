@@ -87,6 +87,14 @@ public class Ventana extends JFrame{
 		popupMenu.setSize(200, 300);
 		popupMenu.setBackground(new Color(240,240,240));
 		JMenuItem perfilesMenu = new JMenuItem("Añadir perfil...");
+		perfilesMenu.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new AnadirPerfilGUI();
+			}
+			
+		});
 		popupMenu.add(perfilesMenu);
 		JMenuItem contenidosMenu = new JMenuItem("Añadir contenido...");
 		contenidosMenu.addActionListener(new ActionListener() {

@@ -154,7 +154,7 @@ public class PrestarContenidoGUI extends JFrame{
 							JOptionPane.showMessageDialog(null, "Felicidades por haber cogido prestado el contenido "+c.getID(),"Felicidades",JOptionPane.INFORMATION_MESSAGE);
 							return;
 						}
-					} catch (ExcepcionContenido e1) {
+					} catch (ExcepcionContenido | ExcepcionPerfil e1) {
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(null, "Ha habido un error con el préstamo del contenido", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("files/images/error.png"));
 					}

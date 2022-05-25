@@ -1,6 +1,5 @@
 package contenido;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public enum Soporte {

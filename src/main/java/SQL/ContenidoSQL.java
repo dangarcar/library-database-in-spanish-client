@@ -22,6 +22,7 @@ import contenido.excepciones.ExcepcionEdadRecomendada;
 import contenido.excepciones.ExcepcionPaginas;
 import contenido.excepciones.ExcepcionSoporte;
 import perfiles.Perfil;
+import perfiles.excepciones.ExcepcionPerfil;
 
 public class ContenidoSQL {
 	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -454,9 +455,10 @@ public class ContenidoSQL {
 	 * @param c El objeto que hereda de Contenido a ser prestado y figurar como ello en la BBDD
 	 * @param p El perfil que toma prestado el contenido c
 	 * @throws ExcepcionContenido
+	 * @throws ExcepcionPerfil 
 	 * @throws ExcepcionDsiponibilidad
 	 */
-	public static boolean prestarBBDD(Contenido c,Perfil p) throws ExcepcionDisponibilidad, ExcepcionContenido {
+	public static boolean prestarBBDD(Contenido c,Perfil p) throws ExcepcionDisponibilidad, ExcepcionContenido, ExcepcionPerfil {
 		ConectorSQL conector = null;
 		PreparedStatement st;
 		Connection connect = null;
@@ -529,8 +531,9 @@ public class ContenidoSQL {
 	 * @param c El objeto que hereda de Contenido a ser devuelto y figurar como ello en la BBDD
 	 * @param p El perfil que devuelve el objeto
 	 * @throws ExcepcionDisponibilidad
+	 * @throws ExcepcionPerfil 
 	 */
-	public static boolean devolverBBDD(Contenido c, Perfil p) throws ExcepcionDisponibilidad {
+	public static boolean devolverBBDD(Contenido c, Perfil p) throws ExcepcionDisponibilidad, ExcepcionPerfil {
 		ConectorSQL conector = null;
 		PreparedStatement st;
 		Connection connect = null;

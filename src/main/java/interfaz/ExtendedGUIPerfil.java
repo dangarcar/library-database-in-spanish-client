@@ -21,6 +21,7 @@ import contenido.excepciones.ExcepcionContenido;
 import contenido.excepciones.ExcepcionDisponibilidad;
 import perfiles.Admin;
 import perfiles.Perfil;
+import perfiles.excepciones.ExcepcionPerfil;
 
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
@@ -170,7 +171,7 @@ class ExtendedGUIPerfil extends JPanel{
 							} else {
 								JOptionPane.showMessageDialog(null, "No se ha podido devolver el contenido", "Error", JOptionPane.ERROR_MESSAGE);
 							}
-						} catch (ExcepcionDisponibilidad e1) {
+						} catch (ExcepcionDisponibilidad | HeadlessException | ExcepcionPerfil e1) {
 							JOptionPane.showMessageDialog(null, "No se ha podido devolver el contenido, el contenido no está disponible", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}

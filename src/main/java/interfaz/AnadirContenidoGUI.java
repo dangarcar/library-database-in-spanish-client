@@ -478,6 +478,8 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 					if(contenido instanceof Libros) ContenidoSQL.writeLibro((Libros)contenido);
 					else if(contenido instanceof Audio) ContenidoSQL.writeAudiovisual((Audio)contenido);
 					else throw new ExcepcionContenido("Parece que hay un problema con el contenido que quiere añadir",contenido);
+					setVisible(false);
+					JOptionPane.showMessageDialog(null, "Felicidades por añadido a "+contenido.getTitulo()+" a la base de datos", "Felicidades" ,JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		} catch(ExcepcionContenido e1) {
