@@ -478,12 +478,14 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 					if(contenido instanceof Libros) ContenidoSQL.writeLibro((Libros)contenido);
 					else if(contenido instanceof Audio) ContenidoSQL.writeAudiovisual((Audio)contenido);
 					else throw new ExcepcionContenido("Parece que hay un problema con el contenido que quiere añadir",contenido);
-					setVisible(false);
-					JOptionPane.showMessageDialog(null, "Felicidades por añadido a "+contenido.getTitulo()+" a la base de datos", "Felicidades" ,JOptionPane.INFORMATION_MESSAGE);
 				}
+				setVisible(false);
+				JOptionPane.showMessageDialog(null, "Felicidades por añadido a "+contenido.getTitulo()+" a la base de datos", "Felicidades" ,JOptionPane.INFORMATION_MESSAGE);
 			}
 		} catch(ExcepcionContenido e1) {
 			JOptionPane.showMessageDialog(null, "Error: "+e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+		} catch (NumberFormatException e1) {
+			JOptionPane.showMessageDialog(null, "Error: Escriba un número de ejemplares por favor","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

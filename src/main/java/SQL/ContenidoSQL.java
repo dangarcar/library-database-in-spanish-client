@@ -406,8 +406,8 @@ public class ContenidoSQL {
 				stDetalles.setInt(1,audiovisual.getIDAudio());
 				stDetalles.setDouble(2,audiovisual.getDuracion());
 				stDetalles.setBoolean(3,audiovisual instanceof Videos);
-				stDetalles.setInt(4,(audiovisual instanceof Videos)? ((Videos) audiovisual).getEdadRecomendada():null);
-				stDetalles.setDouble(5,(audiovisual instanceof Videos)? ((Videos) audiovisual).getCalidad():null);
+				stDetalles.setInt(4,(audiovisual instanceof Videos)? ((Videos) audiovisual).getEdadRecomendada():0);
+				stDetalles.setDouble(5,(audiovisual instanceof Videos)? ((Videos) audiovisual).getCalidad():0);
 				stDetalles.setDouble(6,audiovisual.getIDAudio());
 				stDetalles.executeUpdate();
 				stDetalles.clearParameters();
@@ -429,7 +429,7 @@ public class ContenidoSQL {
 				
 				connect.commit();
 				
-				System.out.println("Se ha guardado el contenido audiovisual en la base de datos");
+				//System.out.println("Se ha guardado el contenido audiovisual en la base de datos");
 			
 			} catch (SQLException e) {
 				e.printStackTrace();

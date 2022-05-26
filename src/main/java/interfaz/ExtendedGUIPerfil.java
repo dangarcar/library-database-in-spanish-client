@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import SQL.ContenidoSQL;
+import SQL.PerfilSQL;
 import contenido.Contenido;
 import contenido.excepciones.ExcepcionContenido;
 import contenido.excepciones.ExcepcionDisponibilidad;
@@ -96,28 +97,11 @@ class ExtendedGUIPerfil extends JPanel{
 		txtDescripcion.setText(getExtendedDescripcion());
 		panelDescripcion.add(txtDescripcion, gbc_txtDescripcion);
 		
-		JButton btnID = new JButton("Copiar ID");
-		btnID.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		GridBagConstraints gbc_btnID = new GridBagConstraints();
 		gbc_btnID.fill = GridBagConstraints.BOTH;
 		gbc_btnID.gridx = 0;
 		gbc_btnID.gridy = 1;
-		btnID.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					//Copia la ID en el portapapeles
-					StringSelection ss = new StringSelection(((Integer)p.getID()).toString());
-					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
-				} catch (HeadlessException e1) {
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "No se ha podido copiar la ID en el portapapeles", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("files/images/error.png"));
-				}
-			}
-			
-		});
-		panelDescripcion.add(btnID, gbc_btnID);
+		panelDescripcion.add(new ButtonToAdminOrPerfil(p), gbc_btnID);
 		
 		JPanel panelContenidos = new JPanel();
 		tabbedPane.addTab("Contenidos en pr\u00E9stamo", null, panelContenidos, null);
@@ -204,4 +188,51 @@ class ExtendedGUIPerfil extends JPanel{
 				"<br><b>Administrador: </b>"+((p instanceof Admin)? "Sí":"No")+
 				"</p></body></html>";
 	}
+	
+	public void copiarEnPortapapeles() {
+		try {
+			//Copia la ID en el portapapeles
+			StringSelection ss = new StringSelection(((Integer)p.getID()).toString());
+			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
+		} catch (HeadlessException e1) {
+			JOptionPane.showMessageDialog(null, "No se ha podido copiar la ID en el portapapeles", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+}
+
+class ButtonToAdminOrPerfil extends JButton implements ActionListener{
+	private static final long serialVersionUID = -1566180518423739800L;
+	private Perfil p;
+	
+	public ButtonToAdminOrPerfil(Perfil p) {
+		this.p = p;
+		setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		setText("Convertir en administrador");
+		if(p instanceof Admin) setText("Convertir en perfil normal");
+		addActionListener(this);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(p instanceof Admin) {
+			try {
+				if(JOptionPane.showConfirmDialog(null, "¿Desea conventir a "+p.getDNI()+" en perfil normal?", "Confirmación", JOptionPane.YES_NO_OPTION) == 0) {
+					PerfilSQL.adminToPerfil((Admin)p);
+					JOptionPane.showMessageDialog(null, "Felicidades:"+p.getDNI()+" ahora es un perfil normal", "¡Felicidades!", JOptionPane.INFORMATION_MESSAGE);
+				}
+			} catch (ExcepcionPerfil e1) {
+				JOptionPane.showMessageDialog(null, "Error: no se ha podido convertir a "+p.getDNI()+" en perfil normal", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		} else {
+			try {
+				if(JOptionPane.showConfirmDialog(null, "¿Desea conventir a "+p.getDNI()+" en administrador?", "Confirmación", JOptionPane.YES_NO_OPTION) == 0) {
+					PerfilSQL.perfilToAdmin(p);
+					JOptionPane.showMessageDialog(null, "Felicidades:"+p.getDNI()+" ahora es administrador", "¡Felicidades!", JOptionPane.INFORMATION_MESSAGE);
+				}
+			} catch (ExcepcionPerfil e1) {
+				JOptionPane.showMessageDialog(null, "Error: no se ha podido convertir a "+p.getDNI()+" en administrador", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
 }

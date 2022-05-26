@@ -18,8 +18,7 @@ import java.util.List;
 public class Ventana extends JFrame{
 	private static final long serialVersionUID = -3030099236595355215L;
 	private CardLayout windowSwitcher = new CardLayout();
-	private TxtFieldContenidos txtFieldContenidos = new TxtFieldContenidos();
-	private TxtFieldPerfiles txtFieldPerfiles = new TxtFieldPerfiles();
+	private PantallaInicio lobby = new PantallaInicio(this);
 	
 	public Ventana() {
 		setResizable(false);
@@ -30,118 +29,56 @@ public class Ventana extends JFrame{
 		setBounds(100,100,1000,700);
 		getContentPane().setLayout(getWindowSwitcher());
 		
-		getContentPane().add(pantallaInicio());
+		getContentPane().add(lobby);
+		
+		//TODO este menú está mal hecho
+		JPopupMenu menu = new JPopupMenu();
+		menu.setVisible(false);
+		menu.setPreferredSize(new Dimension(200, 200));
+		menu.add(new JMenuItem("Copiar(Ctrl+C)"));
+		menu.addMouseListener(new MouseListener() {
 
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getButton() == 3) {
+					menu.show((Component)e.getSource(),e.getX(),e.getY());
+					System.out.println("Messirve");
+				}
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		getContentPane().add(menu);
+		
 		setVisible(true);
-	}
-	
-	private JPanel pantallaInicio() {
-		JPanel pantallaInicio = new JPanel();
-		pantallaInicio.setBackground(new Color(148,238,229));
-		pantallaInicio.setLayout(null);
-		
-		ImageIcon perfilLogo = new ImageIcon("D:\\Programaci\u00F3n\\Java\\library-database\\files\\images\\perfil.png");
-		Image perfilLogoEscalado = perfilLogo.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		ImageIcon contenidosLogo = new ImageIcon("D:\\Programaci\u00F3n\\Java\\library-database\\files\\images\\contenidos.png");
-		Image contenidosLogoEscalado = contenidosLogo.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		
-		JLabel perfilLogoLabel = new JLabel("Perfiles de usuario");
-		perfilLogoLabel.setLocation(10, 352);
-		perfilLogoLabel.setSize(269, 121);
-		perfilLogoLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
-		perfilLogoLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-		perfilLogoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		perfilLogoLabel.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-		perfilLogoLabel.setIcon(new ImageIcon(perfilLogoEscalado));
-		pantallaInicio.add(perfilLogoLabel);
-	
-		pantallaInicio.add(getTxtFieldPerfiles());
-		
-		JLabel contenidosLogoLabel = new JLabel("Contenidos");
-		contenidosLogoLabel.setLocation(705, 352);
-		contenidosLogoLabel.setSize(269, 121);
-		contenidosLogoLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
-		contenidosLogoLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-		contenidosLogoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		contenidosLogoLabel.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-		contenidosLogoLabel.setIcon(new ImageIcon(contenidosLogoEscalado));
-		pantallaInicio.add(contenidosLogoLabel);
-		
-		
-		pantallaInicio.add(getTxtFieldContenidos());
-		
-		JLabel logo = new JLabel();
-		logo.setHorizontalAlignment(SwingConstants.CENTER);
-		logo.setSize(1000, 400);
-		logo.setLocation(0, 0);
-		logo.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-		logo.setBackground(Color.RED);
-		logo.setIcon(new ImageIcon("D:\\Programaci\u00F3n\\Java\\library-database\\files\\images\\logo.png"));
-		pantallaInicio.add(logo);
-		
-		pantallaInicio.add(new BotonBuscarContenidos(this));
-		pantallaInicio.add(new BotonBuscarPerfiles(this));
-		
-		JPopupMenu popupMenu = new JPopupMenu();
-		popupMenu.setFont(new Font("Segoe UI",16,Font.BOLD));
-		popupMenu.setSize(200, 300);
-		popupMenu.setBackground(new Color(240,240,240));
-		JMenuItem perfilesMenu = new JMenuItem("Añadir perfil...");
-		perfilesMenu.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new AnadirPerfilGUI();
-			}
-			
-		});
-		popupMenu.add(perfilesMenu);
-		JMenuItem contenidosMenu = new JMenuItem("Añadir contenido...");
-		contenidosMenu.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new AnadirContenidoGUI();
-			}
-			
-		});
-		popupMenu.add(contenidosMenu);
-		JMenuItem ayudaMenu = new JMenuItem("Ayuda");
-		popupMenu.add(ayudaMenu);
-		JMenuItem informacionMenu = new JMenuItem("M\u00E1s informaci\u00F3n");
-		popupMenu.add(informacionMenu);
-		
-		JButton botonMenu = new JButton();
-		botonMenu.setBackground(Color.RED);
-		botonMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		botonMenu.setBorderPainted(false);
-		botonMenu.setIcon(new ImageIcon((new ImageIcon("D:\\Programaci\u00F3n\\Java\\library-database\\files\\images\\menu.png")).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)));
-		botonMenu.setToolTipText("Ver m\u00E1s opciones");
-		botonMenu.setContentAreaFilled(false);
-		botonMenu.setBounds(950, 0, 32, 32);
-		botonMenu.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				popupMenu.show(pantallaInicio, pantallaInicio.getWidth()-popupMenu.getWidth(), 0);
-			}	
-		});
-		pantallaInicio.add(botonMenu);
-		
-		return pantallaInicio;
 	}
 
 	public CardLayout getWindowSwitcher() {return windowSwitcher;}
-
-	public void setWindowSwitcher(CardLayout windowSwitcher) {this.windowSwitcher = windowSwitcher;}
-
-	public TxtFieldContenidos getTxtFieldContenidos() {return txtFieldContenidos;}
-
-	public void setTxtFieldContenidos(TxtFieldContenidos txtFieldContenidos) {this.txtFieldContenidos = txtFieldContenidos;}
-
-	public TxtFieldPerfiles getTxtFieldPerfiles() {return txtFieldPerfiles;}
-
-	public void setTxtFieldPerfiles(TxtFieldPerfiles txtFieldPerfiles) {this.txtFieldPerfiles = txtFieldPerfiles;}
 	
+	public PantallaInicio getLobby() {return lobby;}
 	
 }
 
@@ -163,7 +100,7 @@ class ResultadoTXT extends JPanel {
 		
 		this.resultado = resultado;
 		
-		tituloResultadoBusqueda = new JLabel("Resultado de b\u00FAsqueda");
+		tituloResultadoBusqueda = new JLabel("Resultado de búsqueda");
 		tituloResultadoBusqueda.setBackground(Color.WHITE);
 		tituloResultadoBusqueda.setSize(new Dimension(0, 100));
 		tituloResultadoBusqueda.setHorizontalAlignment(SwingConstants.CENTER);
@@ -219,8 +156,8 @@ class ResultadoTXT extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent.getWindowSwitcher().first(((Container)e.getSource()).getParent().getParent());
-				parent.getTxtFieldContenidos().setText("");
-				parent.getTxtFieldPerfiles().setText("");
+				parent.getLobby().getTxtFieldContenidos().setText("");
+				parent.getLobby().getTxtFieldPerfiles().setText("");
 			}
 		});
 		add(botonVolverAtras, BorderLayout.SOUTH);
@@ -270,19 +207,13 @@ class BotonBuscarContenidos extends JButton implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//System.out.println(parent.getTxtFieldContenidos().getText()+"\n");
-		
 		try {
-			contenidos = Buscador.buscarContenido((parent.getTxtFieldContenidos().getText().equals("")? null:parent.getTxtFieldContenidos().getText()));
+			contenidos = Buscador.buscarContenido((parent.getLobby().getTxtFieldContenidos().getText().equals("")? null:parent.getLobby().getTxtFieldContenidos().getText()));
 			parent.getContentPane().add(new ResultadoTXT(contenidos,parent),"Resultado");
 			parent.getWindowSwitcher().show(parent.getContentPane(), "Resultado");
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(this, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE, new ImageIcon("files\\images\\error.png"));
 		}
-	}
-	
-	public List<Contenido> getContenido(){
-		return contenidos;
 	}
 }
 
@@ -304,39 +235,125 @@ class BotonBuscarPerfiles extends JButton implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//System.out.println(parent.getTxtFieldPerfiles().getText());
-		
-		perfiles = Buscador.buscarPerfiles((parent.getTxtFieldPerfiles().getText().equals("")? null:parent.getTxtFieldPerfiles().getText()));
+		perfiles = Buscador.buscarPerfiles((parent.getLobby().getTxtFieldPerfiles().getText().equals("")? null:parent.getLobby().getTxtFieldPerfiles().getText()));
 		parent.getContentPane().add(new ResultadoTXT(perfiles,parent),"Resultado");
 		parent.getWindowSwitcher().show(parent.getContentPane(), "Resultado");
 	}
 	
-	public List<Perfil> getPerfiles(){
-		return perfiles;
-	}
 }
 
-class TxtFieldPerfiles extends JTextField {
-	private static final long serialVersionUID = 4302638240358094946L;
+class PantallaInicio extends JPanel implements ActionListener{
+	private static final long serialVersionUID = 5806149385417939112L;
+	private JTextField txtFieldContenidos;
+	private JTextField txtFieldPerfiles;
+	private JPopupMenu popupMenu;
 	
-	public TxtFieldPerfiles() {
-		setHorizontalAlignment(SwingConstants.CENTER);
-		setPreferredSize(new Dimension(40, 200));
-		setDisabledTextColor(Color.BLACK);
-		setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		setBounds(10, 484, 269, 40);
-		setColumns(10);
-	}
-}
+	public PantallaInicio(Ventana parent) {
+		setBackground(new Color(148,238,229));
+		setLayout(null);
+		
+		ImageIcon perfilLogo = new ImageIcon("D:\\Programaci\u00F3n\\Java\\library-database\\files\\images\\perfil.png");
+		Image perfilLogoEscalado = perfilLogo.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon contenidosLogo = new ImageIcon("D:\\Programaci\u00F3n\\Java\\library-database\\files\\images\\contenidos.png");
+		Image contenidosLogoEscalado = contenidosLogo.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		
+		JLabel perfilLogoLabel = new JLabel("Perfiles de usuario");
+		perfilLogoLabel.setLocation(10, 352);
+		perfilLogoLabel.setSize(269, 121);
+		perfilLogoLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+		perfilLogoLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+		perfilLogoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		perfilLogoLabel.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		perfilLogoLabel.setIcon(new ImageIcon(perfilLogoEscalado));
+		add(perfilLogoLabel);
+		
+		
+		txtFieldContenidos = new JTextField();
+		txtFieldContenidos.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtFieldContenidos.setBounds(705, 484, 269, 40);
+		txtFieldContenidos.setColumns(10);
+		txtFieldContenidos.setPreferredSize(new Dimension(40, 200));
+		txtFieldContenidos.setHorizontalAlignment(SwingConstants.CENTER);
+		add(txtFieldContenidos);
+		
+		JLabel contenidosLogoLabel = new JLabel("Contenidos");
+		contenidosLogoLabel.setLocation(705, 352);
+		contenidosLogoLabel.setSize(269, 121);
+		contenidosLogoLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+		contenidosLogoLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+		contenidosLogoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		contenidosLogoLabel.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		contenidosLogoLabel.setIcon(new ImageIcon(contenidosLogoEscalado));
+		add(contenidosLogoLabel);
+		
+		
+		txtFieldPerfiles = new JTextField();
+		txtFieldPerfiles.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtFieldPerfiles.setBounds(10, 484, 269, 40);
+		txtFieldPerfiles.setColumns(10);
+		txtFieldPerfiles.setPreferredSize(new Dimension(40, 200));
+		txtFieldPerfiles.setHorizontalAlignment(SwingConstants.CENTER);
+		add(txtFieldPerfiles);
+		
+		JLabel logo = new JLabel();
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		logo.setSize(1000, 400);
+		logo.setLocation(0, 0);
+		logo.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		logo.setBackground(Color.RED);
+		logo.setIcon(new ImageIcon("files/images/logo.png"));
+		add(logo);
+		
+		add(new BotonBuscarContenidos(parent));
+		add(new BotonBuscarPerfiles(parent));
+		
+		popupMenu = new JPopupMenu();
+		popupMenu.setFont(new Font("Segoe UI",16,Font.BOLD));
+		popupMenu.setSize(200, 300);
+		popupMenu.setBackground(new Color(240,240,240));
+		JMenuItem perfilesMenu = new JMenuItem("Añadir perfil...");
+		perfilesMenu.addActionListener(new ActionListener() {
 
-class TxtFieldContenidos extends JTextField {
-	private static final long serialVersionUID = 4302638240358094946L;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new AnadirPerfilGUI();
+			}
+			
+		});
+		popupMenu.add(perfilesMenu);
+		JMenuItem contenidosMenu = new JMenuItem("Añadir contenido...");
+		contenidosMenu.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new AnadirContenidoGUI();
+			}
+			
+		});
+		popupMenu.add(contenidosMenu);
+		JMenuItem ayudaMenu = new JMenuItem("Ayuda");
+		popupMenu.add(ayudaMenu);
+		JMenuItem informacionMenu = new JMenuItem("Más información");
+		popupMenu.add(informacionMenu);
+		
+		JButton botonMenu = new JButton();
+		botonMenu.setBackground(Color.RED);
+		botonMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		botonMenu.setBorderPainted(false);
+		botonMenu.setIcon(new ImageIcon((new ImageIcon("D:\\Programaci\u00F3n\\Java\\library-database\\files\\images\\menu.png")).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)));
+		botonMenu.setToolTipText("Ver m\u00E1s opciones");
+		botonMenu.setContentAreaFilled(false);
+		botonMenu.setBounds(950, 0, 32, 32);
+		botonMenu.addActionListener(this);
+		add(botonMenu);
+	}
 	
-	public TxtFieldContenidos() {
-		setDisabledTextColor(Color.BLACK);
-		setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		setHorizontalAlignment(SwingConstants.CENTER);
-		setBounds(705, 484, 269, 40);
-		setColumns(10);
+	public JTextField getTxtFieldContenidos() {return txtFieldContenidos;}
+
+	public JTextField getTxtFieldPerfiles() {return txtFieldPerfiles;}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		popupMenu.show(this,this.getWidth()-popupMenu.getWidth(), 0);
 	}
 }
