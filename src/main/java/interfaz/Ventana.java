@@ -32,7 +32,7 @@ public class Ventana extends JFrame{
 		getContentPane().add(lobby);
 		
 		//TODO este menú está mal hecho
-		JPopupMenu menu = new JPopupMenu();
+		/*JPopupMenu menu = new JPopupMenu();
 		menu.setVisible(false);
 		menu.setPreferredSize(new Dimension(200, 200));
 		menu.add(new JMenuItem("Copiar(Ctrl+C)"));
@@ -71,7 +71,7 @@ public class Ventana extends JFrame{
 			}
 			
 		});
-		getContentPane().add(menu);
+		getContentPane().add(menu);*/
 		
 		setVisible(true);
 	}
