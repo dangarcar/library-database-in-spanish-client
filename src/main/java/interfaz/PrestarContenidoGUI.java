@@ -18,14 +18,22 @@ import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.SystemColor;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileFilter;
 
 import SQL.ContenidoSQL;
 import SQL.PerfilSQL;
@@ -37,6 +45,9 @@ import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
+import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
 
 /**
  * Esta clase sirve es la nterfaz para coger prestado un libro pasado por parámetro
@@ -61,9 +72,9 @@ public class PrestarContenidoGUI extends JFrame{
 		getContentPane().add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{284, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblTitulo = new JLabel("Pr\u00E9stamo de contenidos");
@@ -120,7 +131,20 @@ public class PrestarContenidoGUI extends JFrame{
 		gbc_btnConfirmar.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnConfirmar.anchor = GridBagConstraints.SOUTH;
 		gbc_btnConfirmar.gridx = 0;
-		gbc_btnConfirmar.gridy = 3;
+		gbc_btnConfirmar.gridy = 4;
+		
+		JCheckBox guardarRecibo = new JCheckBox("Guardar recibo");
+		guardarRecibo.setBackground(SystemColor.controlHighlight);
+		guardarRecibo.setHorizontalAlignment(SwingConstants.LEFT);
+		guardarRecibo.setSelected(true);
+		guardarRecibo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		GridBagConstraints gbc_guardarRecibo = new GridBagConstraints();
+		gbc_guardarRecibo.insets = new Insets(10, 0, 5, 0);
+		gbc_guardarRecibo.gridx = 0;
+		gbc_guardarRecibo.gridy = 3;
+		panel.add(guardarRecibo, gbc_guardarRecibo);
+		panel.add(btnConfirmar, gbc_btnConfirmar);
+		
 		btnConfirmar.addActionListener(new ActionListener() {
 
 			@Override
@@ -150,6 +174,7 @@ public class PrestarContenidoGUI extends JFrame{
 						int opt = JOptionPane.showConfirmDialog(null, "¿Confirma que quiere que "+perfil.getDNI()+" coja prestado el contenido "+c.getID()+"?", "Confirmación",JOptionPane.YES_NO_OPTION);
 						if(opt == 0) {
 							ContenidoSQL.prestarBBDD(c, perfil);
+							if(guardarRecibo.isSelected()) new Recibo(((Component)e.getSource()).getParent().getParent(),c,perfil);
 							setVisible(false);
 							JOptionPane.showMessageDialog(null, "Felicidades por haber cogido prestado el contenido "+c.getID(),"Felicidades",JOptionPane.INFORMATION_MESSAGE);
 							return;
@@ -163,7 +188,6 @@ public class PrestarContenidoGUI extends JFrame{
 			}
 			
 		});
-		panel.add(btnConfirmar, gbc_btnConfirmar);
 	}
 	
 	public String getDescripcion() {
@@ -193,3 +217,84 @@ public class PrestarContenidoGUI extends JFrame{
 	
 }
 
+class Recibo extends JFileChooser {
+	private static final long serialVersionUID = -4447198513721604954L;
+	private Contenido c;
+	private Perfil p;
+	private File currentDirectory;
+	
+	public Recibo(Component parent,Contenido c,Perfil p) {
+		this.c = c;
+		this.p = p;
+		
+		setCurrentDirectory(new File("."));
+		setDialogTitle("Guardar recibo");
+		this.setFileFilter(new FileFilter() {
+
+			@Override
+			public boolean accept(File f) {
+				return (f.isDirectory())||(f.getName().toLowerCase().endsWith(".txt"));
+			}
+
+			@Override
+			public String getDescription() {
+				return "Seleccione un archivo o una carpeta";
+			}
+			
+		});
+		setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		setAcceptAllFileFilterUsed(false);
+		
+		if(showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
+			currentDirectory = getSelectedFile();
+			System.out.println("Carpeta elegida: "+currentDirectory.getAbsolutePath());
+			createRecibo();
+		} else {
+			System.out.println("No se ha seleccionado nada");
+		}
+		
+	}
+	
+	public File createRecibo() {
+		String text = null;
+		PrintWriter d = null;
+		File file = null;
+		String directorio;
+		
+		try {
+			text = "Elementos prestados el "+(new SimpleDateFormat("dd/MM/yyyy hh:mm")).format(new Date())+"\nA "+p.getApellido()+", "+p.getNombre()+"\n\n"+
+					"Título del elemento: "+c.getTitulo()+"\n"+
+					"Fecha de vencimiento: "+c.getFechaDisponibilidad();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(currentDirectory.isDirectory()) {
+			directorio = currentDirectory.getAbsolutePath()+"/recibo'"+c.getTitulo()+"'.txt";
+		} else {
+			directorio = currentDirectory.getAbsolutePath();
+		}
+		
+		file = new File(directorio);
+		int i = 0;
+		while(file.isFile()) {
+			directorio = directorio.replace(((i!=0)? i-1:"")+".txt",i+".txt");
+			file = new File(directorio);
+			i++;
+		}
+		
+		try {
+			d = new PrintWriter(new FileWriter((file)));
+			d.println(text);
+		} catch (IOException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Ha habido un error con el recibo del préstamo", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("files/images/error.png"));
+		} finally {
+			if(d != null) {
+				d.close();
+			}
+		}
+		return file;
+	}
+	
+}

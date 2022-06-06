@@ -31,48 +31,6 @@ public class Ventana extends JFrame{
 		
 		getContentPane().add(lobby);
 		
-		//TODO este menú está mal hecho
-		/*JPopupMenu menu = new JPopupMenu();
-		menu.setVisible(false);
-		menu.setPreferredSize(new Dimension(200, 200));
-		menu.add(new JMenuItem("Copiar(Ctrl+C)"));
-		menu.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(e.getButton() == 3) {
-					menu.show((Component)e.getSource(),e.getX(),e.getY());
-					System.out.println("Messirve");
-				}
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
-		getContentPane().add(menu);*/
-		
 		setVisible(true);
 	}
 
