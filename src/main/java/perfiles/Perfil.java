@@ -16,6 +16,11 @@ import interfaz.GUIObjetosBiblioteca;
 import perfiles.excepciones.ExcepcionDNIPerfil;
 import perfiles.excepciones.ExcepcionPerfil;
 
+/**
+ * Clase encargada de ser padre del resto de perfiles, además de poder ser instancia para crear el objeto del perfil base, que serían los teóricos usuarios normales de la biblioteca
+ * @author Daniel García
+ *
+ */
 public class Perfil implements DatabaseWritable{
 	private static final long serialVersionUID = 8775700157993623247L;
 	private final char[] letrasDNI = {'T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E'};

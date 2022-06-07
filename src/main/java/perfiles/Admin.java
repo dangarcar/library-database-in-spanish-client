@@ -7,6 +7,11 @@ import javax.swing.ImageIcon;
 import perfiles.excepciones.ExcepcionDNIPerfil;
 import perfiles.excepciones.ExcepcionPerfil;
 
+/**
+ * Clase hija de Perfil que sirve para representar a los administradores, que en esta biblioteca serían los teóricos trabajadores de la misma
+ * @author Daniel García
+ *
+ */
 public class Admin extends Perfil{
 	private static final long serialVersionUID = -1129094060044587791L;
 

@@ -1,11 +1,27 @@
 package interfaz;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import contenido.Audio;
@@ -13,6 +29,11 @@ import contenido.Contenido;
 import contenido.Libros;
 import contenido.Videos;
 
+/**
+ * Esta clase es la que da la descripción avanzada de cada contenido dando los detalles sobre los contenidos
+ * @author Daniel García
+ *
+ */
 public class ExtendedGUIContenido extends JPanel{
 	private static final long serialVersionUID = 7322827919145869636L;
 	private Contenido c;

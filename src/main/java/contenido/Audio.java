@@ -6,6 +6,11 @@ import contenido.excepciones.ExcepcionAno;
 import contenido.excepciones.ExcepcionDuracion;
 import contenido.excepciones.ExcepcionSoporte;
 
+/**
+ * Clase hija de Contenido encargada de los audios de la biblioteca
+ * @author Daniel García
+ *
+ */
 public class Audio extends Contenido{
 	private static final long serialVersionUID = -549498529487274208L;
 	private double duracion;

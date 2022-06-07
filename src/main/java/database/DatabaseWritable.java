@@ -12,7 +12,7 @@ import perfiles.excepciones.ExcepcionPerfil;
 /**
  * Interfaz que hereda de Serializable y sirve para unir los objetos guardables en la BBDD,<br>
  * es decir, Contenido, pErfil y sus hijos
- * @author danie
+ * @author Daniel García
  *
  */
 public interface DatabaseWritable extends Serializable{

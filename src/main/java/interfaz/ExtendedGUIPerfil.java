@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import SQL.ContenidoSQL;
-import SQL.PerfilSQL;
+import database.ContenidoSQL;
+import database.PerfilSQL;
 import contenido.Contenido;
 import contenido.excepciones.ExcepcionContenido;
 import contenido.excepciones.ExcepcionDisponibilidad;
@@ -39,6 +39,11 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 
+/**
+ * Esta clase es la que da la descripción avanzada de cada perfil dando los detalles sobre los perfiles
+ * @author Daniel García
+ *
+ */
 class ExtendedGUIPerfil extends JPanel{
 	private static final long serialVersionUID = 7322827919145869636L;
 	private Perfil p;

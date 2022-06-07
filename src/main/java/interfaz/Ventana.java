@@ -1,20 +1,48 @@
 package interfaz;
 
-import javax.swing.*;
-
-import SQL.*;
-import contenido.*;
+import contenido.Contenido;
 import contenido.excepciones.ExcepcionContenido;
+import database.Buscador;
 import database.DatabaseWritable;
-import perfiles.*;
+import perfiles.Perfil;
 import perfiles.excepciones.ExcepcionPerfil;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
+/**
+ * Frame principal del programa
+ * @author Daniel García
+ *
+ */
 public class Ventana extends JFrame{
 	private static final long serialVersionUID = -3030099236595355215L;
 	private CardLayout windowSwitcher = new CardLayout();
@@ -40,6 +68,11 @@ public class Ventana extends JFrame{
 	
 }
 
+/**
+ * Clase encargada de mostrar en pantalla el resultado de cierta búsqueda
+ * @author Daniel García
+ *
+ */
 class ResultadoTXT extends JPanel {
 	private static final long serialVersionUID = -810498298324250318L;
 	private List<? extends DatabaseWritable> resultado = new ArrayList<DatabaseWritable>();
@@ -200,6 +233,11 @@ class BotonBuscarPerfiles extends JButton implements ActionListener{
 	
 }
 
+/**
+ * Clase encargada de la pantalla que aparece al abrir el programa
+ * @author Daniel García
+ *
+ */
 class PantallaInicio extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 5806149385417939112L;
 	private JTextField txtFieldContenidos;

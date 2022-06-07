@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 
-import SQL.PerfilSQL;
+import database.PerfilSQL;
 import perfiles.Admin;
 import perfiles.Perfil;
 import perfiles.excepciones.ExcepcionPerfil;
@@ -29,6 +29,11 @@ import javax.swing.JSpinner;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
+/**
+ * Clase encargada de añadir perfil a la BBDD a través de interfaz gráfica
+ * @author Daniel García
+ *
+ */
 public class AnadirPerfilGUI extends JFrame implements ActionListener{
 	private static final long serialVersionUID = -2800608918457961661L;
 	private JTextField textFieldNombre;

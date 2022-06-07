@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import java.awt.GridBagConstraints;
 import javax.swing.SwingConstants;
 
-import SQL.ContenidoSQL;
+import database.ContenidoSQL;
 
 import java.awt.Font;
 import java.awt.Insets;
@@ -43,6 +43,11 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 
+/**
+ * Esta clase es la que añade contenidos a la BBDD a través de una interfaz gráfica
+ * @author Daniel García
+ *
+ */
 public class AnadirContenidoGUI extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 8747700342811372445L;
 	private JTextField textFieldTitulo;

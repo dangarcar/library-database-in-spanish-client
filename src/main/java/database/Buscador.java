@@ -1,4 +1,4 @@
-package SQL;
+package database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,11 +12,16 @@ import contenido.excepciones.ExcepcionContenido;
 import perfiles.Perfil;
 import perfiles.excepciones.ExcepcionPerfil;
 
+/**
+ * Esta clase busca en la BBDD un contenido o un perfil
+ * @author Daniel García
+ *
+ */
 public class Buscador {
 	/**
 	 * Hace una búsqueda de contenido basada en el String pasado por parámetro
 	 * @param busqueda texto en el que se basa la búsqueda
-	 * @return La lista de contenidos que coinciden conesa búsqueda
+	 * @return La lista de contenidos que coinciden con esa búsqueda
 	 * @throws ExcepcionContenido
 	 */
 	public static List<Contenido> buscarContenido(String busqueda) throws ExcepcionContenido {

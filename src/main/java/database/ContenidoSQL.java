@@ -1,4 +1,4 @@
-package SQL;
+package database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,6 +24,12 @@ import contenido.excepciones.ExcepcionSoporte;
 import perfiles.Perfil;
 import perfiles.excepciones.ExcepcionPerfil;
 
+/**
+ * Clase encargada de modificar los datos de los contenidos en la BBDD<p>
+ * Los métodos <code>prestarBBDD(Contenido c,Perfil p)</code> y el método <code>devolverBBDD(Contenido c, Perfil p)</code> son los principales para prestar y devolver artículos en la biblioteca
+ * @author Daniel García
+ *
+ */
 public class ContenidoSQL {
 	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	

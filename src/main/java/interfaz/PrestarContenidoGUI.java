@@ -35,8 +35,8 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 
-import SQL.ContenidoSQL;
-import SQL.PerfilSQL;
+import database.ContenidoSQL;
+import database.PerfilSQL;
 
 import java.awt.Insets;
 
@@ -50,7 +50,7 @@ import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 
 /**
- * Esta clase sirve es la nterfaz para coger prestado un libro pasado por parámetro
+ * Esta clase es la interfaz para coger prestado un libro pasado por parámetro
  * @author danie
  *
  */

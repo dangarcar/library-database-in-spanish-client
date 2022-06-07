@@ -1,4 +1,4 @@
-package SQL;
+package database;
 
 import java.lang.reflect.Type;
 import java.sql.Connection;
@@ -19,6 +19,12 @@ import perfiles.Perfil;
 import perfiles.excepciones.ExcepcionDNIPerfil;
 import perfiles.excepciones.ExcepcionPerfil;
 
+/**
+ * Clase encargada de modificar los datos de los perfiles en la BBDD<p>
+ * Los métodos devolver y prestar de esta clase solo modifican el perfil, no cogen ningún contenido en préstamo
+ * @author Daniel García
+ *
+ */
 public class PerfilSQL {
 	/**
 	 * Crea un objeto Perfil a partir de una clave, en este caso el DNI<br>

@@ -1,4 +1,4 @@
-package SQL;
+package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,8 +8,14 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import app.App;
+
+/**
+ * Esta clase hace la conexión básica con la BBDD
+ * @author Daniel García
+ *
+ */
 public class ConectorSQL {
-	private static final String url = "D:\\Programación\\Java\\library-database\\files\\database.db";
 	private Connection connect = null;
 	
 	/**
@@ -17,7 +23,7 @@ public class ConectorSQL {
 	 */
 	public Connection conectar(){
 		try {
-			connect = DriverManager.getConnection("jdbc:sqlite:"+url);
+			connect = DriverManager.getConnection("jdbc:sqlite:"+App.url);
 			/*if (connect != null) {
 				JOptionPane.showMessageDialog(null, "Se ha conectado a la base de datos");
 			}*/

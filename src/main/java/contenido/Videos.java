@@ -8,6 +8,11 @@ import contenido.excepciones.ExcepcionDuracion;
 import contenido.excepciones.ExcepcionEdadRecomendada;
 import contenido.excepciones.ExcepcionSoporte;
 
+/**
+ * Clase hija de Audio que se encarga de los contenidos de vídeo
+ * @author Daniel García
+ *
+ */
 public class Videos extends Audio{
 	private static final long serialVersionUID = 168879872457815054L;
 	private int edadRecomendada;

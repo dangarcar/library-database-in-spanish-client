@@ -12,6 +12,11 @@ import database.DatabaseWritable;
 import interfaz.GUIObjetosBiblioteca;
 import perfiles.excepciones.ExcepcionPerfil;
 
+/**
+ * Clase padre de todos los tipos de contenido que están en la biblioteca
+ * @author Daniel García
+ *
+ */
 abstract public class Contenido implements DatabaseWritable{
 	private static final long serialVersionUID = 4858763186223118216L;
 	private String titulo;

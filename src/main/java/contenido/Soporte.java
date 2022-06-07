@@ -2,6 +2,11 @@ package contenido;
 
 import javax.swing.ImageIcon;
 
+/**
+ * Enum que define los soportes en los que pueden estar los contenidos de la biblioteca
+ * @author Daniel García
+ *
+ */
 public enum Soporte {
 	FISICO(false,new ImageIcon("files/images/libro.png")),E_BOOK(false,new ImageIcon("files/images/ebook.png")),CD(true,true,new ImageIcon("files/images/cd.png")),DVD(true,true,new ImageIcon("files/images/dvd.png")),BLURAY(true,true,new ImageIcon("files/images/bluray.png")),VINILO(true,false,new ImageIcon("files/images/vinilo.png")),CASETE(true,false,new ImageIcon("files/images/casete.png"));
 	

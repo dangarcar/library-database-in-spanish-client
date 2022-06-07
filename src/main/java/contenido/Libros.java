@@ -8,7 +8,7 @@ import contenido.excepciones.ExcepcionSoporte;
 
 /**
  * Esta clase sirve tanto como para libros como para revistas o prensa, o incluso e-books
- * @author danie
+ * @author Daniel García
  *
  */
 public class Libros extends Contenido{
