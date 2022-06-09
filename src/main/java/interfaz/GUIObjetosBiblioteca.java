@@ -14,7 +14,7 @@ import perfiles.excepciones.ExcepcionPerfil;
 
 /**
  * Solo se pueden usar los metodos que especifiquen que son compatibles con la clase 
- * de Database Writable pasado por parámetro en el constructor
+ * de Database Writable pasado por parï¿½metro en el constructor
  * @author danie
  *
  */
@@ -44,7 +44,7 @@ public class GUIObjetosBiblioteca {
 			boton.setBackground(Color.WHITE);
 			boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			boton.setIcon(new ImageIcon(((Contenido) c).getSoporte().getIcon().getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
-		} else throw new ExcepcionPerfil("Esté método no es aplicable para la clase Perfil",(Perfil) c);
+		} else throw new ExcepcionPerfil("Estï¿½ mï¿½todo no es aplicable para la clase Perfil",(Perfil) c);
 		
 		return boton;
 	}
@@ -59,17 +59,15 @@ public class GUIObjetosBiblioteca {
 			boton.setBackground(Color.WHITE);
 			boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			boton.setIcon(new ImageIcon(((Perfil) c).getIcon().getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
-		} else throw new ExcepcionContenido("Esté método no es aplicable para la clase Perfil",(Contenido) c);
+		} else throw new ExcepcionContenido("Estï¿½ mï¿½todo no es aplicable para la clase Perfil",(Contenido) c);
 		
 		return boton;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	public JPanel  createExtendedGUIContenido() {
 		return new ExtendedGUIContenido((Contenido)c,(List<? extends Contenido>) listaC); 
 	}
 	
-	@SuppressWarnings("unchecked")
 	public JPanel createExtendedGUIPerfil() {
 		return new ExtendedGUIPerfil((Perfil)c,(List<? extends Perfil>) listaC);
 	}

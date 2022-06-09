@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-import app.App;
+import application.App;
 
 /**
  * Esta clase hace la conexión básica con la BBDD
