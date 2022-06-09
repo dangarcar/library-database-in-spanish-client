@@ -48,7 +48,7 @@ public class Admin extends Perfil{
 	}
 	
 	public ImageIcon getIcon() {
-		return new ImageIcon("files/images/admin.png");
+		return new ImageIcon("src/main/resources/files/images/admin.png");
 	}
 	
 }

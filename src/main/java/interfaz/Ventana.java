@@ -53,7 +53,7 @@ public class Ventana extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBackground(SystemColor.controlDkShadow);
 		setTitle("App Biblioteca");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("files/images/icon.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/files/images/icon.png"));
 		setBounds(100,100,1000,700);
 		getContentPane().setLayout(getWindowSwitcher());
 		
@@ -203,7 +203,7 @@ class BotonBuscarContenidos extends JButton implements ActionListener{
 			parent.getContentPane().add(new ResultadoTXT(contenidos,parent),"Resultado");
 			parent.getWindowSwitcher().show(parent.getContentPane(), "Resultado");
 		} catch (Exception e1) {
-			JOptionPane.showMessageDialog(this, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE, new ImageIcon("files/images/error.png"));
+			JOptionPane.showMessageDialog(this, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 		}
 	}
 }
@@ -248,9 +248,9 @@ class PantallaInicio extends JPanel implements ActionListener{
 		setBackground(new Color(148,238,229));
 		setLayout(null);
 		
-		ImageIcon perfilLogo = new ImageIcon("files/images/perfil.png");
+		ImageIcon perfilLogo = new ImageIcon("src/main/resources/files/images/perfil.png");
 		Image perfilLogoEscalado = perfilLogo.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		ImageIcon contenidosLogo = new ImageIcon("files/images/contenidos.png");
+		ImageIcon contenidosLogo = new ImageIcon("src/main/resources/files/images/contenidos.png");
 		Image contenidosLogoEscalado = contenidosLogo.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 		
 		JLabel perfilLogoLabel = new JLabel("Perfiles de usuario");
@@ -297,7 +297,7 @@ class PantallaInicio extends JPanel implements ActionListener{
 		logo.setLocation(0, 0);
 		logo.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		logo.setBackground(Color.RED);
-		logo.setIcon(new ImageIcon("files/images/logo.png"));
+		logo.setIcon(new ImageIcon("src/main/resources/files/images/logo.png"));
 		add(logo);
 		
 		add(new BotonBuscarContenidos(parent));
@@ -336,7 +336,7 @@ class PantallaInicio extends JPanel implements ActionListener{
 		botonMenu.setBackground(Color.RED);
 		botonMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botonMenu.setBorderPainted(false);
-		botonMenu.setIcon(new ImageIcon((new ImageIcon("files/images/menu.png")).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)));
+		botonMenu.setIcon(new ImageIcon((new ImageIcon("src/main/resources/files/images/menu.png")).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)));
 		botonMenu.setToolTipText("Ver m\u00E1s opciones");
 		botonMenu.setContentAreaFilled(false);
 		botonMenu.setBounds(950, 0, 32, 32);

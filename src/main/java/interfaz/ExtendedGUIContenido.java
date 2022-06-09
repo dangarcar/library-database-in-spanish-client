@@ -122,19 +122,19 @@ public class ExtendedGUIContenido extends JPanel{
 				Contenido co = list.getSelectedValue();
 				
 				if (co ==  null)	{
-					JOptionPane.showMessageDialog(null, "No ha elegido ningún contenido para prestar", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("files/images/error.png"));
+					JOptionPane.showMessageDialog(null, "No ha elegido ningún contenido para prestar", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					return;
 				}
 			
 				if(!co.getDisponibilidad()) { 
 					JOptionPane.showMessageDialog(null, "<html><body><p>El contenido que ha elegido no está disponible.<br>Volverá a estar disponible el "+co.getFechaDisponibilidad().toString()+"</p></body></html>", 
-							"Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("files/images/error.png"));
+							"Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					return;
 				}
 				
 				if(!co.getPrestable()) {
 					JOptionPane.showMessageDialog(null, "El contenido que ha elegido no es prestable, solo se puede consultar en la propia biblioteca", 
-							"Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("files/images/error.png"));
+							"Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					return;
 				}
 				

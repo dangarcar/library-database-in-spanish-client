@@ -208,6 +208,6 @@ public class Perfil implements DatabaseWritable{
 	}
 	
 	public ImageIcon getIcon() {
-		return new ImageIcon("files/images/perfilFino.png");
+		return new ImageIcon("src/main/resources/files/images/perfilFino.png");
 	}
 }

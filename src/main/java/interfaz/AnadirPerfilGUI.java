@@ -49,7 +49,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		setResizable(false);
 		setBounds(200,200,400,450);
 		setTitle("Añadir perfil");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("files/images/perfilFino.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/files/images/perfilFino.png"));
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);

@@ -72,7 +72,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		setResizable(false);
 		setBounds(200,200,400,450);
 		setTitle("Añadir contenido");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("files/images/contenidos.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/files/images/contenidos.png"));
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);

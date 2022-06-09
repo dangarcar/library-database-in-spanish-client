@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
  *
  */
 public enum Soporte {
-	FISICO(false,new ImageIcon("files/images/libro.png")),E_BOOK(false,new ImageIcon("files/images/ebook.png")),CD(true,true,new ImageIcon("files/images/cd.png")),DVD(true,true,new ImageIcon("files/images/dvd.png")),BLURAY(true,true,new ImageIcon("files/images/bluray.png")),VINILO(true,false,new ImageIcon("files/images/vinilo.png")),CASETE(true,false,new ImageIcon("files/images/casete.png"));
+	FISICO(false,new ImageIcon("src/main/resources/files/images/libro.png")),E_BOOK(false,new ImageIcon("src/main/resources/files/images/ebook.png")),CD(true,true,new ImageIcon("src/main/resources/files/images/cd.png")),DVD(true,true,new ImageIcon("src/main/resources/files/images/dvd.png")),BLURAY(true,true,new ImageIcon("src/main/resources/files/images/bluray.png")),VINILO(true,false,new ImageIcon("src/main/resources/files/images/vinilo.png")),CASETE(true,false,new ImageIcon("src/main/resources/files/images/casete.png"));
 	
 	private boolean multimedia;
 	private boolean audiovisual;

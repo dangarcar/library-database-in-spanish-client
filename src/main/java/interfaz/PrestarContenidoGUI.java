@@ -65,7 +65,7 @@ public class PrestarContenidoGUI extends JFrame{
 		setBounds(200,200,400,500);
 		
 		setTitle("Prestar contenido");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("files\\images\\contenidos.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/files\\images\\contenidos.png"));
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.controlHighlight);
@@ -155,17 +155,17 @@ public class PrestarContenidoGUI extends JFrame{
 				try {
 					dni= Integer.parseInt(textField.getText());
 				} catch(NumberFormatException e1) {
-					JOptionPane.showMessageDialog(null, "No se ha reconocido un número en el campo \"ID\"", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("files/images/error.png"));
+					JOptionPane.showMessageDialog(null, "No se ha reconocido un número en el campo \"ID\"", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					textField.setBorder(new LineBorder(Color.RED,3));
 				}
 				
 				try {
 					perfil = PerfilSQL.getPerfil(dni);
 				} catch (ExcepcionDNIPerfil e1) {
-					JOptionPane.showMessageDialog(null, "No se ha reconocido un usuario con el DNI"+dni, "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("files/images/error.png"));
+					JOptionPane.showMessageDialog(null, "No se ha reconocido un usuario con el DNI"+dni, "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					textField.setBorder(new LineBorder(Color.RED,3));
 				} catch (ExcepcionPerfil e1) {
-					JOptionPane.showMessageDialog(null, "Ha habido un error la identificación de usuario", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("files/images/error.png"));
+					JOptionPane.showMessageDialog(null, "Ha habido un error la identificación de usuario", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					textField.setBorder(new LineBorder(Color.RED,3));
 				}
 				
@@ -181,7 +181,7 @@ public class PrestarContenidoGUI extends JFrame{
 						}
 					} catch (ExcepcionContenido | ExcepcionPerfil e1) {
 						e1.printStackTrace();
-						JOptionPane.showMessageDialog(null, "Ha habido un error con el préstamo del contenido", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("files/images/error.png"));
+						JOptionPane.showMessageDialog(null, "Ha habido un error con el préstamo del contenido", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					}
 				}
 				
@@ -288,7 +288,7 @@ class Recibo extends JFileChooser {
 			d.println(text);
 		} catch (IOException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Ha habido un error con el recibo del préstamo", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("files/images/error.png"));
+			JOptionPane.showMessageDialog(null, "Ha habido un error con el recibo del préstamo", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 		} finally {
 			if(d != null) {
 				d.close();

@@ -20,13 +20,22 @@ import perfiles.excepciones.ExcepcionPerfil;
  */
 public class GUIObjetosBiblioteca {
 	private DatabaseWritable c;
-	private List<DatabaseWritable> listaC = new ArrayList<DatabaseWritable>();	
+	private List<DatabaseWritable> listaC = new ArrayList<DatabaseWritable>();
+	
+	private List<Contenido> listaCCon = new ArrayList<Contenido>();
+	private List<Perfil> listaCPer = new ArrayList<Perfil>();
 	
 	public GUIObjetosBiblioteca(DatabaseWritable d,List<? extends DatabaseWritable> listaD) {
 		if(listaD != null) {
 			for (DatabaseWritable o: listaD) {
 				if(o.getSpecificID() == d.getSpecificID()) {
 					listaC.add(o);
+					if(o instanceof Contenido) {
+						listaCCon.add((Contenido)o);
+					}
+					if (o instanceof Perfil) {
+						listaCPer.add((Perfil)o);
+					}
 					//System.out.println(((Contenido)o).getTitulo());
 				}
 			}
@@ -44,7 +53,7 @@ public class GUIObjetosBiblioteca {
 			boton.setBackground(Color.WHITE);
 			boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			boton.setIcon(new ImageIcon(((Contenido) c).getSoporte().getIcon().getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
-		} else throw new ExcepcionPerfil("Estï¿½ mï¿½todo no es aplicable para la clase Perfil",(Perfil) c);
+		} else throw new ExcepcionPerfil("Este método no es aplicable para la clase Perfil",(Perfil) c);
 		
 		return boton;
 	}
@@ -65,11 +74,11 @@ public class GUIObjetosBiblioteca {
 	}
 	
 	public JPanel  createExtendedGUIContenido() {
-		return new ExtendedGUIContenido((Contenido)c,(List<? extends Contenido>) listaC); 
+		return new ExtendedGUIContenido((Contenido)c,listaCCon); 
 	}
 	
 	public JPanel createExtendedGUIPerfil() {
-		return new ExtendedGUIPerfil((Perfil)c,(List<? extends Perfil>) listaC);
+		return new ExtendedGUIPerfil((Perfil)c,listaCPer);
 	}
 	
 }
