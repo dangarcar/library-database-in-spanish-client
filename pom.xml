@@ -7,7 +7,7 @@
   	<dependency>
   	  <groupId>org.xerial</groupId>
   	  <artifactId>sqlite-jdbc</artifactId>
-  	  <version>3.15.1</version>
+  	  <version>3.36.0.3</version>
   	</dependency>
   	<dependency>
   	  <groupId>com.google.code.gson</groupId>
@@ -36,6 +36,48 @@
           </archive>
         </configuration>
       </plugin>
+	  <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+		  <transformers>
+			<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+		      <resource>META-INF/services/java.sql.Driver</resource>
+		    </transformer>
+		  </transformers>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+	  </plugin>
+      <!--<plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.2.1</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib/</classpathPrefix>
+              <mainClass>application.App</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-all-in-one-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>-->
     </plugins>
   </build>
 </project>

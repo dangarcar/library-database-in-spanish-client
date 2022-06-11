@@ -1,11 +1,5 @@
 package application;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
 import interfaz.Ventana;
 
 /**
@@ -36,7 +30,7 @@ public class App {
 		return result;
 	}*/
 	
-	public static final String url = "src/main/resources/database.db";
+	public static final String url = "src/main/java/database/database.db";
 	
 	public static void main(String [] args){
 		new Ventana();

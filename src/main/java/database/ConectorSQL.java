@@ -23,11 +23,9 @@ public class ConectorSQL {
 	 */
 	public Connection conectar(){
 		try {
-			connect = DriverManager.getConnection("jdbc:sqlite:"+App.url);
-			/*if (connect != null) {
-				JOptionPane.showMessageDialog(null, "Se ha conectado a la base de datos");
-			}*/
-		} catch (SQLException e) {
+			Class.forName("org.sqlite.JDBC");
+            connect = DriverManager.getConnection("jdbc:sqlite:"+App.url);
+		} catch (SQLException | ClassNotFoundException e) {
 			JOptionPane.showMessageDialog(null, "NO se ha podido establecer conexión con la base de datos");
 			e.printStackTrace();
 		}
