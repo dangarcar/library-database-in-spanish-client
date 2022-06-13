@@ -327,10 +327,13 @@ class PantallaInicio extends JPanel implements ActionListener{
 			
 		});
 		popupMenu.add(contenidosMenu);
+		/*
+		TODO Estaría bien hacer menú de ayuda
 		JMenuItem ayudaMenu = new JMenuItem("Ayuda");
 		popupMenu.add(ayudaMenu);
 		JMenuItem informacionMenu = new JMenuItem("Más información");
 		popupMenu.add(informacionMenu);
+		*/
 		
 		JButton botonMenu = new JButton();
 		botonMenu.setBackground(Color.RED);

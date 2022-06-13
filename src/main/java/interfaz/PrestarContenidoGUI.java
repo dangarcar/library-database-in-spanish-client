@@ -227,7 +227,7 @@ class Recibo extends JFileChooser {
 		this.c = c;
 		this.p = p;
 		
-		setCurrentDirectory(new File("."));
+		setCurrentDirectory(new File("src/main/resources/files/recibos"));
 		setDialogTitle("Guardar recibo");
 		this.setFileFilter(new FileFilter() {
 

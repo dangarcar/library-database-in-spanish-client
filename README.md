@@ -1,6 +1,18 @@
-#Library Database In Spanish
+# Library Database In Spanish
 
 
-![Imagen de la pantalla de inicio del programa](files/images/captura.png)
+![Imagen de la pantalla de inicio del programa](src/main/resources/files/images/captura.png)
 
-#How to build
+# Requisitos previos
+- Tener Java
+
+- Tener Maven
+
+# How to build
+Ejecuta el siguiente comando para hacer la build de la aplicación:
+
+`mvn clean package`
+
+Ejecuta el siguiente comando para ejecutar la aplicación:
+
+`java -jar target/DatabaseInSpanish-(version).jar`

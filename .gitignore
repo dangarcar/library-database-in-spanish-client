@@ -3,5 +3,5 @@
 .settings/
 target/
 src/test/
-files/recibos/
-files/database.db
+src/main/resources/files/recibos/
+src/main/java/database/database.db
