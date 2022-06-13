@@ -1,18 +1,22 @@
 # Library Database In Spanish
 
+Esta aplicaci贸n hecha con Java, Maven, Sqlite y Gson sirve para prestar, devolver y controlar los contenidos y usuarios de una biblioteca.
 
 ![Imagen de la pantalla de inicio del programa](src/main/resources/files/images/captura.png)
 
-# Requisitos previos
-- Tener Java
+## Requisitos previos
+- Tener [Java](https://www.java.com/en/) instalado (Como m铆nimo la versi贸n JRE 17)
+- Tener [Maven](https://maven.apache.org/) instalado (Como m铆nimo versi贸n 3.8)
+- Tener [Sqlite](https://www.sqlite.org/) instalado (Como m铆nimo version 3.38)
+## C贸mo ejecutarlo
+1. Abre una terminal en el directorio del proyecto.
 
-- Tener Maven
+2. Ejecuta el siguiente comando para hacer la build de la aplicaci贸n:
+>```console
+>mvn clean package
+>```
 
-# How to build
-Ejecuta el siguiente comando para hacer la build de la aplicaci髇:
-
-`mvn clean package`
-
-Ejecuta el siguiente comando para ejecutar la aplicaci髇:
-
-`java -jar target/DatabaseInSpanish-(version).jar`
+3. Ejecuta el siguiente comando para ejecutar la aplicaci贸n:
+>```console 
+>java -jar target/DatabaseInSpanish-(version).jar
+>```
