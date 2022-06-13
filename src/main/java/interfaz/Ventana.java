@@ -40,7 +40,7 @@ import javax.swing.UIManager;
 
 /**
  * Frame principal del programa
- * @author Daniel García
+ * @author Daniel GarcÃ­a
  *
  */
 public class Ventana extends JFrame{
@@ -52,7 +52,7 @@ public class Ventana extends JFrame{
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBackground(SystemColor.controlDkShadow);
-		setTitle("App Biblioteca");
+		setTitle("Library Database In Spanish");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/files/images/icon.png"));
 		setBounds(100,100,1000,700);
 		getContentPane().setLayout(getWindowSwitcher());
@@ -69,8 +69,8 @@ public class Ventana extends JFrame{
 }
 
 /**
- * Clase encargada de mostrar en pantalla el resultado de cierta búsqueda
- * @author Daniel García
+ * Clase encargada de mostrar en pantalla el resultado de cierta bÃºsqueda
+ * @author Daniel GarcÃ­a
  *
  */
 class ResultadoTXT extends JPanel {
@@ -91,7 +91,7 @@ class ResultadoTXT extends JPanel {
 		
 		this.resultado = resultado;
 		
-		tituloResultadoBusqueda = new JLabel("Resultado de búsqueda");
+		tituloResultadoBusqueda = new JLabel("Resultado de bÃºsqueda");
 		tituloResultadoBusqueda.setBackground(Color.WHITE);
 		tituloResultadoBusqueda.setSize(new Dimension(0, 100));
 		tituloResultadoBusqueda.setHorizontalAlignment(SwingConstants.CENTER);
@@ -119,7 +119,7 @@ class ResultadoTXT extends JPanel {
 		scrollPane.setMinimumSize(new Dimension(200, 0));
 		splitPane.setRightComponent(scrollPane);
 		
-		//Para cada objeto no repetido, creo un botón
+		//Para cada objeto no repetido, creo un botÃ³n
 		for(DatabaseWritable o:searchObjects()) {
 			JButton boton = null;
 			try {
@@ -141,7 +141,7 @@ class ResultadoTXT extends JPanel {
 		}
 		scrollPane.setViewportView(panelBotones);
 		
-		//El botón de volver ala pantalla principal
+		//El botÃ³n de volver ala pantalla principal
 		botonVolverAtras = new JButton("Volver");
 		botonVolverAtras.addActionListener(new ActionListener() {
 			@Override
@@ -155,7 +155,7 @@ class ResultadoTXT extends JPanel {
 	}
 	
 	/**
-	 * Devuelve los objetos de la lista delresultado de búsqueda no repetidos
+	 * Devuelve los objetos de la lista delresultado de bÃºsqueda no repetidos
 	 * @return ArrayList de DatabaseWritable
 	 */
 	public List<? extends DatabaseWritable> searchObjects(){
@@ -172,7 +172,7 @@ class ResultadoTXT extends JPanel {
 				}
 			}
 			if (resultado.isEmpty()){
-				new Thread(new Runnable() { @Override public void run() {JOptionPane.showMessageDialog(panelBotones,"No existe ningún objeto que coincida con la búsqueda");} }).start();;
+				new Thread(new Runnable() { @Override public void run() {JOptionPane.showMessageDialog(panelBotones,"No existe ningÃºn objeto que coincida con la bÃºsqueda");} }).start();;
 			}
 		}
 		return resultados;
@@ -235,7 +235,7 @@ class BotonBuscarPerfiles extends JButton implements ActionListener{
 
 /**
  * Clase encargada de la pantalla que aparece al abrir el programa
- * @author Daniel García
+ * @author Daniel GarcÃ­a
  *
  */
 class PantallaInicio extends JPanel implements ActionListener{
@@ -307,7 +307,7 @@ class PantallaInicio extends JPanel implements ActionListener{
 		popupMenu.setFont(new Font("Segoe UI",16,Font.BOLD));
 		popupMenu.setSize(200, 300);
 		popupMenu.setBackground(new Color(240,240,240));
-		JMenuItem perfilesMenu = new JMenuItem("Añadir perfil...");
+		JMenuItem perfilesMenu = new JMenuItem("AÃ±adir perfil...");
 		perfilesMenu.addActionListener(new ActionListener() {
 
 			@Override
@@ -317,7 +317,7 @@ class PantallaInicio extends JPanel implements ActionListener{
 			
 		});
 		popupMenu.add(perfilesMenu);
-		JMenuItem contenidosMenu = new JMenuItem("Añadir contenido...");
+		JMenuItem contenidosMenu = new JMenuItem("AÃ±adir contenido...");
 		contenidosMenu.addActionListener(new ActionListener() {
 
 			@Override
@@ -328,10 +328,10 @@ class PantallaInicio extends JPanel implements ActionListener{
 		});
 		popupMenu.add(contenidosMenu);
 		/*
-		TODO Estaría bien hacer menú de ayuda
+		TODO EstarÃ­a bien hacer menÃº de ayuda
 		JMenuItem ayudaMenu = new JMenuItem("Ayuda");
 		popupMenu.add(ayudaMenu);
-		JMenuItem informacionMenu = new JMenuItem("Más información");
+		JMenuItem informacionMenu = new JMenuItem("MÃ¡s informaciÃ³n");
 		popupMenu.add(informacionMenu);
 		*/
 		
