@@ -12,6 +12,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -20,6 +21,9 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +56,7 @@ public class Ventana extends JFrame{
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBackground(SystemColor.controlDkShadow);
-		setTitle("App Biblioteca");
+		setTitle("");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/files/images/icon.png"));
 		setBounds(100,100,1000,700);
 		getContentPane().setLayout(getWindowSwitcher());
@@ -303,37 +307,51 @@ class PantallaInicio extends JPanel implements ActionListener{
 		add(new BotonBuscarContenidos(parent));
 		add(new BotonBuscarPerfiles(parent));
 		
+		
 		popupMenu = new JPopupMenu();
 		popupMenu.setFont(new Font("Segoe UI",16,Font.BOLD));
 		popupMenu.setSize(200, 300);
 		popupMenu.setBackground(new Color(240,240,240));
+		
 		JMenuItem perfilesMenu = new JMenuItem("Añadir perfil...");
 		perfilesMenu.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new AnadirPerfilGUI();
 			}
-			
 		});
 		popupMenu.add(perfilesMenu);
+		
 		JMenuItem contenidosMenu = new JMenuItem("Añadir contenido...");
 		contenidosMenu.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new AnadirContenidoGUI();
 			}
-			
 		});
 		popupMenu.add(contenidosMenu);
+		
+		JMenuItem informacionMenu = new JMenuItem("Más información");
+		informacionMenu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+				    try {
+						Desktop.getDesktop().browse(new URI("https://github.com/dangarcar/library-database-in-spanish"));
+					} catch (IOException | URISyntaxException e1) {
+						JOptionPane.showMessageDialog(null, "No se ha podido acceder a la información extra", "Error", JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		popupMenu.add(informacionMenu);
 		/*
 		TODO Estaría bien hacer menú de ayuda
 		JMenuItem ayudaMenu = new JMenuItem("Ayuda");
 		popupMenu.add(ayudaMenu);
-		JMenuItem informacionMenu = new JMenuItem("Más información");
-		popupMenu.add(informacionMenu);
 		*/
+		
 		
 		JButton botonMenu = new JButton();
 		botonMenu.setBackground(Color.RED);
