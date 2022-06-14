@@ -44,7 +44,7 @@ import javax.swing.UIManager;
 
 /**
  * Frame principal del programa
- * @author Daniel García
+ * @author Daniel Garc�a
  *
  */
 public class Ventana extends JFrame{
@@ -73,8 +73,8 @@ public class Ventana extends JFrame{
 }
 
 /**
- * Clase encargada de mostrar en pantalla el resultado de cierta búsqueda
- * @author Daniel García
+ * Clase encargada de mostrar en pantalla el resultado de cierta busqueda
+ * @author Daniel Garc�a
  *
  */
 class ResultadoTXT extends JPanel {
@@ -95,7 +95,7 @@ class ResultadoTXT extends JPanel {
 		
 		this.resultado = resultado;
 		
-		tituloResultadoBusqueda = new JLabel("Resultado de búsqueda");
+		tituloResultadoBusqueda = new JLabel("Resultado de busqueda");
 		tituloResultadoBusqueda.setBackground(Color.WHITE);
 		tituloResultadoBusqueda.setSize(new Dimension(0, 100));
 		tituloResultadoBusqueda.setHorizontalAlignment(SwingConstants.CENTER);
@@ -123,7 +123,7 @@ class ResultadoTXT extends JPanel {
 		scrollPane.setMinimumSize(new Dimension(200, 0));
 		splitPane.setRightComponent(scrollPane);
 		
-		//Para cada objeto no repetido, creo un botón
+		//Para cada objeto no repetido, creo un boton
 		for(DatabaseWritable o:searchObjects()) {
 			JButton boton = null;
 			try {
@@ -145,7 +145,7 @@ class ResultadoTXT extends JPanel {
 		}
 		scrollPane.setViewportView(panelBotones);
 		
-		//El botón de volver ala pantalla principal
+		//El boton de volver a la pantalla principal
 		botonVolverAtras = new JButton("Volver");
 		botonVolverAtras.addActionListener(new ActionListener() {
 			@Override
@@ -159,7 +159,7 @@ class ResultadoTXT extends JPanel {
 	}
 	
 	/**
-	 * Devuelve los objetos de la lista delresultado de búsqueda no repetidos
+	 * Devuelve los objetos de la lista delresultado de busqueda no repetidos
 	 * @return ArrayList de DatabaseWritable
 	 */
 	public List<? extends DatabaseWritable> searchObjects(){
@@ -176,7 +176,7 @@ class ResultadoTXT extends JPanel {
 				}
 			}
 			if (resultado.isEmpty()){
-				new Thread(new Runnable() { @Override public void run() {JOptionPane.showMessageDialog(panelBotones,"No existe ningún objeto que coincida con la búsqueda");} }).start();;
+				new Thread(new Runnable() { @Override public void run() {JOptionPane.showMessageDialog(panelBotones,"No existe ningun objeto que coincida con la busqueda");} }).start();;
 			}
 		}
 		return resultados;
@@ -239,7 +239,7 @@ class BotonBuscarPerfiles extends JButton implements ActionListener{
 
 /**
  * Clase encargada de la pantalla que aparece al abrir el programa
- * @author Daniel García
+ * @author Daniel Garcia
  *
  */
 class PantallaInicio extends JPanel implements ActionListener{
@@ -360,7 +360,7 @@ class PantallaInicio extends JPanel implements ActionListener{
 		botonMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botonMenu.setBorderPainted(false);
 		botonMenu.setIcon(new ImageIcon((new ImageIcon("src/main/resources/files/images/menu.png")).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)));
-		botonMenu.setToolTipText("Ver m\u00E1s opciones");
+		botonMenu.setToolTipText("Ver m�s opciones");
 		botonMenu.setContentAreaFilled(false);
 		botonMenu.setBounds(950, 0, 32, 32);
 		botonMenu.addActionListener(this);

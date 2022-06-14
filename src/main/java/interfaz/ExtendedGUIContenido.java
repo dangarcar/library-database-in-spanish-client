@@ -88,7 +88,7 @@ public class ExtendedGUIContenido extends JPanel{
 		gbl_prestamoTab.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
 		prestamoTab.setLayout(gbl_prestamoTab);
 		
-		JLabel lblPrestamo = new JLabel("Pr\u00E9stamos y ejemplares disponibles");
+		JLabel lblPrestamo = new JLabel("Préstamos y ejemplares disponibles");
 		lblPrestamo.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lblPrestamo.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblPrestamo = new GridBagConstraints();

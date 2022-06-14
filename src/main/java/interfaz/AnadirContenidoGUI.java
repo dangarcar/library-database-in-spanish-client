@@ -83,7 +83,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JLabel lblEnunciado = new JLabel("A\u00F1adir contenido");
+		JLabel lblEnunciado = new JLabel("Añadir contenido");
 		lblEnunciado.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		lblEnunciado.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblEnunciado = new GridBagConstraints();
@@ -94,7 +94,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		gbc_lblEnunciado.gridy = 0;
 		panel.add(lblEnunciado, gbc_lblEnunciado);
 		
-		JLabel lblTitulo = new JLabel("T\u00EDtulo:");
+		JLabel lblTitulo = new JLabel("Título:");
 		lblTitulo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		GridBagConstraints gbc_lblTitulo = new GridBagConstraints();
 		gbc_lblTitulo.anchor = GridBagConstraints.EAST;
@@ -132,7 +132,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		gbc_textAutor.gridy = 2;
 		panel.add(textAutor, gbc_textAutor);
 		
-		JLabel lblAno = new JLabel("A\u00F1o de publicaci\u00F3n:");
+		JLabel lblAno = new JLabel("Año de publicación:");
 		lblAno.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		GridBagConstraints gbc_lblAno = new GridBagConstraints();
 		gbc_lblAno.anchor = GridBagConstraints.EAST;
@@ -169,7 +169,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		gbc_textFieldIdioma.gridy = 4;
 		panel.add(textFieldIdioma, gbc_textFieldIdioma);
 		
-		JLabel lblDescripcion = new JLabel("Descripci\u00F3n:");
+		JLabel lblDescripcion = new JLabel("Descripción:");
 		lblDescripcion.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		GridBagConstraints gbc_lblDescripcion = new GridBagConstraints();
 		gbc_lblDescripcion.anchor = GridBagConstraints.EAST;
@@ -208,7 +208,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		gbc_panelDiasPrestado.gridy = 6;
 		panel.add(panelDiasPrestado, gbc_panelDiasPrestado);
 		
-		JLabel lblDiasPrestado = new JLabel("D\u00EDas a ser prestado:");
+		JLabel lblDiasPrestado = new JLabel("Días a ser prestado:");
 		lblDiasPrestado.setPreferredSize(new Dimension(105, 20));
 		lblDiasPrestado.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		panelDiasPrestado.add(lblDiasPrestado);
@@ -307,7 +307,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 			
 		});
 		
-		JButton btnAnadir = new JButton("A\u00F1adir");
+		JButton btnAnadir = new JButton("Añadir");
 		GridBagConstraints gbc_btnAnadir = new GridBagConstraints();
 		gbc_btnAnadir.fill = GridBagConstraints.BOTH;
 		gbc_btnAnadir.gridwidth = 2;
