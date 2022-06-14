@@ -18,5 +18,5 @@ Esta aplicación hecha con Java, Maven, Sqlite y Gson sirve para prestar, devolv
 
 3. Ejecuta el siguiente comando para ejecutar la aplicación:
 >```console 
->java -jar target/DatabaseInSpanish-(version).jar
+>java -jar target/LibraryDatabaseInSpanish-(version).jar
 >```
