@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import static database.PerfilSQL.*;
 
 import contenido.Audio;
 import contenido.Contenido;
@@ -40,7 +41,7 @@ public class ContenidoSQL {
 	 * @return El objeto de la clase Libro que corresponda a ese ISBN
 	 * @throws ExcepcionContenido 
 	 */
-	public static ArrayList<Libros> getLibro(long isbn,Boolean d) throws ExcepcionContenido {
+	public static ArrayList<Libros> GetLibro(long isbn,Boolean d) throws ExcepcionContenido {
 		ConectorSQL conector = null;
 		ResultSet resultado = null;
 		ArrayList<Libros> libros = new ArrayList<Libros>();
@@ -128,7 +129,7 @@ public class ContenidoSQL {
 	 * @return El objeto de la clase Audio que corresponda a ese ID
 	 * @throws ExcepcionContenido 
 	 */
-	public static ArrayList<Audio> getAudiovisual(int id,Boolean d) throws ExcepcionContenido{
+	public static ArrayList<Audio> GetAudiovisual(int id,Boolean d) throws ExcepcionContenido{
 		ConectorSQL conector = null;
 		ResultSet resultado = null;
 		ArrayList<Audio> audiovisuales = new ArrayList<Audio>();
@@ -230,7 +231,7 @@ public class ContenidoSQL {
 	 * @param id El identificador dentro de la biblioteca
 	 * @return El contenido con ese ID si existe;
 	 */
-	public static Contenido getContenidoByID(int id) throws ExcepcionContenido{
+	public static Contenido GetContenidoByID(int id) throws ExcepcionContenido{
 		ConectorSQL conector = null;
 		ResultSet resultado = null;
 		Contenido c = null;
@@ -323,7 +324,7 @@ public class ContenidoSQL {
 	 * @param libro El objeto libora ser guardado en la BBDD
 	 * @throws ExcepcionContenido si 
 	 */
-	public static void writeLibro(Libros libro) throws ExcepcionContenido {
+	public static void WriteLibro(Libros libro) throws ExcepcionContenido {
 		ConectorSQL conector = null;
 		PreparedStatement st;
 		PreparedStatement stDetalles;
@@ -391,7 +392,7 @@ public class ContenidoSQL {
 	 * @param libro El objeto Audio a ser guardado en la BBDD
 	 * @throws ExcepcionContenido si 
 	 */
-	public static void writeAudiovisual(Audio audiovisual) throws ExcepcionContenido {
+	public static void WriteAudiovisual(Audio audiovisual) throws ExcepcionContenido {
 		ConectorSQL conector = null;
 		PreparedStatement st;
 		PreparedStatement stDetalles;
@@ -464,7 +465,7 @@ public class ContenidoSQL {
 	 * @throws ExcepcionPerfil 
 	 * @throws ExcepcionDsiponibilidad
 	 */
-	public static boolean prestarBBDD(Contenido c,Perfil p) throws ExcepcionDisponibilidad, ExcepcionContenido, ExcepcionPerfil {
+	public static boolean Prestar(Contenido c,Perfil p) throws ExcepcionDisponibilidad, ExcepcionContenido, ExcepcionPerfil {
 		ConectorSQL conector = null;
 		PreparedStatement st;
 		Connection connect = null;
@@ -497,7 +498,7 @@ public class ContenidoSQL {
 					st.clearParameters();
 				
 					//Modifico tambien la base de datos de los perfiles añadiendo el contenido a la lista de prestados del perfil pasado por parámetro
-					PerfilSQL.prestarPerfilBBDD(connect,c, p);
+					PrestarPerfilBBDD(connect,c, p);
 					
 					connect.commit();
 					
@@ -539,7 +540,7 @@ public class ContenidoSQL {
 	 * @throws ExcepcionDisponibilidad
 	 * @throws ExcepcionPerfil 
 	 */
-	public static boolean devolverBBDD(Contenido c, Perfil p) throws ExcepcionDisponibilidad, ExcepcionPerfil {
+	public static boolean Devolver(Contenido c, Perfil p) throws ExcepcionDisponibilidad, ExcepcionPerfil {
 		ConectorSQL conector = null;
 		PreparedStatement st;
 		Connection connect = null;
@@ -573,7 +574,7 @@ public class ContenidoSQL {
 					st.clearParameters();
 				
 					//Modifico tambien la base de datos de los perfiles añadiendo el contenido a la lista de prestados del perfil pasado por parámetro
-					PerfilSQL.devolverPerfilBBDD(connect,c, p);
+					DevolverPerfilBBDD(connect,c, p);
 					
 					connect.commit();
 					
@@ -608,7 +609,7 @@ public class ContenidoSQL {
 		return t;
 	}
 	
-	public static void deleteContenido(Contenido c) {
+	public static void DeleteContenido(Contenido c) {
 		ConectorSQL conector = null;
 		PreparedStatement st;
 		Connection connect = null;

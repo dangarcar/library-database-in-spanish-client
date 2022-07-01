@@ -2,7 +2,7 @@ package interfaz;
 
 import contenido.Contenido;
 import contenido.excepciones.ExcepcionContenido;
-import database.Buscador;
+import static database.Buscador.*;
 import database.DatabaseWritable;
 import perfiles.Perfil;
 import perfiles.excepciones.ExcepcionPerfil;
@@ -21,6 +21,8 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -54,6 +56,7 @@ public class Ventana extends JFrame{
 	
 	public Ventana() {
 		setResizable(false);
+		setFocusable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBackground(SystemColor.controlDkShadow);
 		setTitle("Library Database In Spanish");
@@ -203,7 +206,7 @@ class BotonBuscarContenidos extends JButton implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			contenidos = Buscador.buscarContenido((parent.getLobby().getTxtFieldContenidos().getText().equals("")? null:parent.getLobby().getTxtFieldContenidos().getText()));
+			contenidos = BuscarContenido((parent.getLobby().getTxtFieldContenidos().getText().equals("")? null:parent.getLobby().getTxtFieldContenidos().getText()));
 			parent.getContentPane().add(new ResultadoTXT(contenidos,parent),"Resultado");
 			parent.getWindowSwitcher().show(parent.getContentPane(), "Resultado");
 		} catch (Exception e1) {
@@ -230,7 +233,7 @@ class BotonBuscarPerfiles extends JButton implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		perfiles = Buscador.buscarPerfiles((parent.getLobby().getTxtFieldPerfiles().getText().equals("")? null:parent.getLobby().getTxtFieldPerfiles().getText()));
+		perfiles = BuscarPerfiles((parent.getLobby().getTxtFieldPerfiles().getText().equals("")? null:parent.getLobby().getTxtFieldPerfiles().getText()));
 		parent.getContentPane().add(new ResultadoTXT(perfiles,parent),"Resultado");
 		parent.getWindowSwitcher().show(parent.getContentPane(), "Resultado");
 	}
@@ -274,6 +277,32 @@ class PantallaInicio extends JPanel implements ActionListener{
 		txtFieldContenidos.setColumns(10);
 		txtFieldContenidos.setPreferredSize(new Dimension(40, 200));
 		txtFieldContenidos.setHorizontalAlignment(SwingConstants.CENTER);
+		txtFieldContenidos.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				int code = e.getKeyCode();
+				
+				switch(code) {
+				case KeyEvent.VK_ENTER:
+					try {
+						List<Contenido> contenidos = BuscarContenido((txtFieldContenidos.getText().equals("")? null:txtFieldContenidos.getText()));
+						parent.getContentPane().add(new ResultadoTXT(contenidos,parent),"Resultado");
+						parent.getWindowSwitcher().show(parent.getContentPane(), "Resultado");
+					} catch (ExcepcionContenido e1) {
+						e1.printStackTrace();
+					}
+					break;
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {}
+			
+		});
 		add(txtFieldContenidos);
 		
 		JLabel contenidosLogoLabel = new JLabel("Contenidos");
@@ -293,6 +322,28 @@ class PantallaInicio extends JPanel implements ActionListener{
 		txtFieldPerfiles.setColumns(10);
 		txtFieldPerfiles.setPreferredSize(new Dimension(40, 200));
 		txtFieldPerfiles.setHorizontalAlignment(SwingConstants.CENTER);
+		txtFieldPerfiles.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				int code = e.getKeyCode();
+				
+				switch(code) {
+				case KeyEvent.VK_ENTER:
+					List<Perfil> perfiles = BuscarPerfiles((txtFieldPerfiles.getText().equals("")? null:txtFieldPerfiles.getText()));
+					parent.getContentPane().add(new ResultadoTXT(perfiles,parent),"Resultado");
+					parent.getWindowSwitcher().show(parent.getContentPane(), "Resultado");
+					break;
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {}
+			
+		});
 		add(txtFieldPerfiles);
 		
 		JLabel logo = new JLabel();

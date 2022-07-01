@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import database.ContenidoSQL;
-import database.PerfilSQL;
+import static database.ContenidoSQL.*;
+import static database.PerfilSQL.*;
 import contenido.Contenido;
 import contenido.excepciones.ExcepcionContenido;
 import contenido.excepciones.ExcepcionDisponibilidad;
@@ -121,7 +121,7 @@ class ExtendedGUIPerfil extends JPanel{
 		for(int i:p.getEnPrestamo()) {
 			Contenido c = null;
 			try {
-				c = ContenidoSQL.getContenidoByID(i);
+				c = GetContenidoByID(i);
 				contenidosEnPrestamo.add(c);
 			} catch (ExcepcionContenido e1) {
 				System.out.println(e1.getMessage());
@@ -154,7 +154,7 @@ class ExtendedGUIPerfil extends JPanel{
 					
 					if(JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres devolver el contenido seleccionado?", "Confirmación", JOptionPane.YES_NO_OPTION) == 0) {
 						try {
-							if(ContenidoSQL.devolverBBDD(c, p)) {
+							if(Devolver(c, p)) {
 								list.remove(list.getSelectedIndex());
 								JOptionPane.showMessageDialog(null, "Gracias por haber devuelto el contenido "+c.getID(),"Operación realizada correctamente",JOptionPane.INFORMATION_MESSAGE);
 							} else {
@@ -222,7 +222,7 @@ class ButtonToAdminOrPerfil extends JButton implements ActionListener{
 		if(p instanceof Admin) {
 			try {
 				if(JOptionPane.showConfirmDialog(null, "¿Desea conventir a "+p.getDNI()+" en perfil normal?", "Confirmación", JOptionPane.YES_NO_OPTION) == 0) {
-					PerfilSQL.adminToPerfil((Admin)p);
+					AdminToPerfil((Admin)p);
 					JOptionPane.showMessageDialog(null, "Felicidades:"+p.getDNI()+" ahora es un perfil normal", "¡Felicidades!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			} catch (ExcepcionPerfil e1) {
@@ -231,7 +231,7 @@ class ButtonToAdminOrPerfil extends JButton implements ActionListener{
 		} else {
 			try {
 				if(JOptionPane.showConfirmDialog(null, "¿Desea conventir a "+p.getDNI()+" en administrador?", "Confirmación", JOptionPane.YES_NO_OPTION) == 0) {
-					PerfilSQL.perfilToAdmin(p);
+					PerfilToAdmin(p);
 					JOptionPane.showMessageDialog(null, "Felicidades:"+p.getDNI()+" ahora es administrador", "¡Felicidades!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			} catch (ExcepcionPerfil e1) {

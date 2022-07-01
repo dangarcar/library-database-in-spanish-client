@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 
-import database.PerfilSQL;
+import static database.PerfilSQL.*;
 import perfiles.Admin;
 import perfiles.Perfil;
 import perfiles.excepciones.ExcepcionPerfil;
@@ -241,8 +241,8 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 			try {
 				//Si lo confirma
 				if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea añadir a "+perfil.getNombre()+" ?","Confirmación",JOptionPane.YES_NO_OPTION) == 0) {
-					if (admin) PerfilSQL.writeAdmin((Admin)perfil);
-					else PerfilSQL.writePerfil(perfil);
+					if (admin) WriteAdmin((Admin)perfil);
+					else WritePerfil(perfil);
 					setVisible(false);
 					JOptionPane.showMessageDialog(null, "Felicidades por añadido a "+perfil.getNombre()+" a la base de datos", "Felicidades" ,JOptionPane.INFORMATION_MESSAGE);
 				}

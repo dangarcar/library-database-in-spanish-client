@@ -34,7 +34,7 @@ public class PerfilSQL {
 	 * @throws ExcepcionPerfil 
 	 * @throws ExcepcionDNIPerfil 
 	 */
-	public static Perfil getPerfil(int dni) throws ExcepcionDNIPerfil, ExcepcionPerfil {
+	public static Perfil GetPerfil(int dni) throws ExcepcionDNIPerfil, ExcepcionPerfil {
 		Perfil perfil = null;
 		ResultSet resultado = null;
 		ConectorSQL conector = null;
@@ -98,7 +98,7 @@ public class PerfilSQL {
 	 * @param perfil El objeto Perfil a ser pasado
 	 * @throws ExcepcionPerfil 
 	 */
-	public static void writePerfil(Perfil perfil) throws ExcepcionPerfil {
+	public static void WritePerfil(Perfil perfil) throws ExcepcionPerfil {
 		ConectorSQL conector = null;
 		PreparedStatement st;
 		
@@ -143,7 +143,7 @@ public class PerfilSQL {
 	 * @param perfil El objeto de tipo admin a ser pasado
 	 * @throws ExcepcionPerfil 
 	 */
-	public static void writeAdmin(Admin perfil) throws ExcepcionPerfil {
+	public static void WriteAdmin(Admin perfil) throws ExcepcionPerfil {
 		ConectorSQL conector = null;
 		PreparedStatement st;
 		
@@ -189,7 +189,7 @@ public class PerfilSQL {
 	 * @return El perfil convertido en admin
 	 * @throws ExcepcionPerfil 
 	 */
-	public static Admin perfilToAdmin(Perfil perfil) throws ExcepcionPerfil {
+	public static Admin PerfilToAdmin(Perfil perfil) throws ExcepcionPerfil {
 		Admin admin = null;
 		ConectorSQL conector = null;
 		PreparedStatement st;
@@ -234,7 +234,7 @@ public class PerfilSQL {
 	 * @return Un objeto Perfil con los datos del administrador pasado por parámetro
 	 * @throws ExcepcionPerfil
 	 */
-	public static Perfil adminToPerfil(Admin admin) throws ExcepcionPerfil{
+	public static Perfil AdminToPerfil(Admin admin) throws ExcepcionPerfil{
 		Perfil perfil = null;
 		ConectorSQL conector = null;
 		PreparedStatement st;
@@ -278,7 +278,7 @@ public class PerfilSQL {
 	 * @param perfil
 	 * @throws ExcepcionPerfil 
 	 */
-	public static void deletePerfil(Perfil perfil) throws ExcepcionPerfil {
+	public static void DeletePerfil(Perfil perfil) throws ExcepcionPerfil {
 		ConectorSQL conector = null;
 		PreparedStatement st;
 		
@@ -318,7 +318,7 @@ public class PerfilSQL {
 	 * @param p El perfil que toma prestado el contenido
 	 * @throws ExcepcionPerfil 
 	 */
-	public static void prestarPerfilBBDD(Connection connect,Contenido c,Perfil p) throws ExcepcionPerfil {
+	public static void PrestarPerfilBBDD(Connection connect,Contenido c,Perfil p) throws ExcepcionPerfil {
 		PreparedStatement st;
 		
 		try {
@@ -345,7 +345,7 @@ public class PerfilSQL {
 	 * @param p El perfil que toma prestado el contenido
 	 * @throws ExcepcionPerfil 
 	 */
-	public static void devolverPerfilBBDD(Connection connect,Contenido c,Perfil p) throws ExcepcionPerfil {
+	public static void DevolverPerfilBBDD(Connection connect,Contenido c,Perfil p) throws ExcepcionPerfil {
 		PreparedStatement st;
 		
 		try {
