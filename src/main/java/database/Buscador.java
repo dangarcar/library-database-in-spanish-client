@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import static database.ContenidoSQL.*;
+import static database.PerfilSQL.*;
 
 import contenido.Contenido;
 import contenido.excepciones.ExcepcionContenido;
@@ -24,7 +26,7 @@ public class Buscador {
 	 * @return La lista de contenidos que coinciden con esa búsqueda
 	 * @throws ExcepcionContenido
 	 */
-	public static List<Contenido> buscarContenido(String busqueda) throws ExcepcionContenido {
+	public static List<Contenido> BuscarContenido(String busqueda) throws ExcepcionContenido {
 		ConectorSQL conector = null;
 		ResultSet resultado = null;
 		Connection conexion = null;
@@ -47,9 +49,9 @@ public class Buscador {
 			
 			while(resultado.next()) {
 				if(resultado.getInt("IDAudio") != 0) {
-					contenidos.addAll(ContenidoSQL.getAudiovisual(resultado.getInt("IDAudio"),null));
+					contenidos.addAll(GetAudiovisual(resultado.getInt("IDAudio"),null));
 				} else if(resultado.getLong("ISBN") != 0) {
-					contenidos.addAll(ContenidoSQL.getLibro(resultado.getLong("ISBN"),null));
+					contenidos.addAll(GetLibro(resultado.getLong("ISBN"),null));
 				}
 			}
 			
@@ -72,7 +74,7 @@ public class Buscador {
 	 * @param busqueda texto en el que se basa la búsqueda
 	 * @return La lista de perfiles que coinciden con esa búsqueda
 	 */
-	public static List<Perfil> buscarPerfiles(String busqueda){
+	public static List<Perfil> BuscarPerfiles(String busqueda){
 		ConectorSQL conector = null;
 		ResultSet resultado = null;
 		Connection conexion = null;
@@ -94,7 +96,7 @@ public class Buscador {
 			st.clearParameters();
 			
 			while(resultado.next()) {
-				perfiles.add(PerfilSQL.getPerfil(resultado.getInt("DNI")));
+				perfiles.add(GetPerfil(resultado.getInt("DNI")));
 			}
 			
 		} catch (SQLException | ExcepcionPerfil e) {

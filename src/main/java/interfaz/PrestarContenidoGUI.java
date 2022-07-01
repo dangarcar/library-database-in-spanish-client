@@ -35,8 +35,8 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 
-import database.ContenidoSQL;
-import database.PerfilSQL;
+import static database.ContenidoSQL.*;
+import static database.PerfilSQL.*;
 
 import java.awt.Insets;
 
@@ -160,7 +160,7 @@ public class PrestarContenidoGUI extends JFrame{
 				}
 				
 				try {
-					perfil = PerfilSQL.getPerfil(dni);
+					perfil = GetPerfil(dni);
 				} catch (ExcepcionDNIPerfil e1) {
 					JOptionPane.showMessageDialog(null, "No se ha reconocido un usuario con el DNI"+dni, "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					textField.setBorder(new LineBorder(Color.RED,3));
@@ -173,7 +173,7 @@ public class PrestarContenidoGUI extends JFrame{
 					try {
 						int opt = JOptionPane.showConfirmDialog(null, "¿Confirma que quiere que "+perfil.getDNI()+" coja prestado el contenido "+c.getID()+"?", "Confirmación",JOptionPane.YES_NO_OPTION);
 						if(opt == 0) {
-							ContenidoSQL.prestarBBDD(c, perfil);
+							Prestar(c, perfil);
 							if(guardarRecibo.isSelected()) new Recibo(((Component)e.getSource()).getParent().getParent(),c,perfil);
 							setVisible(false);
 							JOptionPane.showMessageDialog(null, "Felicidades por haber cogido prestado el contenido "+c.getID(),"Felicidades",JOptionPane.INFORMATION_MESSAGE);

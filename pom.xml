@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>es.library</groupId>
   <artifactId>DatabaseInSpanish</artifactId>
-  <version>1.0</version>
+  <version>1.0.1</version>
   <dependencies>
   	<dependency>
   	  <groupId>org.xerial</groupId>
@@ -56,28 +56,6 @@
           </execution>
         </executions>
 	  </plugin>
-      <!--<plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.2.1</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>application.App</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-all-in-one-jar</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>-->
     </plugins>
   </build>
 </project>

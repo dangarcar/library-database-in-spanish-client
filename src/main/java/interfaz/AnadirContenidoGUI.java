@@ -11,8 +11,6 @@ import javax.swing.JOptionPane;
 import java.awt.GridBagConstraints;
 import javax.swing.SwingConstants;
 
-import database.ContenidoSQL;
-
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.Toolkit;
@@ -35,6 +33,7 @@ import contenido.Libros;
 import contenido.Soporte;
 import contenido.Videos;
 import contenido.excepciones.ExcepcionContenido;
+import static database.ContenidoSQL.*;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
@@ -480,8 +479,8 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 			int j = Integer.parseInt(JOptionPane.showInputDialog("Seleccione el número de contenidos que desea añadir"));
 			if(JOptionPane.showConfirmDialog(null, "Quiere añadir "+j+" ejemplares del contenido "+contenido.getTitulo(),"Confirmación",JOptionPane.YES_NO_OPTION)==0) {
 				for(int i=0;i<j;i++) {
-					if(contenido instanceof Libros) ContenidoSQL.writeLibro((Libros)contenido);
-					else if(contenido instanceof Audio) ContenidoSQL.writeAudiovisual((Audio)contenido);
+					if(contenido instanceof Libros) WriteLibro((Libros)contenido);
+					else if(contenido instanceof Audio) WriteAudiovisual((Audio)contenido);
 					else throw new ExcepcionContenido("Parece que hay un problema con el contenido que quiere añadir",contenido);
 				}
 				setVisible(false);
