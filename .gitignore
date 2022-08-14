@@ -4,4 +4,4 @@
 target/
 src/test/
 src/main/resources/files/recibos/
-src/main/java/database/database.db
+src/main/java/es.library.databaseinspanish.database/es.library.databaseinspanish.database.db
