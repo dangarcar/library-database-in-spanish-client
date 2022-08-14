@@ -14,7 +14,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>application.App</mainClass>
+              <mainClass>es.library.databaseinspanish.DatabaseInSpanishApplication</mainClass>
             </manifest>
           </archive>
         </configuration>

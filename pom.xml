@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>es.library</groupId>
   <artifactId>DatabaseInSpanish</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <dependencies>
   	<dependency>
   	  <groupId>org.xerial</groupId>
@@ -31,7 +31,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>application.App</mainClass>
+              <mainClass>es.library.databaseinspanish.DatabaseInSpanishApplication</mainClass>
             </manifest>
           </archive>
         </configuration>
