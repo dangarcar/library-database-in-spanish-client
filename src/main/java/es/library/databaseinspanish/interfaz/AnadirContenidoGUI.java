@@ -71,7 +71,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
  	public AnadirContenidoGUI() {
 		setResizable(false);
 		setBounds(200,200,400,450);
-		setTitle("Añadir es.library.databaseinspanish.contenido");
+		setTitle("Añadir Contenido");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/files/images/contenidos.png"));
 		
 		JPanel panel = new JPanel();
@@ -83,7 +83,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JLabel lblEnunciado = new JLabel("Añadir es.library.databaseinspanish.contenido");
+		JLabel lblEnunciado = new JLabel("Añadir Contenido");
 		lblEnunciado.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		lblEnunciado.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblEnunciado = new GridBagConstraints();

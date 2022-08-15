@@ -1,5 +1,12 @@
 package es.library.databaseinspanish;
 
+import java.awt.EventQueue;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.Bean;
+
 import es.library.databaseinspanish.interfaz.Ventana;
 
 /**
@@ -9,30 +16,22 @@ import es.library.databaseinspanish.interfaz.Ventana;
  * @author Daniel García
  *
  */
-public class DatabaseInSpanishApplication {
-	/*public static final String url = getDatabase();
-	
-	public static String getDatabase() {
-		String result = null;
-		String options = "src/main/resources/options.txt";
-		BufferedReader lector = null;
-		try {
-			lector = new BufferedReader(new FileReader(new File(options)));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			result = lector.readLine();
-			System.out.println(result);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}*/
-	
+@SpringBootApplication
+public class DatabaseInSpanishApplication {	
 	public static final String url = "src/main/java/es/library/databaseinspanish/database/database.db";
 	
 	public static void main(String [] args){
-		new Ventana();
+		var app = new SpringApplicationBuilder(DatabaseInSpanishApplication.class).headless(false).run(args);
+		
+		EventQueue.invokeLater(() -> {
+			app.getBean(DatabaseInSpanishApplication.class);
+		});
+	}
+	
+	@Bean
+	public CommandLineRunner createVentana() {
+		return args -> {
+			new Ventana();
+		};
 	}
 }
