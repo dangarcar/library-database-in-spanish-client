@@ -1,6 +1,7 @@
 package es.library.databaseinspanish.perfil.api.implementations;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class PerfilApiSpringImpl implements PerfilApi{
 	
 	@Override
 	public List<Perfil> getPerfilByQuery(String query) {
-		URI uri = UriComponentsBuilder.newInstance()
+		URI uri = uriBuilder
 				.path("perfiles/search")
 				.queryParam("q", query)
 				.build()
@@ -92,5 +93,23 @@ public class PerfilApiSpringImpl implements PerfilApi{
 		
 		restTemplate.delete(uri);
 	}
-
+	
+	@Override
+	public List<Perfil> getPerfilByParams(String nombre, String email, LocalDate fromNacimiento, LocalDate toNacimiento, Boolean admin) {
+		UriComponentsBuilder uri = uriBuilder.path("perfiles/search");
+		
+		if(nombre != null) uri.queryParam("nombre", nombre);
+		if(email != null) uri.queryParam("email", email);
+		if(fromNacimiento != null) uri.queryParam("fromNacimiento", fromNacimiento);
+		if(toNacimiento != null) uri.queryParam("toNacimiento", toNacimiento);
+		if(admin != null) uri.queryParam("admin", admin);
+		
+		return restTemplate.exchange(
+				uri.build().toUri(), 
+				HttpMethod.GET, 
+				null, 
+				new ParameterizedTypeReference<List<Perfil>>() {})
+			.getBody();
+	}
+	
 }

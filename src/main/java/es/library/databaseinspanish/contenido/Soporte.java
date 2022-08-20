@@ -1,51 +1,32 @@
 package es.library.databaseinspanish.contenido;
 
-import javax.swing.ImageIcon;
-
 /**
  * Enum que define los soportes en los que pueden estar los contenidos de la biblioteca
  * @author Daniel García
  *
  */
 public enum Soporte {
-	FISICO(false,new ImageIcon("src/main/resources/files/images/libro.png")),E_BOOK(false,new ImageIcon("src/main/resources/files/images/ebook.png")),CD(true,true,new ImageIcon("src/main/resources/files/images/cd.png")),DVD(true,true,new ImageIcon("src/main/resources/files/images/dvd.png")),BLURAY(true,true,new ImageIcon("src/main/resources/files/images/bluray.png")),VINILO(true,false,new ImageIcon("src/main/resources/files/images/vinilo.png")),CASETE(true,false,new ImageIcon("src/main/resources/files/images/casete.png"));
+	FISICO(false,false),
+	E_BOOK(false,false),
+	CD(true,true),
+	DVD(true,true),
+	BLURAY(true,true),
+	VINILO(true,false),
+	CASETE(true,false);
 	
 	private boolean multimedia;
-	private boolean audiovisual;
-	private ImageIcon icono;
+	private boolean audio;
 	
-	Soporte(boolean multimedia,ImageIcon ico) {
+	Soporte(boolean audio,boolean multimedia){
 		this.multimedia = multimedia;
-		this.audiovisual = false;
-		icono = ico;
+		this.audio = audio;
 	}
 	
-	Soporte(boolean multimedia, boolean audiovisual,ImageIcon ico){
-		this.multimedia = multimedia;
-		this.audiovisual = audiovisual;
-		icono = ico;
-	}
-	
-	/**
-	 * @return Si el soporte es multimedia o no
-	 */
-	boolean isMultimedia() {
+	public boolean isMultimedia() {
 		return multimedia;
 	}
 	
-	/**
-	 * @return Si el soporte puede contener tanto video como audio
-	 */
-	boolean isAudiovisual() {
-		return audiovisual;
-	}
-	
-	public ImageIcon getIcon() {
-		return icono;
-	}
-	
-	@Override
-	public String toString() {
-		return this.name();
+	public boolean isAudio() {
+		return audio;
 	}
 }

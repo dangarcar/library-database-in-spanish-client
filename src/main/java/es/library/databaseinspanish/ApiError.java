@@ -1,9 +1,11 @@
-package es.library.databaseinspanish.apiclient;
+package es.library.databaseinspanish;
 
 import java.time.ZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ApiError {
 
 	private int statusCode;

@@ -2,18 +2,14 @@ package es.library.databaseinspanish;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.library.databaseinspanish.perfil.Perfil;
-import es.library.databaseinspanish.perfil.api.PerfilApi;
+import es.library.databaseinspanish.contenido.api.implementations.ContenidoApiSpringConfig;
 import es.library.databaseinspanish.perfil.api.implementations.PerfilApiSpringConfig;
-import es.library.databaseinspanish.perfil.exceptions.PerfilNotFoundException;
-import es.library.databaseinspanish.perfil.exceptions.UnexpectedPerfilException;
+import es.library.databaseinspanish.prestamos.api.implementations.PrestamoApiSpringConfig;
 
 
 /**
@@ -27,10 +23,15 @@ import es.library.databaseinspanish.perfil.exceptions.UnexpectedPerfilException;
 public class DatabaseInSpanishApplication {
 	
 	public static void main(String [] args){
-		var app = new SpringApplicationBuilder(DatabaseInSpanishApplication.class).headless(false).run(args);
+		var app = new SpringApplicationBuilder(DatabaseInSpanishApplication.class)
+				.headless(false)
+				.run(args);
 		
 		AnnotationConfigApplicationContext annotationsContext = new AnnotationConfigApplicationContext();
-		annotationsContext.register(PerfilApiSpringConfig.class);
+		annotationsContext.register(
+				PerfilApiSpringConfig.class,
+				ContenidoApiSpringConfig.class,
+				PrestamoApiSpringConfig.class);
 		annotationsContext.refresh();
 		
 		/*EventQueue.invokeLater(() -> {
@@ -46,10 +47,6 @@ public class DatabaseInSpanishApplication {
 			new SwingApp();
 		};
 	}*/
-	@Bean("default")
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
-	}
 	@Bean("jsonMapper")
 	public ObjectMapper jsonMapper() {
 		ObjectMapper objectMapper = new ObjectMapper();

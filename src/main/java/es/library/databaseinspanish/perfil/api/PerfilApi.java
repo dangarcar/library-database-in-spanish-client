@@ -1,5 +1,6 @@
 package es.library.databaseinspanish.perfil.api;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import es.library.databaseinspanish.perfil.Perfil;
@@ -25,5 +26,7 @@ public interface PerfilApi {
 	public void makeAdminPerfil(long id) throws PerfilNotFoundException, UnexpectedPerfilException;
 	
 	public void deletePerfil(long id) throws PerfilNotFoundException, UnexpectedPerfilException;
+
+	public List<Perfil> getPerfilByParams(String nombre, String email, LocalDate fromNacimiento, LocalDate toNacimiento, Boolean admin);
 	
 }

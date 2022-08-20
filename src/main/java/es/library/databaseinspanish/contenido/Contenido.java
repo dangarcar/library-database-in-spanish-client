@@ -1,152 +1,135 @@
 package es.library.databaseinspanish.contenido;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Objects;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import es.library.databaseinspanish.contenido.excepciones.ExcepcionAno;
-import es.library.databaseinspanish.contenido.excepciones.ExcepcionDisponibilidad;
-import es.library.databaseinspanish.database.DatabaseWritable;
-import es.library.databaseinspanish.interfaz.GUIObjetosBiblioteca;
-import es.library.databaseinspanish.perfil.excepciones.ExcepcionPerfil;
+import es.library.databaseinspanish.contenido.types.Audio;
+import es.library.databaseinspanish.contenido.types.Libro;
+import es.library.databaseinspanish.contenido.types.Video;
 
-/**
- * Clase padre de todos los tipos de es.library.databaseinspanish.contenido que están en la biblioteca
- * @author Daniel García
- *
- */
-abstract public class Contenido implements DatabaseWritable{
-	private static final long serialVersionUID = 4858763186223118216L;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonInclude(Include.NON_NULL)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Audio.class, name = "audio"),
+        @JsonSubTypes.Type(value = Video.class, name = "video"),
+        @JsonSubTypes.Type(value = Libro.class, name = "libro")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Contenido{
+	
+	private Long ID;
 	private String titulo;
 	private String autor;
 	private String descripcion;
-	private int ano;
+	private Integer ano;
 	private String idioma;
 	private Soporte soporte;
 	private boolean prestable;
+	private Integer diasDePrestamo;
 	private boolean disponible;
 	private LocalDate fechaDisponibilidad;
-	private int diasDePrestamo;
-	private int ID;
+	private Long IDLibro;
+	private Long IDAudiovisual;
 	
-	/**
-	 * Constructor de la clase abstracta Contenido<br>
-	 * Para construir el objeto por primera vez
-	 * @param titulo Titulo del es.library.databaseinspanish.contenido
-	 * @param autor Autor del es.library.databaseinspanish.contenido
-	 * @param descripcion Un breve texto hablando sobre el es.library.databaseinspanish.contenido
-	 * @param ano El año en el que se hizo el es.library.databaseinspanish.contenido
-	 * @param idioma El idioma en el que está el es.library.databaseinspanish.contenido
-	 * @param prestable Si el es.library.databaseinspanish.contenido se puede prestar o no
-	 * @param Un elemento del enum Soporte en el que se guarda el es.library.databaseinspanish.contenido
-	 * @throws ExcepcionAno
-	 */
-	public Contenido(String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo) throws ExcepcionAno {
+	@JsonCreator
+	public Contenido() {}
+	
+	public Contenido(Long iD, String titulo, String autor, String descripcion, Integer ano, String idioma,
+			Soporte soporte, boolean prestable, Integer diasDePrestamo, boolean disponible,
+			LocalDate fechaDisponibilidad) {
+		ID = iD;
 		this.titulo = titulo;
 		this.autor = autor;
 		this.descripcion = descripcion;
-		setAno(ano);
+		this.ano = ano;
 		this.idioma = idioma;
-		this.prestable = prestable;
 		this.soporte = soporte;
-		this.disponible = true;
-		this.fechaDisponibilidad = null;
-		this.setDiasDePrestamo((diasDePrestamo > 0)? diasDePrestamo: null);
-	}
-	
-	/**
-	 * Constructor de la clase abstracta es.library.databaseinspanish.contenido , pero definiendo las variables disponible y fecha de disponibilidad<br>
-	 * Para construir la clase una vez ya sacada de la base de datos
-	 * @param titulo
-	 * @param autor
-	 * @param descripcion
-	 * @param ano
-	 * @param idioma
-	 * @param prestable
-	 * @param soporte
-	 * @param diasDePrestamo
-	 * @param disponible
-	 * @param fechaDisponibilidad
-	 * @throws ExcepcionAno
-	 */
-	public Contenido(int id, String titulo, String autor, String descripcion, int ano, String idioma, boolean prestable, Soporte soporte, int diasDePrestamo,boolean disponible,LocalDate fechaDisponibilidad) throws ExcepcionAno {
-		this.titulo = titulo;
-		this.autor = autor;
-		this.descripcion = descripcion;
-		setAno(ano);
-		this.idioma = idioma;
 		this.prestable = prestable;
-		this.soporte = soporte;
+		this.diasDePrestamo = diasDePrestamo;
 		this.disponible = disponible;
 		this.fechaDisponibilidad = fechaDisponibilidad;
-		this.setDiasDePrestamo((diasDePrestamo > 0)? diasDePrestamo: null);
-		this.ID = id;
 	}
 
-	public void setAno(int ano) throws ExcepcionAno {
-		if (ano < -2000) {
-			throw new ExcepcionAno("El año es demasiado antiguo",this,ano);
-		}
-		if (ano > LocalDate.now().getYear()) {
-			throw new ExcepcionAno("El año es futuro, no es correcto",this,ano);
-		}
-		this.ano = ano;
-	}
+	//TIPICOS GETTERS Y SETTERS DE UNA CLASE JAVA
+	public Long getID() {return ID;}
+	public void setID(Long iD) {ID = iD;}
 	
-	/* Getters */
-	public String getTitulo() { return titulo; }
-	public String getAutor() { return autor; }
-	public String getDescripcion() { return descripcion; }
-	public int getAno() { return ano; }
-	public String getIdioma() { return idioma; }
-	public boolean getPrestable() { return prestable; }
-	public boolean getDisponibilidad() { return disponible; }
-	public Soporte getSoporte() { return soporte; }
-	public LocalDate getFechaDisponibilidad() { return fechaDisponibilidad; }
-	public int getID() { return ID; }
+	public String getTitulo() {return titulo;}
+	public void setTitulo(String titulo) {this.titulo = titulo;}
 	
-	/**
-	 * Este método modifica el valor de la variable disponible y fecha disponibilidad
-	 */
-	public void devolverContenido() {
-		disponible = true;
-		fechaDisponibilidad = null;
-	}
+	public String getAutor() {return autor;}
+	public void setAutor(String autor) {this.autor = autor;}
 	
-	/**
-	 * Este método modifica el valor de la variable disponible y fecha disponibilidad
-	 * @throws ExcepcionDisponibilidad 
-	 */
-	public void prestarContenido() throws ExcepcionDisponibilidad{
-		if(disponible) {
-			fechaDisponibilidad = LocalDate.now().plusDays(this.diasDePrestamo);
-			disponible=false;
-		} else throw new ExcepcionDisponibilidad("El es.library.databaseinspanish.contenido que pide no está actualmente disponible",this);
-	}
+	public String getDescripcion() {return descripcion;}
+	public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
 	
+	public Integer getAno() {return ano;}
+	public void setAno(Integer ano) {this.ano = ano;}
+	
+	public String getIdioma() {return idioma;}
+	public void setIdioma(String idioma) {this.idioma = idioma;}
+	
+	public Soporte getSoporte() {return soporte;}
+	public void setSoporte(Soporte soporte) {this.soporte = soporte;}
+	
+	public boolean getPrestable() {return prestable;}
+	public void setPrestable(boolean prestable) {this.prestable = prestable;}
+	
+	public Integer getDiasDePrestamo() {return diasDePrestamo;}
+	public void setDiasDePrestamo(Integer diasDePrestamo) {this.diasDePrestamo = diasDePrestamo;}
+	
+	public boolean getDisponible() {return disponible;}
+	public void setDisponible(boolean disponible) {this.disponible = disponible;}
+	
+	public LocalDate getFechaDisponibilidad() {return fechaDisponibilidad;}
+	public void setFechaDisponibilidad(LocalDate fechaDisponibilidad) {this.fechaDisponibilidad = fechaDisponibilidad;}
+	
+	@JsonIgnore
+	public Long getIDAudiovisual() {return IDAudiovisual;}
+	@JsonIgnore
+	public void setIDAudiovisual(Long iDAudiovisual) {IDAudiovisual = iDAudiovisual;}
+	
+	@JsonIgnore
+	public Long getIDLibro() {return IDLibro;}
+	@JsonIgnore
+	public void setIDLibro(Long iDLibro) {IDLibro = iDLibro;}
+	
+	//TIPICOS hashCode(), equals() y toString() DE UNA CLASE JAVA
 	@Override
 	public int hashCode() {
-		int hash = 67;
-		hash = hash + 13 * autor.hashCode();
-		hash = hash + 2 * titulo.hashCode();
-		return hash;
-	}
-
-	public int getDiasDePrestamo() { return diasDePrestamo; }
-
-	public void setDiasDePrestamo(int dias) { this.diasDePrestamo = (dias > 0)? dias:this.diasDePrestamo; }
-	
-	@Override
-	public JButton getGUIRepresentation(List<? extends DatabaseWritable> listaD) throws ExcepcionPerfil {
-		GUIObjetosBiblioteca gui = new GUIObjetosBiblioteca(this,listaD);
-		return gui.createGUIContenido();
+		return Objects.hash(ID, autor, soporte, titulo);
 	}
 	
 	@Override
-	public JPanel getExtendedGUIRepresentation(List<? extends DatabaseWritable> listaD) {
-		GUIObjetosBiblioteca gui = new GUIObjetosBiblioteca(this,listaD);
-		return gui.createExtendedGUIContenido();
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contenido other = (Contenido) obj;
+		return Objects.equals(ID, other.ID) && Objects.equals(IDAudiovisual, other.IDAudiovisual)
+				&& Objects.equals(IDLibro, other.IDLibro) && ano == other.ano && Objects.equals(autor, other.autor)
+				&& Objects.equals(descripcion, other.descripcion) && diasDePrestamo == other.diasDePrestamo
+				&& disponible == other.disponible && Objects.equals(fechaDisponibilidad, other.fechaDisponibilidad)
+				&& Objects.equals(idioma, other.idioma) && prestable == other.prestable && soporte == other.soporte
+				&& Objects.equals(titulo, other.titulo);
+	}
+	
+	@Override
+	public String toString() {
+		return "Contenido [ID=" + ID + ", titulo=" + titulo + ", autor=" + autor + ", ano=" + ano + ", idioma=" + idioma
+				+ ", soporte=" + soporte + ", prestable=" + prestable + ", diasDePrestamo=" + diasDePrestamo
+				+ ", disponible=" + disponible + ", fechaDisponibilidad=" + fechaDisponibilidad + "]";
 	}
 }

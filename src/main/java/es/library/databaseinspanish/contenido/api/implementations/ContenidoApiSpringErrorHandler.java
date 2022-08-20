@@ -1,4 +1,4 @@
-package es.library.databaseinspanish.perfil.api.implementations;
+package es.library.databaseinspanish.contenido.api.implementations;
 
 import java.io.IOException;
 
@@ -12,13 +12,12 @@ import org.springframework.web.client.ResponseErrorHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.library.databaseinspanish.ApiError;
-import es.library.databaseinspanish.perfil.exceptions.EmailAlreadyExistPerfilException;
-import es.library.databaseinspanish.perfil.exceptions.IllegalPerfilException;
-import es.library.databaseinspanish.perfil.exceptions.PerfilNotFoundException;
-import es.library.databaseinspanish.perfil.exceptions.UnexpectedPerfilException;
+import es.library.databaseinspanish.contenido.exceptions.ContenidoNotFoundException;
+import es.library.databaseinspanish.contenido.exceptions.IllegalContenidoException;
+import es.library.databaseinspanish.contenido.exceptions.UnexpectedContenidoException;
 
 @Component
-public class PerfilApiSpringErrorHandler implements ResponseErrorHandler{
+public class ContenidoApiSpringErrorHandler implements ResponseErrorHandler{
 
 	@Autowired
 	@Qualifier("jsonMapper")
@@ -33,20 +32,13 @@ public class PerfilApiSpringErrorHandler implements ResponseErrorHandler{
 	public void handleError(ClientHttpResponse response) throws IOException {
 		ApiError error = jsonMapper.readValue(response.getBody(), ApiError.class);
 		
-		switch(HttpStatus.valueOf(error.getStatusCode())) {
-		
-		case CONFLICT: 
-			throw new EmailAlreadyExistPerfilException(error.getMessage());
-		
+		switch (HttpStatus.valueOf(error.getStatusCode())) {
 		case NOT_FOUND:
-			throw new PerfilNotFoundException(error.getMessage());
-		
+			throw new ContenidoNotFoundException(error.getMessage());
 		case BAD_REQUEST:
-			throw new IllegalPerfilException(error.getMessage());
-		
+			throw new IllegalContenidoException(error.getMessage());
 		default:
-			throw new UnexpectedPerfilException(error.getMessage());
-		
+			throw new UnexpectedContenidoException(error.getMessage());
 		}
 	}
 
