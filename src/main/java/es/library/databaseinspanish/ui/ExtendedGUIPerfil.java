@@ -1,7 +1,7 @@
-package es.library.databaseinspanish.interfaz;
+package es.library.databaseinspanish.ui;
 
-import static es.library.databaseinspanish.database.ContenidoSQL.*;
-import static es.library.databaseinspanish.database.PerfilSQL.*;
+import static es.library.databaseinspanish.perfil.api.PerfilSQL.*;
+import static es.library.databaseinspanish.prestamos.ContenidoSQL.*;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -18,11 +18,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import es.library.databaseinspanish.contenido.Contenido;
-import es.library.databaseinspanish.contenido.excepciones.ExcepcionContenido;
-import es.library.databaseinspanish.contenido.excepciones.ExcepcionDisponibilidad;
+import es.library.databaseinspanish.contenido.exceptions.ExcepcionContenido;
+import es.library.databaseinspanish.contenido.exceptions.ExcepcionDisponibilidad;
+import es.library.databaseinspanish.model.contenido.Contenido;
+import es.library.databaseinspanish.model.perfil.Perfil;
 import es.library.databaseinspanish.perfil.Admin;
-import es.library.databaseinspanish.perfil.Perfil;
 import es.library.databaseinspanish.perfil.excepciones.ExcepcionPerfil;
 
 import java.awt.GridBagLayout;

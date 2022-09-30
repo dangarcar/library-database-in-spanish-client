@@ -1,4 +1,4 @@
-package es.library.databaseinspanish.interfaz;
+package es.library.databaseinspanish.ui;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -8,7 +8,7 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
-import static es.library.databaseinspanish.database.PerfilSQL.*;
+import static es.library.databaseinspanish.perfil.api.PerfilSQL.*;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -23,8 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 
+import es.library.databaseinspanish.model.perfil.Perfil;
 import es.library.databaseinspanish.perfil.Admin;
-import es.library.databaseinspanish.perfil.Perfil;
 import es.library.databaseinspanish.perfil.excepciones.ExcepcionPerfil;
 
 import javax.swing.JSpinner;
@@ -32,7 +32,7 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
 /**
- * Clase encargada de añadir perfil a la BBDD a través de es.library.databaseinspanish.interfaz gráfica
+ * Clase encargada de añadir perfil a la BBDD a través de es.library.databaseinspanish.ui gráfica
  * @author Daniel García
  *
  */

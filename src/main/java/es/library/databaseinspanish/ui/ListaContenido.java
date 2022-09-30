@@ -1,4 +1,4 @@
-package es.library.databaseinspanish.interfaz;
+package es.library.databaseinspanish.ui;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -14,7 +14,7 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
-import es.library.databaseinspanish.contenido.Contenido;
+import es.library.databaseinspanish.model.contenido.Contenido;
 
 public class ListaContenido extends JList<Contenido>{
 	private static final long serialVersionUID = 8815617365332730999L;

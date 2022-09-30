@@ -1,4 +1,4 @@
-package es.library.databaseinspanish.interfaz;
+package es.library.databaseinspanish.ui;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -24,10 +24,10 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import es.library.databaseinspanish.contenido.Audio;
-import es.library.databaseinspanish.contenido.Contenido;
-import es.library.databaseinspanish.contenido.Libros;
-import es.library.databaseinspanish.contenido.Videos;
+import es.library.databaseinspanish.contenido.types.Audio;
+import es.library.databaseinspanish.contenido.types.Libro;
+import es.library.databaseinspanish.contenido.types.Video;
+import es.library.databaseinspanish.model.contenido.Contenido;
 
 /**
  * Esta clase es la que da la descripción avanzada de cada es.library.databaseinspanish.contenido dando los detalles sobre los contenidos
@@ -176,16 +176,16 @@ public class ExtendedGUIContenido extends JPanel{
 				"<br><b>Año: </b>"+c.getAno()+
 				"<br><b>Idioma: </b>"+c.getIdioma()+
 				"<br><b>Soporte: </b>"+c.getSoporte()+
-				((c instanceof Libros)? 
-					"<br><b>ISBN: </b>"+((Libros)c).getISBN()+
-					"<br><b>Páginas: </b>"+((Libros)c).getPaginas()+
-					"<br><b>Editorial: </b>"+((Libros)c).getEditorial() 
+				((c instanceof Libro)? 
+					"<br><b>ISBN: </b>"+((Libro)c).getISBN()+
+					"<br><b>Páginas: </b>"+((Libro)c).getPaginas()+
+					"<br><b>Editorial: </b>"+((Libro)c).getEditorial() 
 				:"")+
 				((c instanceof Audio)?
 					"<br><b>Duración: </b>"+((Audio)c).getDuracion()+" minutos"+
-					((c instanceof Videos)?
-						"<br><b>Edad Recomendada: </b>"+((Videos)c).getEdadRecomendada()+" años"+
-						"<br><b>Calidad: </b>"+((Videos)c).getCalidad()+" píxeles"
+					((c instanceof Video)?
+						"<br><b>Edad Recomendada: </b>"+((Video)c).getEdadRecomendada()+" años"+
+						"<br><b>Calidad: </b>"+((Video)c).getCalidad()+" píxeles"
 					:"")
 				:"")+
 				"<br><b>Descripción: </b>"+c.getDescripcion()+

@@ -1,12 +1,12 @@
-package es.library.databaseinspanish.interfaz;
+package es.library.databaseinspanish.ui;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import static es.library.databaseinspanish.database.ContenidoSQL.*;
-import static es.library.databaseinspanish.database.PerfilSQL.*;
+import static es.library.databaseinspanish.perfil.api.PerfilSQL.*;
+import static es.library.databaseinspanish.prestamos.ContenidoSQL.*;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
@@ -29,12 +29,12 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 
-import es.library.databaseinspanish.contenido.Audio;
-import es.library.databaseinspanish.contenido.Contenido;
-import es.library.databaseinspanish.contenido.Libros;
-import es.library.databaseinspanish.contenido.Videos;
-import es.library.databaseinspanish.contenido.excepciones.ExcepcionContenido;
-import es.library.databaseinspanish.perfil.Perfil;
+import es.library.databaseinspanish.contenido.exceptions.ExcepcionContenido;
+import es.library.databaseinspanish.contenido.types.Audio;
+import es.library.databaseinspanish.contenido.types.Libro;
+import es.library.databaseinspanish.contenido.types.Video;
+import es.library.databaseinspanish.model.contenido.Contenido;
+import es.library.databaseinspanish.model.perfil.Perfil;
 import es.library.databaseinspanish.perfil.excepciones.ExcepcionDNIPerfil;
 import es.library.databaseinspanish.perfil.excepciones.ExcepcionPerfil;
 
@@ -50,7 +50,7 @@ import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 
 /**
- * Esta clase es la es.library.databaseinspanish.interfaz para coger prestado un libro pasado por parámetro
+ * Esta clase es la es.library.databaseinspanish.ui para coger prestado un libro pasado por parámetro
  * @author danie
  *
  */
@@ -198,16 +198,16 @@ public class PrestarContenidoGUI extends JFrame{
 				"<br><b>Año: </b>"+c.getAno()+
 				"<br><b>Idioma: </b>"+c.getIdioma()+
 				"<br><b>Soporte: </b>"+c.getSoporte()+
-				((c instanceof Libros)? 
-					"<br><b>ISBN: </b>"+((Libros)c).getISBN()+
-					"<br><b>Páginas: </b>"+((Libros)c).getPaginas()+
-					"<br><b>Editorial: </b>"+((Libros)c).getEditorial() 
+				((c instanceof Libro)? 
+					"<br><b>ISBN: </b>"+((Libro)c).getISBN()+
+					"<br><b>Páginas: </b>"+((Libro)c).getPaginas()+
+					"<br><b>Editorial: </b>"+((Libro)c).getEditorial() 
 				:"")+
 				((c instanceof Audio)?
 					"<br><b>Duración: </b>"+((Audio)c).getDuracion()+" minutos"+
-					((c instanceof Videos)?
-						"<br><b>Edad Recomendada: </b>"+((Videos)c).getEdadRecomendada()+" años"+
-						"<br><b>Calidad: </b>"+((Videos)c).getCalidad()+" píxeles"
+					((c instanceof Video)?
+						"<br><b>Edad Recomendada: </b>"+((Video)c).getEdadRecomendada()+" años"+
+						"<br><b>Calidad: </b>"+((Video)c).getCalidad()+" píxeles"
 					:"")
 				:"")+
 				"<br><br><b>ID: </b>"+c.getID()+

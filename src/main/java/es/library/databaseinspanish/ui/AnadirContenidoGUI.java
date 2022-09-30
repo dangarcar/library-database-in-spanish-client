@@ -1,9 +1,9 @@
-package es.library.databaseinspanish.interfaz;
+package es.library.databaseinspanish.ui;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import static es.library.databaseinspanish.database.ContenidoSQL.*;
+import static es.library.databaseinspanish.prestamos.ContenidoSQL.*;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
@@ -13,12 +13,12 @@ import javax.swing.JOptionPane;
 import java.awt.GridBagConstraints;
 import javax.swing.SwingConstants;
 
-import es.library.databaseinspanish.contenido.Audio;
-import es.library.databaseinspanish.contenido.Contenido;
-import es.library.databaseinspanish.contenido.Libros;
-import es.library.databaseinspanish.contenido.Soporte;
-import es.library.databaseinspanish.contenido.Videos;
-import es.library.databaseinspanish.contenido.excepciones.ExcepcionContenido;
+import es.library.databaseinspanish.contenido.exceptions.ExcepcionContenido;
+import es.library.databaseinspanish.contenido.types.Audio;
+import es.library.databaseinspanish.contenido.types.Libro;
+import es.library.databaseinspanish.contenido.types.Video;
+import es.library.databaseinspanish.model.contenido.Contenido;
+import es.library.databaseinspanish.model.contenido.Soporte;
 
 import java.awt.Font;
 import java.awt.Insets;
@@ -44,7 +44,7 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 
 /**
- * Esta clase es la que añade contenidos a la BBDD a través de una es.library.databaseinspanish.interfaz gráfica
+ * Esta clase es la que añade contenidos a la BBDD a través de una es.library.databaseinspanish.ui gráfica
  * @author Daniel García
  *
  */
@@ -459,7 +459,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		try {
 			switch((String)comboBoxTipo.getSelectedItem()) {
 			case "TEXTO":
-				contenido = new Libros(textFieldTitulo.getText(),textAutor.getText(),textAreaDescripcion.getText(),(Integer)spinnerAno.getValue(),textFieldIdioma.getText(),rdBtnPrestable.isSelected(),(Soporte)comboBoxSoporte.getSelectedItem(),(Integer)spinnerDiasPrestado.getValue()
+				contenido = new Libro(textFieldTitulo.getText(),textAutor.getText(),textAreaDescripcion.getText(),(Integer)spinnerAno.getValue(),textFieldIdioma.getText(),rdBtnPrestable.isSelected(),(Soporte)comboBoxSoporte.getSelectedItem(),(Integer)spinnerDiasPrestado.getValue()
 						,Long.parseLong(textFieldID.getText()),(Integer)spinnerPag.getValue(),textFieldEdit.getText());
 				break;
 		
@@ -469,7 +469,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 				break;
 			
 			case "VÍDEO":
-				contenido = new Videos(textFieldTitulo.getText(),textAutor.getText(),textAreaDescripcion.getText(),(Integer)spinnerAno.getValue(),textFieldIdioma.getText(),rdBtnPrestable.isSelected(),(Soporte)comboBoxSoporte.getSelectedItem(),(Integer)spinnerDiasPrestado.getValue()
+				contenido = new Video(textFieldTitulo.getText(),textAutor.getText(),textAreaDescripcion.getText(),(Integer)spinnerAno.getValue(),textFieldIdioma.getText(),rdBtnPrestable.isSelected(),(Soporte)comboBoxSoporte.getSelectedItem(),(Integer)spinnerDiasPrestado.getValue()
 						,(Double)spinnerDur.getValue(),(Integer)spinnerEdad.getValue(),(Integer)spinnerCal.getValue());
 				break;
 		
@@ -480,7 +480,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 			int j = Integer.parseInt(JOptionPane.showInputDialog("Seleccione el número de contenidos que desea añadir"));
 			if(JOptionPane.showConfirmDialog(null, "Quiere añadir "+j+" ejemplares del es.library.databaseinspanish.contenido "+contenido.getTitulo(),"Confirmación",JOptionPane.YES_NO_OPTION)==0) {
 				for(int i=0;i<j;i++) {
-					if(contenido instanceof Libros) WriteLibro((Libros)contenido);
+					if(contenido instanceof Libro) WriteLibro((Libro)contenido);
 					else if(contenido instanceof Audio) WriteAudiovisual((Audio)contenido);
 					else throw new ExcepcionContenido("Parece que hay un problema con el es.library.databaseinspanish.contenido que quiere añadir",contenido);
 				}

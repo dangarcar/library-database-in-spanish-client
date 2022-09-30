@@ -1,4 +1,4 @@
-package es.library.databaseinspanish.interfaz;
+package es.library.databaseinspanish.ui;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -6,11 +6,11 @@ import java.util.List;
 
 import javax.swing.*;
 
-import es.library.databaseinspanish.contenido.Contenido;
-import es.library.databaseinspanish.contenido.excepciones.ExcepcionContenido;
-import es.library.databaseinspanish.database.DatabaseWritable;
-import es.library.databaseinspanish.perfil.Perfil;
+import es.library.databaseinspanish.contenido.exceptions.ExcepcionContenido;
+import es.library.databaseinspanish.model.contenido.Contenido;
+import es.library.databaseinspanish.model.perfil.Perfil;
 import es.library.databaseinspanish.perfil.excepciones.ExcepcionPerfil;
+import es.library.databaseinspanish.prestamos.DatabaseWritable;
 
 /**
  * Solo se pueden usar los metodos que especifiquen que son compatibles con la clase 
