@@ -1,6 +1,6 @@
 package es.library.databaseinspanish.model.contenido.types;
 
-import java.time.LocalDate;
+import java.net.URL;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -21,10 +21,9 @@ public class Audio extends Contenido{
 	public Audio() {}
 	
 	public Audio(Long iD, String titulo, String autor, String descripcion, Integer ano, String idioma, Soporte soporte,
-			boolean prestable, Integer diasDePrestamo, boolean disponible, LocalDate fechaDisponibilidad,
+			boolean prestable, Integer diasDePrestamo, boolean disponible, URL imagen,
 			Double duracion) {
-		super(iD, titulo, autor, descripcion, ano, idioma, soporte, prestable, diasDePrestamo, disponible,
-				fechaDisponibilidad);
+		super(iD, titulo, autor, descripcion, ano, idioma, soporte, prestable, diasDePrestamo, disponible, imagen);
 		this.duracion = duracion;
 	}
 	

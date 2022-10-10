@@ -1,9 +1,11 @@
 package es.library.databaseinspanish.ui;
 
+import java.awt.CardLayout;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import es.library.databaseinspanish.model.perfil.Perfil;
 import es.library.databaseinspanish.ui.pantallainicio.PantallaInicio;
@@ -15,22 +17,43 @@ import es.library.databaseinspanish.ui.utils.ProjectConstants;
  *
  */
 public class SwingApp extends JFrame {
-	private PantallaInicio lobby = PantallaInicio.getInstance(this,"staff");
-	
+	private PantallaInicio home;	
 	private Perfil userLoggenIn;
 	
-	public SwingApp() {
+	private CardLayout cardLayout = new CardLayout();
+	
+	private JPanel main = new JPanel();
+	
+	public SwingApp(Perfil user) {
+		userLoggenIn = user;		
+		home = PantallaInicio.getInstance(this,user.getRole());
+		
 		setResizable(true);
 		setFocusable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBackground(SystemColor.controlDkShadow);
 		setTitle("Library Database In Spanish");
-		setBounds(100,100,ProjectConstants.SCREEN_WIDTH,ProjectConstants.SCREEN_HEIGHT);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SwingApp.class.getResource("/es/library/databaseinspanish/ui/images/icon.png")));
+		main.setLayout(cardLayout);
 		
-		getContentPane().add(lobby);
+		main.add(home, home.getName());
+		cardLayout.show(main, home.getName());
+		
+		this.getContentPane().add(main);
+		
+		this.pack();
+		setBounds(100,100,ProjectConstants.SCREEN_WIDTH,ProjectConstants.SCREEN_HEIGHT);
 		
 		setVisible(true);
+	}
+	
+	public void changePanel(JPanel panel) {
+		main.add(panel, panel.getName());
+		cardLayout.show(main, panel.getName());
+	}
+	
+	public void returnHome() {
+		cardLayout.show(main, home.getName());
 	}
 	
 	public Perfil getUserLoggenIn() {return userLoggenIn;}

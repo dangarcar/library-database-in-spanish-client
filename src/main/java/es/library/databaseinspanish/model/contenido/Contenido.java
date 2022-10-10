@@ -1,6 +1,6 @@
 package es.library.databaseinspanish.model.contenido;
 
-import java.time.LocalDate;
+import java.net.URL;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,16 +36,15 @@ public class Contenido implements Model {
 	private boolean prestable;
 	private Integer diasDePrestamo;
 	private boolean disponible;
-	private LocalDate fechaDisponibilidad;
 	private Long IDLibro;
 	private Long IDAudiovisual;
+	private URL imagen;
 	
 	@JsonCreator
 	public Contenido() {}
 	
 	public Contenido(Long iD, String titulo, String autor, String descripcion, Integer ano, String idioma,
-			Soporte soporte, boolean prestable, Integer diasDePrestamo, boolean disponible,
-			LocalDate fechaDisponibilidad) {
+			Soporte soporte, boolean prestable, Integer diasDePrestamo, boolean disponible, URL imagen) {
 		ID = iD;
 		this.titulo = titulo;
 		this.autor = autor;
@@ -56,7 +55,7 @@ public class Contenido implements Model {
 		this.prestable = prestable;
 		this.diasDePrestamo = diasDePrestamo;
 		this.disponible = disponible;
-		this.fechaDisponibilidad = fechaDisponibilidad;
+		this.imagen = imagen;
 	}
 
 	//TIPICOS GETTERS Y SETTERS DE UNA CLASE JAVA
@@ -90,8 +89,8 @@ public class Contenido implements Model {
 	public boolean getDisponible() {return disponible;}
 	public void setDisponible(boolean disponible) {this.disponible = disponible;}
 	
-	public LocalDate getFechaDisponibilidad() {return fechaDisponibilidad;}
-	public void setFechaDisponibilidad(LocalDate fechaDisponibilidad) {this.fechaDisponibilidad = fechaDisponibilidad;}
+	public URL getImagen() {return imagen;}
+	public void setImagen(URL imagen) {this.imagen = imagen;}
 	
 	@JsonIgnore
 	public Long getIDAudiovisual() {return IDAudiovisual;}
@@ -121,7 +120,7 @@ public class Contenido implements Model {
 		return Objects.equals(ID, other.ID) && Objects.equals(IDAudiovisual, other.IDAudiovisual)
 				&& Objects.equals(IDLibro, other.IDLibro) && ano == other.ano && Objects.equals(autor, other.autor)
 				&& Objects.equals(descripcion, other.descripcion) && diasDePrestamo == other.diasDePrestamo
-				&& disponible == other.disponible && Objects.equals(fechaDisponibilidad, other.fechaDisponibilidad)
+				&& disponible == other.disponible
 				&& Objects.equals(idioma, other.idioma) && prestable == other.prestable && soporte == other.soporte
 				&& Objects.equals(titulo, other.titulo);
 	}
@@ -130,6 +129,6 @@ public class Contenido implements Model {
 	public String toString() {
 		return "Contenido [ID=" + ID + ", titulo=" + titulo + ", autor=" + autor + ", ano=" + ano + ", idioma=" + idioma
 				+ ", soporte=" + soporte + ", prestable=" + prestable + ", diasDePrestamo=" + diasDePrestamo
-				+ ", disponible=" + disponible + ", fechaDisponibilidad=" + fechaDisponibilidad + "]";
+				+ ", disponible=" + disponible +  "]";
 	}
 }

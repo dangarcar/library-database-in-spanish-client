@@ -5,6 +5,8 @@ import java.util.List;
 
 public enum Roles {
 	
+	ROLE_GUEST(new ArrayList<Roles>(List.of(  ))),
+	
 	ROLE_USER(new ArrayList<Roles>(List.of(  ))),
 	
 	ROLE_STAFF(new ArrayList<Roles>(List.of( ROLE_USER ))),

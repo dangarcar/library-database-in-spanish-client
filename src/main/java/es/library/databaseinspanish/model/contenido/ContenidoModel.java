@@ -1,5 +1,6 @@
 package es.library.databaseinspanish.model.contenido;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,74 +19,44 @@ public class ContenidoModel implements Model {
 	private String idioma;
 	private Soporte soporte;
 	private List<Long> ids;
+	private URL imagen;
 
 	@JsonCreator
 	public ContenidoModel() {}
 	
-	private ContenidoModel(String titulo, String autor, String descripcion, int ano, String idioma, Soporte soporte) {
+	private ContenidoModel(String titulo, String autor, String descripcion, int ano, String idioma, Soporte soporte, URL imagen) {
 		this.titulo = titulo;
 		this.autor = autor;
 		this.descripcion = descripcion;
 		this.ano = ano;
 		this.idioma = idioma;
 		this.soporte = soporte;
+		this.imagen = imagen;
 	}	
 	
-	public List<Long> getIds() {
-		return ids;
-	}
+	public List<Long> getIds() {return ids;}
+	public void setIds(List<Long> ids) {this.ids = ids;}
 
-	public void setIds(List<Long> ids) {
-		this.ids = ids;
-	}
+	public String getTitulo() {return titulo;}
+	public void setTitulo(String titulo) {this.titulo = titulo;}
 
-	public String getTitulo() {
-		return titulo;
-	}
+	public String getAutor() {return autor;}
+	public void setAutor(String autor) {this.autor = autor;}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
+	public String getDescripcion() {return descripcion;}
+	public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
 
-	public String getAutor() {
-		return autor;
-	}
+	public int getAno() {return ano;}
+	public void setAno(int ano) {this.ano = ano;}
 
-	public void setAutor(String autor) {
-		this.autor = autor;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public int getAno() {
-		return ano;
-	}
-
-	public void setAno(int ano) {
-		this.ano = ano;
-	}
-
-	public String getIdioma() {
-		return idioma;
-	}
-
-	public void setIdioma(String idioma) {
-		this.idioma = idioma;
-	}
-
-	public Soporte getSoporte() {
-		return soporte;
-	}
-
-	public void setSoporte(Soporte soporte) {
-		this.soporte = soporte;
-	}
+	public String getIdioma() {return idioma;}
+	public void setIdioma(String idioma) {this.idioma = idioma;}	
+	
+	public Soporte getSoporte() {return soporte;}
+	public void setSoporte(Soporte soporte) {this.soporte = soporte;}
+	
+	public URL getImagen() {return imagen;}
+	public void setImagen(URL imagen) {this.imagen = imagen;}
 
 	@Override
 	public int hashCode() {
@@ -113,7 +84,8 @@ public class ContenidoModel implements Model {
 				c.getDescripcion(), 
 				c.getAno(), 
 				c.getIdioma(), 
-				c.getSoporte()
+				c.getSoporte(),
+				c.getImagen()
 			);
 	}
 
@@ -124,7 +96,7 @@ public class ContenidoModel implements Model {
 	}
 
 	public Contenido toContenido() {
-		return new Contenido(null, titulo, autor, descripcion, ano, idioma, soporte, false, null, false, null);
+		return new Contenido(null, titulo, autor, descripcion, ano, idioma, soporte, false, null, false, imagen);
 	}
 }
 
