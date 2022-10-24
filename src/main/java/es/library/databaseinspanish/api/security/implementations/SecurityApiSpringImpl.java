@@ -28,7 +28,7 @@ public class SecurityApiSpringImpl implements SecurityApi {
 	private ApiUtils apiUtils;
 
 	@Override
-	public TokenPair signUp(Perfil perfil) {
+	public void signUp(Perfil perfil) {
 		URI uri = apiUtils.uriBuilder()
 				.path("auth/signup")
 				.build()
@@ -41,12 +41,10 @@ public class SecurityApiSpringImpl implements SecurityApi {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		
-		return tokenPair;
 	}
 
 	@Override
-	public TokenPair login(LoginCredentials login) {
+	public void login(LoginCredentials login) {
 		URI uri = apiUtils.uriBuilder()
 				.path("auth/login")
 				.build()
@@ -59,8 +57,6 @@ public class SecurityApiSpringImpl implements SecurityApi {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		
-		return tokenPair;
 	}
 
 	@Override

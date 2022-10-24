@@ -28,10 +28,11 @@ import es.library.databaseinspanish.contenido.types.Audio;
 import es.library.databaseinspanish.contenido.types.Libro;
 import es.library.databaseinspanish.contenido.types.Video;
 import es.library.databaseinspanish.model.contenido.Contenido;
+import es.library.databaseinspanish.ui.contenido.ListaContenido;
 
 /**
- * Esta clase es la que da la descripción avanzada de cada es.library.databaseinspanish.contenido dando los detalles sobre los contenidos
- * @author Daniel García
+ * Esta clase es la que da la descripciï¿½n avanzada de cada es.library.databaseinspanish.contenido dando los detalles sobre los contenidos
+ * @author Daniel Garcï¿½a
  *
  */
 public class ExtendedGUIContenido extends JPanel{
@@ -68,7 +69,7 @@ public class ExtendedGUIContenido extends JPanel{
 		add(lblTitulo, gbc_lblTitulo);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		tabbedPane.setFont(ProjectConstants.font12P);
 		tabbedPane.setPreferredSize(new Dimension(0, 100));
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
@@ -80,7 +81,7 @@ public class ExtendedGUIContenido extends JPanel{
 		add(tabbedPane, gbc_tabbedPane);
 		
 		JPanel prestamoTab = new JPanel();
-		tabbedPane.addTab("Préstamos", prestamoTab);
+		tabbedPane.addTab("Prï¿½stamos", prestamoTab);
 		GridBagLayout gbl_prestamoTab = new GridBagLayout();
 		gbl_prestamoTab.columnWidths = new int[]{419, 0};
 		gbl_prestamoTab.rowHeights = new int[]{40, 191, 44, 0};
@@ -88,7 +89,7 @@ public class ExtendedGUIContenido extends JPanel{
 		gbl_prestamoTab.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
 		prestamoTab.setLayout(gbl_prestamoTab);
 		
-		JLabel lblPrestamo = new JLabel("Préstamos y ejemplares disponibles");
+		JLabel lblPrestamo = new JLabel("Prï¿½stamos y ejemplares disponibles");
 		lblPrestamo.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lblPrestamo.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblPrestamo = new GridBagConstraints();
@@ -122,12 +123,12 @@ public class ExtendedGUIContenido extends JPanel{
 				Contenido co = list.getSelectedValue();
 				
 				if (co ==  null)	{
-					JOptionPane.showMessageDialog(null, "No ha elegido ningún es.library.databaseinspanish.contenido para prestar", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
+					JOptionPane.showMessageDialog(null, "No ha elegido ningï¿½n es.library.databaseinspanish.contenido para prestar", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					return;
 				}
 			
 				if(!co.getDisponibilidad()) { 
-					JOptionPane.showMessageDialog(null, "<html><body><p>El es.library.databaseinspanish.contenido que ha elegido no está disponible.<br>Volverá a estar disponible el "+co.getFechaDisponibilidad().toString()+"</p></body></html>", 
+					JOptionPane.showMessageDialog(null, "<html><body><p>El es.library.databaseinspanish.contenido que ha elegido no estï¿½ disponible.<br>Volverï¿½ a estar disponible el "+co.getFechaDisponibilidad().toString()+"</p></body></html>", 
 							"Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					return;
 				}
@@ -146,7 +147,7 @@ public class ExtendedGUIContenido extends JPanel{
 		prestamoTab.add(btnPrestar, gbc_btnPrestar);
 
 		JPanel descripcionTab = new JPanel();
-		tabbedPane.addTab("Descripción", descripcionTab);
+		tabbedPane.addTab("Descripciï¿½n", descripcionTab);
 		GridBagLayout gbl_descripcionTab = new GridBagLayout();
 		gbl_descripcionTab.columnWidths = new int[]{0, 0};
 		gbl_descripcionTab.rowHeights = new int[]{0, 0};
@@ -172,23 +173,23 @@ public class ExtendedGUIContenido extends JPanel{
 	public String getExtendedDescripcion() {
 		return "<html><body><p style = \"font-family:Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;\">"+
 				"<b>Autor: </b>"+c.getAutor()+
-				"<br><b>Título: </b>"+c.getTitulo()+
-				"<br><b>Año: </b>"+c.getAno()+
+				"<br><b>Tï¿½tulo: </b>"+c.getTitulo()+
+				"<br><b>Aï¿½o: </b>"+c.getAno()+
 				"<br><b>Idioma: </b>"+c.getIdioma()+
 				"<br><b>Soporte: </b>"+c.getSoporte()+
 				((c instanceof Libro)? 
 					"<br><b>ISBN: </b>"+((Libro)c).getISBN()+
-					"<br><b>Páginas: </b>"+((Libro)c).getPaginas()+
+					"<br><b>Pï¿½ginas: </b>"+((Libro)c).getPaginas()+
 					"<br><b>Editorial: </b>"+((Libro)c).getEditorial() 
 				:"")+
 				((c instanceof Audio)?
-					"<br><b>Duración: </b>"+((Audio)c).getDuracion()+" minutos"+
+					"<br><b>Duraciï¿½n: </b>"+((Audio)c).getDuracion()+" minutos"+
 					((c instanceof Video)?
-						"<br><b>Edad Recomendada: </b>"+((Video)c).getEdadRecomendada()+" años"+
-						"<br><b>Calidad: </b>"+((Video)c).getCalidad()+" píxeles"
+						"<br><b>Edad Recomendada: </b>"+((Video)c).getEdadRecomendada()+" aï¿½os"+
+						"<br><b>Calidad: </b>"+((Video)c).getCalidad()+" pï¿½xeles"
 					:"")
 				:"")+
-				"<br><b>Descripción: </b>"+c.getDescripcion()+
+				"<br><b>Descripciï¿½n: </b>"+c.getDescripcion()+
 				"</p></body></html>";
 	}
 	

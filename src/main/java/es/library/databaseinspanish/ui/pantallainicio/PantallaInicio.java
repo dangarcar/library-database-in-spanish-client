@@ -15,6 +15,7 @@ public class PantallaInicio extends JPanel {
 		super();
 		this.parent = parent;
 		setBackground(ProjectConstants.BACKGROUND_COLOR);
+		setName("Home");
 	}
 	
 	public static PantallaInicio getInstance(SwingApp parent, String mode) {

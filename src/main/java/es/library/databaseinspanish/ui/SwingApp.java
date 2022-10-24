@@ -13,7 +13,7 @@ import es.library.databaseinspanish.ui.utils.ProjectConstants;
 
 /**
  * Frame principal del programa
- * @author Daniel Garc�a
+ * @author Daniel García
  *
  */
 public class SwingApp extends JFrame {
@@ -24,10 +24,20 @@ public class SwingApp extends JFrame {
 	
 	private JPanel main = new JPanel();
 	
+	/*public SwingApp() {
+		home = PantallaInicio.getInstance(this, Roles.ROLE_GUEST);
+		
+		initUI();
+	}*/
+	
 	public SwingApp(Perfil user) {
 		userLoggenIn = user;		
 		home = PantallaInicio.getInstance(this,user.getRole());
 		
+		initUI();
+	}
+	
+	private void initUI() {
 		setResizable(true);
 		setFocusable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,6 +53,7 @@ public class SwingApp extends JFrame {
 		
 		this.pack();
 		setBounds(100,100,ProjectConstants.SCREEN_WIDTH,ProjectConstants.SCREEN_HEIGHT);
+		this.setLocationRelativeTo(null);
 		
 		setVisible(true);
 	}

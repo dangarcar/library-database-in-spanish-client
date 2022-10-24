@@ -44,8 +44,8 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 
 /**
- * Esta clase es la que añade contenidos a la BBDD a través de una es.library.databaseinspanish.ui gráfica
- * @author Daniel García
+ * Esta clase es la que aï¿½ade contenidos a la BBDD a travï¿½s de una es.library.databaseinspanish.ui grï¿½fica
+ * @author Daniel Garcï¿½a
  *
  */
 public class AnadirContenidoGUI extends JFrame implements ActionListener{
@@ -71,7 +71,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
  	public AnadirContenidoGUI() {
 		setResizable(false);
 		setBounds(200,200,400,450);
-		setTitle("Añadir Contenido");
+		setTitle("Aï¿½adir Contenido");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/files/images/contenidos.png"));
 		
 		JPanel panel = new JPanel();
@@ -83,7 +83,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JLabel lblEnunciado = new JLabel("Añadir Contenido");
+		JLabel lblEnunciado = new JLabel("Aï¿½adir Contenido");
 		lblEnunciado.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		lblEnunciado.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblEnunciado = new GridBagConstraints();
@@ -94,8 +94,8 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		gbc_lblEnunciado.gridy = 0;
 		panel.add(lblEnunciado, gbc_lblEnunciado);
 		
-		JLabel lblTitulo = new JLabel("Título:");
-		lblTitulo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		JLabel lblTitulo = new JLabel("Tï¿½tulo:");
+		lblTitulo.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblTitulo = new GridBagConstraints();
 		gbc_lblTitulo.anchor = GridBagConstraints.EAST;
 		gbc_lblTitulo.insets = new Insets(0, 0, 5, 5);
@@ -104,7 +104,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		panel.add(lblTitulo, gbc_lblTitulo);
 		
 		textFieldTitulo = new JTextField();
-		textFieldTitulo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textFieldTitulo.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_textFieldTitulo = new GridBagConstraints();
 		gbc_textFieldTitulo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldTitulo.insets = new Insets(0, 5, 5, 0);
@@ -114,7 +114,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		textFieldTitulo.setColumns(10);
 		
 		JLabel lblAutor = new JLabel("Autor:");
-		lblAutor.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblAutor.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblAutor = new GridBagConstraints();
 		gbc_lblAutor.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAutor.anchor = GridBagConstraints.EAST;
@@ -123,7 +123,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		panel.add(lblAutor, gbc_lblAutor);
 		
 		textAutor = new JTextField();
-		textAutor.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textAutor.setFont(ProjectConstants.font12P);
 		textAutor.setColumns(10);
 		GridBagConstraints gbc_textAutor = new GridBagConstraints();
 		gbc_textAutor.insets = new Insets(0, 5, 5, 0);
@@ -132,8 +132,8 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		gbc_textAutor.gridy = 2;
 		panel.add(textAutor, gbc_textAutor);
 		
-		JLabel lblAno = new JLabel("Año de publicación:");
-		lblAno.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		JLabel lblAno = new JLabel("Aï¿½o de publicaciï¿½n:");
+		lblAno.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblAno = new GridBagConstraints();
 		gbc_lblAno.anchor = GridBagConstraints.EAST;
 		gbc_lblAno.insets = new Insets(0, 0, 5, 5);
@@ -151,7 +151,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		panel.add(spinnerAno, gbc_spinnerAno);
 		
 		JLabel lblIdioma = new JLabel("Idioma:");
-		lblIdioma.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblIdioma.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblIdioma = new GridBagConstraints();
 		gbc_lblIdioma.anchor = GridBagConstraints.EAST;
 		gbc_lblIdioma.insets = new Insets(0, 0, 5, 5);
@@ -160,7 +160,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		panel.add(lblIdioma, gbc_lblIdioma);
 		
 		textFieldIdioma = new JTextField();
-		textFieldIdioma.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textFieldIdioma.setFont(ProjectConstants.font12P);
 		textFieldIdioma.setColumns(10);
 		GridBagConstraints gbc_textFieldIdioma = new GridBagConstraints();
 		gbc_textFieldIdioma.insets = new Insets(0, 5, 5, 0);
@@ -169,8 +169,8 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		gbc_textFieldIdioma.gridy = 4;
 		panel.add(textFieldIdioma, gbc_textFieldIdioma);
 		
-		JLabel lblDescripcion = new JLabel("Descripción:");
-		lblDescripcion.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		JLabel lblDescripcion = new JLabel("Descripciï¿½n:");
+		lblDescripcion.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblDescripcion = new GridBagConstraints();
 		gbc_lblDescripcion.anchor = GridBagConstraints.EAST;
 		gbc_lblDescripcion.insets = new Insets(0, 0, 5, 5);
@@ -191,7 +191,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		textAreaDescripcion.setLineWrap(true);
 		textAreaDescripcion.setWrapStyleWord(true);
 		textAreaDescripcion.setRows(5);
-		textAreaDescripcion.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textAreaDescripcion.setFont(ProjectConstants.font12P);
 		textAreaDescripcion.setBorder(null);
 		scrollPane.setViewportView(textAreaDescripcion);
 		
@@ -208,9 +208,9 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		gbc_panelDiasPrestado.gridy = 6;
 		panel.add(panelDiasPrestado, gbc_panelDiasPrestado);
 		
-		JLabel lblDiasPrestado = new JLabel("Días a ser prestado:");
+		JLabel lblDiasPrestado = new JLabel("Dï¿½as a ser prestado:");
 		lblDiasPrestado.setPreferredSize(new Dimension(105, 20));
-		lblDiasPrestado.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblDiasPrestado.setFont(ProjectConstants.font12P);
 		panelDiasPrestado.add(lblDiasPrestado);
 		
 		spinnerDiasPrestado = new JSpinner(new SpinnerNumberModel(7,0,70,7));
@@ -218,7 +218,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		panelDiasPrestado.add(spinnerDiasPrestado);
 		
 		rdBtnPrestable = new JRadioButton("Prestable:");
-		rdBtnPrestable.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		rdBtnPrestable.setFont(ProjectConstants.font12P);
 		rdBtnPrestable.setActionCommand("Prestable");
 		rdBtnPrestable.setSelected(true);
 		GridBagConstraints gbc_rdBtnPrestable = new GridBagConstraints();
@@ -237,7 +237,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		panel.add(rdBtnPrestable, gbc_rdBtnPrestable);
 		
 		JLabel lblSoporte = new JLabel("Soporte:");
-		lblSoporte.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblSoporte.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblSoporte = new GridBagConstraints();
 		gbc_lblSoporte.anchor = GridBagConstraints.EAST;
 		gbc_lblSoporte.insets = new Insets(0, 0, 5, 5);
@@ -254,7 +254,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		panel.add(comboBoxSoporte, gbc_comboBoxSoporte);
 		
 		JLabel lblTipo = new JLabel("Tipo de es.library.databaseinspanish.contenido:");
-		lblTipo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblTipo.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblTipo = new GridBagConstraints();
 		gbc_lblTipo.anchor = GridBagConstraints.EAST;
 		gbc_lblTipo.insets = new Insets(0, 0, 5, 5);
@@ -272,7 +272,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		panelTipo.add(new JLabel("<html><body><font size=\"5\" style=\"Segoe UI\">&emsp;&emsp;&emsp;Seleccione un tipo de es.library.databaseinspanish.contenido</font></body></html>"),BorderLayout.CENTER);
 		panel.add(panelTipo, gbc_panelTipo);
 		
-		String[] tipos = {"","TEXTO","AUDIO","VÍDEO"};
+		String[] tipos = {"","TEXTO","AUDIO","Vï¿½DEO"};
 		comboBoxTipo = new JComboBox<String>(tipos);
 		GridBagConstraints gbc_comboBoxTipo = new GridBagConstraints();
 		gbc_comboBoxTipo.insets = new Insets(0, 5, 5, 0);
@@ -298,7 +298,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 					case "AUDIO":
 						panelTipo.add(getAudioPanel(),BorderLayout.NORTH);
 						break;
-					case "VÍDEO":
+					case "Vï¿½DEO":
 						panelTipo.add(getVideoPanel(),BorderLayout.NORTH);
 						break;
 				}
@@ -307,7 +307,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 			
 		});
 		
-		JButton btnAnadir = new JButton("Añadir");
+		JButton btnAnadir = new JButton("Aï¿½adir");
 		GridBagConstraints gbc_btnAnadir = new GridBagConstraints();
 		gbc_btnAnadir.fill = GridBagConstraints.BOTH;
 		gbc_btnAnadir.gridwidth = 2;
@@ -327,7 +327,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblISBN = new JLabel("ISBN:");
-		lblISBN.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblISBN.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblISBN = new GridBagConstraints();
 		gbc_lblISBN.anchor = GridBagConstraints.EAST;
 		gbc_lblISBN.gridx = 0;
@@ -335,7 +335,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		panel.add(lblISBN, gbc_lblISBN);
 		
 		textFieldID = new JTextField();
-		textFieldID.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textFieldID.setFont(ProjectConstants.font12P);
 		textFieldID.setColumns(10);
 		GridBagConstraints gbc_textFieldID = new GridBagConstraints();
 		gbc_textFieldID.insets = new Insets(0, 5, 5, 0);
@@ -344,8 +344,8 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		gbc_textFieldID.gridy = 0;
 		panel.add(textFieldID, gbc_textFieldID);
 		
-		JLabel lblPag = new JLabel("Páginas:");
-		lblPag.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		JLabel lblPag = new JLabel("Pï¿½ginas:");
+		lblPag.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblPag = new GridBagConstraints();
 		gbc_lblPag.anchor = GridBagConstraints.EAST;
 		gbc_lblPag.insets = new Insets(0, 0, 5, 5);
@@ -363,7 +363,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		panel.add(spinnerPag, gbc_spinnerPag);
 		
 		JLabel lblEdit = new JLabel("Editorial:");
-		lblEdit.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblEdit.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblEdit = new GridBagConstraints();
 		gbc_lblEdit.anchor = GridBagConstraints.EAST;
 		gbc_lblEdit.gridx = 0;
@@ -371,7 +371,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		panel.add(lblEdit, gbc_lblEdit);
 		
 		textFieldEdit = new JTextField();
-		textFieldEdit.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textFieldEdit.setFont(ProjectConstants.font12P);
 		textFieldEdit.setColumns(10);
 		GridBagConstraints gbc_textFieldEdit = new GridBagConstraints();
 		gbc_textFieldEdit.insets = new Insets(0, 5, 5, 0);
@@ -390,8 +390,8 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		gbl_panel.columnWeights = new double[]{0.0, 1.0};
 		panel.setLayout(gbl_panel);
 		
-		JLabel lblDur = new JLabel("Duración(en minutos):");
-		lblDur.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		JLabel lblDur = new JLabel("Duraciï¿½n(en minutos):");
+		lblDur.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblDur = new GridBagConstraints();
 		gbc_lblDur.anchor = GridBagConstraints.EAST;
 		gbc_lblDur.insets = new Insets(0, 0, 5, 5);
@@ -415,7 +415,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		JPanel panel = getAudioPanel();
 		
 		JLabel lblEdad = new JLabel("Edad recomendada:");
-		lblEdad.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblEdad.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblEdad = new GridBagConstraints();
 		gbc_lblEdad.anchor = GridBagConstraints.EAST;
 		gbc_lblEdad.insets = new Insets(0, 0, 5, 5);
@@ -432,8 +432,8 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 		spinnerEdad.setModel(new SpinnerNumberModel(0,0,18,1));
 		panel.add(spinnerEdad, gbc_spinnerEdad);
 		
-		JLabel lblCal = new JLabel("Calidad(en píxeles):");
-		lblCal.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		JLabel lblCal = new JLabel("Calidad(en pï¿½xeles):");
+		lblCal.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblCal = new GridBagConstraints();
 		gbc_lblCal.anchor = GridBagConstraints.EAST;
 		gbc_lblCal.insets = new Insets(0, 0, 5, 5);
@@ -468,7 +468,7 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 						,(Double)spinnerDur.getValue());
 				break;
 			
-			case "VÍDEO":
+			case "Vï¿½DEO":
 				contenido = new Video(textFieldTitulo.getText(),textAutor.getText(),textAreaDescripcion.getText(),(Integer)spinnerAno.getValue(),textFieldIdioma.getText(),rdBtnPrestable.isSelected(),(Soporte)comboBoxSoporte.getSelectedItem(),(Integer)spinnerDiasPrestado.getValue()
 						,(Double)spinnerDur.getValue(),(Integer)spinnerEdad.getValue(),(Integer)spinnerCal.getValue());
 				break;
@@ -477,20 +477,20 @@ public class AnadirContenidoGUI extends JFrame implements ActionListener{
 				throw new ExcepcionContenido("Deber elegir un tipo de es.library.databaseinspanish.contenido",contenido);
 			}
 			
-			int j = Integer.parseInt(JOptionPane.showInputDialog("Seleccione el número de contenidos que desea añadir"));
-			if(JOptionPane.showConfirmDialog(null, "Quiere añadir "+j+" ejemplares del es.library.databaseinspanish.contenido "+contenido.getTitulo(),"Confirmación",JOptionPane.YES_NO_OPTION)==0) {
+			int j = Integer.parseInt(JOptionPane.showInputDialog("Seleccione el nï¿½mero de contenidos que desea aï¿½adir"));
+			if(JOptionPane.showConfirmDialog(null, "Quiere aï¿½adir "+j+" ejemplares del es.library.databaseinspanish.contenido "+contenido.getTitulo(),"Confirmaciï¿½n",JOptionPane.YES_NO_OPTION)==0) {
 				for(int i=0;i<j;i++) {
 					if(contenido instanceof Libro) WriteLibro((Libro)contenido);
 					else if(contenido instanceof Audio) WriteAudiovisual((Audio)contenido);
-					else throw new ExcepcionContenido("Parece que hay un problema con el es.library.databaseinspanish.contenido que quiere añadir",contenido);
+					else throw new ExcepcionContenido("Parece que hay un problema con el es.library.databaseinspanish.contenido que quiere aï¿½adir",contenido);
 				}
 				setVisible(false);
-				JOptionPane.showMessageDialog(null, "Felicidades por añadido a "+contenido.getTitulo()+" a la base de datos", "Felicidades" ,JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Felicidades por aï¿½adido a "+contenido.getTitulo()+" a la base de datos", "Felicidades" ,JOptionPane.INFORMATION_MESSAGE);
 			}
 		} catch(ExcepcionContenido e1) {
 			JOptionPane.showMessageDialog(null, "Error: "+e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 		} catch (NumberFormatException e1) {
-			JOptionPane.showMessageDialog(null, "Error: Escriba un número de ejemplares por favor","Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error: Escriba un nï¿½mero de ejemplares por favor","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

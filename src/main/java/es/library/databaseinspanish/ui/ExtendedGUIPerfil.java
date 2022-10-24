@@ -24,6 +24,7 @@ import es.library.databaseinspanish.model.contenido.Contenido;
 import es.library.databaseinspanish.model.perfil.Perfil;
 import es.library.databaseinspanish.perfil.Admin;
 import es.library.databaseinspanish.perfil.excepciones.ExcepcionPerfil;
+import es.library.databaseinspanish.ui.contenido.ListaContenido;
 
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
@@ -41,8 +42,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JList;
 
 /**
- * Esta clase es la que da la descripción avanzada de cada perfil dando los detalles sobre los es.library.databaseinspanish.perfil
- * @author Daniel García
+ * Esta clase es la que da la descripciï¿½n avanzada de cada perfil dando los detalles sobre los es.library.databaseinspanish.perfil
+ * @author Daniel Garcï¿½a
  *
  */
 class ExtendedGUIPerfil extends JPanel{
@@ -74,7 +75,7 @@ class ExtendedGUIPerfil extends JPanel{
 		add(lblTitulo, gbc_lblTitulo);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		tabbedPane.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
 		gbc_tabbedPane.insets = new Insets(10, 10, 10, 10);
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
@@ -83,7 +84,7 @@ class ExtendedGUIPerfil extends JPanel{
 		add(tabbedPane, gbc_tabbedPane);
 		
 		JPanel panelDescripcion = new JPanel();
-		panelDescripcion.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		panelDescripcion.setFont(ProjectConstants.font12P);
 		tabbedPane.addTab("Descripcion", null, panelDescripcion, null);
 		GridBagLayout gbl_panelDescripcion = new GridBagLayout();
 		gbl_panelDescripcion.columnWidths = new int[]{425, 0};
@@ -153,16 +154,16 @@ class ExtendedGUIPerfil extends JPanel{
 				public void actionPerformed(ActionEvent e) {
 					Contenido c = list.getSelectedValue();
 					
-					if(JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres devolver el es.library.databaseinspanish.contenido seleccionado?", "Confirmación", JOptionPane.YES_NO_OPTION) == 0) {
+					if(JOptionPane.showConfirmDialog(null, "ï¿½Estï¿½s seguro de que quieres devolver el es.library.databaseinspanish.contenido seleccionado?", "Confirmaciï¿½n", JOptionPane.YES_NO_OPTION) == 0) {
 						try {
 							if(Devolver(c, p)) {
 								list.remove(list.getSelectedIndex());
-								JOptionPane.showMessageDialog(null, "Gracias por haber devuelto el es.library.databaseinspanish.contenido "+c.getID(),"Operación realizada correctamente",JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(null, "Gracias por haber devuelto el es.library.databaseinspanish.contenido "+c.getID(),"Operaciï¿½n realizada correctamente",JOptionPane.INFORMATION_MESSAGE);
 							} else {
 								JOptionPane.showMessageDialog(null, "No se ha podido devolver el es.library.databaseinspanish.contenido", "Error", JOptionPane.ERROR_MESSAGE);
 							}
 						} catch (ExcepcionDisponibilidad | HeadlessException | ExcepcionPerfil e1) {
-							JOptionPane.showMessageDialog(null, "No se ha podido devolver el es.library.databaseinspanish.contenido, el es.library.databaseinspanish.contenido no está disponible", "Error", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "No se ha podido devolver el es.library.databaseinspanish.contenido, el es.library.databaseinspanish.contenido no estï¿½ disponible", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					
@@ -171,7 +172,7 @@ class ExtendedGUIPerfil extends JPanel{
 			});
 			panelContenidos.add(btnDevolver, gbc_btnDevolver);
 		} else {
-			JLabel lblSeSiente = new JLabel("Este perfil no tiene contenidos actualmente en préstamo");
+			JLabel lblSeSiente = new JLabel("Este perfil no tiene contenidos actualmente en prï¿½stamo");
 			lblSeSiente.setFont(new Font("Segoe UI",Font.PLAIN,14));
 			lblSeSiente.setHorizontalAlignment(SwingConstants.CENTER);
 			GridBagConstraints gbc_lblSeSiente = new GridBagConstraints();
@@ -189,9 +190,9 @@ class ExtendedGUIPerfil extends JPanel{
 				"<b>Nombre: </b>"+p.getApellido()+", "+p.getNombre()+
 				"<br><b>DNI: </b>"+p.getDNI()+p.getLetraDNI()+
 				"<br><b>Fecha de nacimiento: </b>"+p.getFechaNacimiento().toString()+
-				"<br><b>Correo Electrónico: </b>"+p.getCorreoElectronico()+
-				"<br><b>Dirección: </b>"+p.getDireccionDeCasa()+
-				"<br><b>Administrador: </b>"+((p instanceof Admin)? "Sí":"No")+
+				"<br><b>Correo Electrï¿½nico: </b>"+p.getCorreoElectronico()+
+				"<br><b>Direcciï¿½n: </b>"+p.getDireccionDeCasa()+
+				"<br><b>Administrador: </b>"+((p instanceof Admin)? "Sï¿½":"No")+
 				"</p></body></html>";
 	}
 	
@@ -222,18 +223,18 @@ class ButtonToAdminOrPerfil extends JButton implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(p instanceof Admin) {
 			try {
-				if(JOptionPane.showConfirmDialog(null, "¿Desea conventir a "+p.getDNI()+" en perfil normal?", "Confirmación", JOptionPane.YES_NO_OPTION) == 0) {
+				if(JOptionPane.showConfirmDialog(null, "ï¿½Desea conventir a "+p.getDNI()+" en perfil normal?", "Confirmaciï¿½n", JOptionPane.YES_NO_OPTION) == 0) {
 					AdminToPerfil((Admin)p);
-					JOptionPane.showMessageDialog(null, "Felicidades:"+p.getDNI()+" ahora es un perfil normal", "¡Felicidades!", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Felicidades:"+p.getDNI()+" ahora es un perfil normal", "ï¿½Felicidades!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			} catch (ExcepcionPerfil e1) {
 				JOptionPane.showMessageDialog(null, "Error: no se ha podido convertir a "+p.getDNI()+" en perfil normal", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
 			try {
-				if(JOptionPane.showConfirmDialog(null, "¿Desea conventir a "+p.getDNI()+" en administrador?", "Confirmación", JOptionPane.YES_NO_OPTION) == 0) {
+				if(JOptionPane.showConfirmDialog(null, "ï¿½Desea conventir a "+p.getDNI()+" en administrador?", "Confirmaciï¿½n", JOptionPane.YES_NO_OPTION) == 0) {
 					PerfilToAdmin(p);
-					JOptionPane.showMessageDialog(null, "Felicidades:"+p.getDNI()+" ahora es administrador", "¡Felicidades!", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Felicidades:"+p.getDNI()+" ahora es administrador", "ï¿½Felicidades!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			} catch (ExcepcionPerfil e1) {
 				JOptionPane.showMessageDialog(null, "Error: no se ha podido convertir a "+p.getDNI()+" en administrador", "Error", JOptionPane.ERROR_MESSAGE);

@@ -6,21 +6,28 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
-import es.library.databaseinspanish.api.contenido.ContenidoApi;
-import es.library.databaseinspanish.model.contenido.Contenido;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.web.client.ResourceAccessException;
+
+import es.library.databaseinspanish.api.utils.StaticApis;
+import es.library.databaseinspanish.model.contenido.modeltypes.ContenidoModel;
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.contenido.ContenidoPicture;
+import es.library.databaseinspanish.ui.contenido.ContenidoRendererController;
+import es.library.databaseinspanish.ui.utils.OptionPanes;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
 
 public class ContenidosSlideShow extends JScrollPane {
 	
-	private ContenidoApi contenidoApi;
+	private Logger logger = LogManager.getLogger(getClass());
 	
-	private List<Contenido> contenidos;
+	private List<? extends ContenidoModel> contenidos;
 	
 	private GridBagLayout layout = new GridBagLayout();
 	
@@ -30,9 +37,8 @@ public class ContenidosSlideShow extends JScrollPane {
 	
 	private SwingApp app;
 	
-	public ContenidosSlideShow(ContenidoApi api, SwingApp app) {
+	public ContenidosSlideShow(SwingApp app) {
 		this.app = app;
-		this.contenidoApi = api;
 		
 		setBorder(new LineBorder(Color.BLACK, 5, true));
 		viewport.setBackground(ProjectConstants.BACKGROUND_COLOR);
@@ -45,16 +51,30 @@ public class ContenidosSlideShow extends JScrollPane {
 		
 		setContenidos();
 
+		if(contenidos==null || contenidos.isEmpty()) {
+			viewport.add(new JLabel("No hay contenidos disponibles"));
+			return;
+		}
+		
 		for(var c:contenidos) {
 			addRenderer(c);
 		}
 	}
 	
-	private void addRenderer(Contenido c) {
-		viewport.add(new ContenidoPicture(c, 200, 200, app), constraints);
+	private void addRenderer(ContenidoModel c) {
+		var picture = new ContenidoPicture(c, 200, 200, app);
+		picture.addActionListener((e) -> {
+			new ContenidoRendererController(app, c);
+		});
+		viewport.add(picture, constraints);
 	}
 	
 	private void setContenidos() {
-		contenidos = contenidoApi.getContenidosMasPrestados();
+		try{
+			contenidos = StaticApis.contenidoApi().getContenidosMasPrestados();
+		} catch(ResourceAccessException e) {
+			logger.error(e);
+			OptionPanes.error(e.getMessage());
+		}
 	}
 }

@@ -66,4 +66,12 @@ public class Utils {
 		return new ImageIcon(image);
 	}
 	
+	public static ImageIcon getScaledIcon(ImageIcon icon, int width, int height) {
+		return new ImageIcon(icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+	}
+	
+	public static String getHtmlText(String text) {
+		return "<html>"+text+"</html>";
+	}
+	
 }

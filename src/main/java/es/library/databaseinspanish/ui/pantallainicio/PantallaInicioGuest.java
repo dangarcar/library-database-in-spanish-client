@@ -1,6 +1,7 @@
 package es.library.databaseinspanish.ui.pantallainicio;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -9,10 +10,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import es.library.databaseinspanish.api.contenido.ContenidoApi;
-import es.library.databaseinspanish.api.utils.StaticApplicationContext;
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.utils.ImageLabel;
+import es.library.databaseinspanish.ui.utils.ProjectConstants;
 import net.miginfocom.swing.MigLayout;
 
 public class PantallaInicioGuest extends PantallaInicio {
@@ -46,10 +46,11 @@ public class PantallaInicioGuest extends PantallaInicio {
 		add(contenidoTextField, "cell 2 3,alignx center");
 
 		btnBuscarContenido = new JButton("Buscar contenido");
+		btnBuscarContenido.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnBuscarContenido.setForeground(Color.WHITE);
 		btnBuscarContenido.setBorderPainted(false);
 		btnBuscarContenido.setBackground(new Color(0, 128, 0));
-		btnBuscarContenido.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		btnBuscarContenido.setFont(ProjectConstants.font12P);
 		add(btnBuscarContenido, "cell 2 4,alignx center,aligny top");
 		
 		JLabel titulo = new JLabel("Contenidos más prestados de la biblioteca");
@@ -57,7 +58,7 @@ public class PantallaInicioGuest extends PantallaInicio {
 		titulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		add(titulo, "cell 0 6 3 1,alignx center,aligny bottom");
 
-		slideShow = new ContenidosSlideShow(StaticApplicationContext.getContext().getBean(ContenidoApi.class), parent);
+		slideShow = new ContenidosSlideShow(parent);
 		add(slideShow, "cell 0 7 3 1,grow");
 	}
 

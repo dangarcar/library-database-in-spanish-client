@@ -7,7 +7,7 @@ import es.library.databaseinspanish.exceptions.contenido.ContenidoNotFoundExcept
 import es.library.databaseinspanish.exceptions.contenido.IllegalContenidoException;
 import es.library.databaseinspanish.exceptions.contenido.UnexpectedContenidoException;
 import es.library.databaseinspanish.model.contenido.Contenido;
-import es.library.databaseinspanish.model.contenido.ContenidoModel;
+import es.library.databaseinspanish.model.contenido.modeltypes.ContenidoModel;
 
 public interface ContenidoApi {
 	
@@ -27,8 +27,8 @@ public interface ContenidoApi {
 	
 	public List<Contenido> getContenidoByParams(ContenidoParamsDto dto, Boolean disponible, Boolean prestable);
 	
-	public List<Contenido> getNContenidosMasPrestados(int n);
+	public List<? extends ContenidoModel> getNContenidosMasPrestados(int n);
 	
-	public List<Contenido> getContenidosMasPrestados();
+	public List<? extends ContenidoModel> getContenidosMasPrestados();
 	
 }

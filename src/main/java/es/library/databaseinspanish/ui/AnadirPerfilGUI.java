@@ -32,8 +32,8 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
 /**
- * Clase encargada de añadir perfil a la BBDD a través de es.library.databaseinspanish.ui gráfica
- * @author Daniel García
+ * Clase encargada de aï¿½adir perfil a la BBDD a travï¿½s de es.library.databaseinspanish.ui grï¿½fica
+ * @author Daniel Garcï¿½a
  *
  */
 public class AnadirPerfilGUI extends JFrame implements ActionListener{
@@ -50,7 +50,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 	public AnadirPerfilGUI() {
 		setResizable(false);
 		setBounds(200,200,400,450);
-		setTitle("Añadir perfil");
+		setTitle("Aï¿½adir perfil");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/files/images/perfilFino.png"));
 		
 		JPanel panel = new JPanel();
@@ -62,7 +62,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JLabel lblEnunciado = new JLabel("Añadir perfil");
+		JLabel lblEnunciado = new JLabel("Aï¿½adir perfil");
 		lblEnunciado.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		GridBagConstraints gbc_lblEnunciado = new GridBagConstraints();
 		gbc_lblEnunciado.insets = new Insets(0, 0, 5, 0);
@@ -72,7 +72,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		panel.add(lblEnunciado, gbc_lblEnunciado);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblNombre.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
 		gbc_lblNombre.anchor = GridBagConstraints.EAST;
 		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
@@ -81,7 +81,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		panel.add(lblNombre, gbc_lblNombre);
 		
 		textFieldNombre = new JTextField();
-		textFieldNombre.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textFieldNombre.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_textFieldNombre = new GridBagConstraints();
 		gbc_textFieldNombre.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldNombre.insets = new Insets(0, 0, 5, 0);
@@ -91,7 +91,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		textFieldNombre.setColumns(10);
 		
 		JLabel lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblApellidos.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblApellidos = new GridBagConstraints();
 		gbc_lblApellidos.insets = new Insets(0, 0, 5, 5);
 		gbc_lblApellidos.anchor = GridBagConstraints.EAST;
@@ -100,7 +100,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		panel.add(lblApellidos, gbc_lblApellidos);
 		
 		textFieldApellidos = new JTextField();
-		textFieldApellidos.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textFieldApellidos.setFont(ProjectConstants.font12P);
 		textFieldApellidos.setColumns(10);
 		GridBagConstraints gbc_textFieldApellidos = new GridBagConstraints();
 		gbc_textFieldApellidos.insets = new Insets(0, 0, 5, 0);
@@ -110,7 +110,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		panel.add(textFieldApellidos, gbc_textFieldApellidos);
 		
 		JLabel lblDni = new JLabel("DNI:");
-		lblDni.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblDni.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblDni = new GridBagConstraints();
 		gbc_lblDni.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDni.anchor = GridBagConstraints.EAST;
@@ -119,7 +119,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		panel.add(lblDni, gbc_lblDni);
 		
 		textFieldDNI = new JTextField();
-		textFieldDNI.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textFieldDNI.setFont(ProjectConstants.font12P);
 		textFieldDNI.setColumns(10);
 		GridBagConstraints gbc_textFieldDNI = new GridBagConstraints();
 		gbc_textFieldDNI.insets = new Insets(0, 0, 5, 0);
@@ -129,7 +129,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		panel.add(textFieldDNI, gbc_textFieldDNI);
 		
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento:");
-		lblFechaDeNacimiento.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblFechaDeNacimiento.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblFechaDeNacimiento = new GridBagConstraints();
 		gbc_lblFechaDeNacimiento.anchor = GridBagConstraints.EAST;
 		gbc_lblFechaDeNacimiento.insets = new Insets(0, 0, 5, 5);
@@ -147,8 +147,8 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		spinnerNacimiento.setEditor(new JSpinner.DateEditor(spinnerNacimiento, "dd-MM-yyyy"));
 		panel.add(spinnerNacimiento, gbc_spinnerNacimiento);
 		
-		JLabel lblDireccion = new JLabel("Dirección de casa:");
-		lblDireccion.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		JLabel lblDireccion = new JLabel("Direcciï¿½n de casa:");
+		lblDireccion.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblDireccion = new GridBagConstraints();
 		gbc_lblDireccion.anchor = GridBagConstraints.EAST;
 		gbc_lblDireccion.insets = new Insets(0, 0, 5, 5);
@@ -157,7 +157,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		panel.add(lblDireccion, gbc_lblDireccion);
 		
 		textFieldDireccion = new JTextField();
-		textFieldDireccion.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textFieldDireccion.setFont(ProjectConstants.font12P);
 		textFieldDireccion.setColumns(10);
 		GridBagConstraints gbc_textFieldDireccion = new GridBagConstraints();
 		gbc_textFieldDireccion.insets = new Insets(0, 0, 5, 0);
@@ -166,8 +166,8 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		gbc_textFieldDireccion.gridy = 5;
 		panel.add(textFieldDireccion, gbc_textFieldDireccion);
 		
-		JLabel lblCorreoElectronico = new JLabel("Correo electrónico:");
-		lblCorreoElectronico.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		JLabel lblCorreoElectronico = new JLabel("Correo electrï¿½nico:");
+		lblCorreoElectronico.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_lblCorreoElectronico = new GridBagConstraints();
 		gbc_lblCorreoElectronico.anchor = GridBagConstraints.EAST;
 		gbc_lblCorreoElectronico.insets = new Insets(0, 0, 5, 5);
@@ -176,7 +176,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		panel.add(lblCorreoElectronico, gbc_lblCorreoElectronico);
 		
 		textFieldCorreo = new JTextField();
-		textFieldCorreo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textFieldCorreo.setFont(ProjectConstants.font12P);
 		textFieldCorreo.setColumns(10);
 		GridBagConstraints gbc_textFieldCorreo = new GridBagConstraints();
 		gbc_textFieldCorreo.insets = new Insets(0, 0, 5, 0);
@@ -186,7 +186,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		panel.add(textFieldCorreo, gbc_textFieldCorreo);
 		
 		rdBtnAdmin = new JRadioButton("Administrador");
-		rdBtnAdmin.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		rdBtnAdmin.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_rdBtnAdmin = new GridBagConstraints();
 		gbc_rdBtnAdmin.gridwidth = 2;
 		gbc_rdBtnAdmin.insets = new Insets(0, 0, 5, 0);
@@ -197,8 +197,8 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(rdBtnAdmin.isSelected()) {
-					//Si no está seguro de querer hacerlo administrador
-					if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea hacer administrador a este perfil?","Confirmación",JOptionPane.YES_NO_OPTION) != 0) {
+					//Si no estï¿½ seguro de querer hacerlo administrador
+					if(JOptionPane.showConfirmDialog(null, "ï¿½Estï¿½ seguro que desea hacer administrador a este perfil?","Confirmaciï¿½n",JOptionPane.YES_NO_OPTION) != 0) {
 						rdBtnAdmin.setSelected(false);
 					}
 				}
@@ -207,7 +207,7 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		});
 		panel.add(rdBtnAdmin, gbc_rdBtnAdmin);
 		
-		btnAnadir = new JButton("Añadir");
+		btnAnadir = new JButton("Aï¿½adir");
 		GridBagConstraints gbc_btnAnadir = new GridBagConstraints();
 		gbc_btnAnadir.fill = GridBagConstraints.BOTH;
 		gbc_btnAnadir.gridwidth = 2;
@@ -242,11 +242,11 @@ public class AnadirPerfilGUI extends JFrame implements ActionListener{
 		if(perfil != null) {
 			try {
 				//Si lo confirma
-				if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea añadir a "+perfil.getNombre()+" ?","Confirmación",JOptionPane.YES_NO_OPTION) == 0) {
+				if(JOptionPane.showConfirmDialog(null, "ï¿½Estï¿½ seguro que desea aï¿½adir a "+perfil.getNombre()+" ?","Confirmaciï¿½n",JOptionPane.YES_NO_OPTION) == 0) {
 					if (admin) WriteAdmin((Admin)perfil);
 					else WritePerfil(perfil);
 					setVisible(false);
-					JOptionPane.showMessageDialog(null, "Felicidades por añadido a "+perfil.getNombre()+" a la base de datos", "Felicidades" ,JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Felicidades por aï¿½adido a "+perfil.getNombre()+" a la base de datos", "Felicidades" ,JOptionPane.INFORMATION_MESSAGE);
 				}
 			} catch (ExcepcionPerfil e1) {
 				JOptionPane.showMessageDialog(null, "Error: "+e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);

@@ -50,7 +50,7 @@ import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 
 /**
- * Esta clase es la es.library.databaseinspanish.ui para coger prestado un libro pasado por parámetro
+ * Esta clase es la es.library.databaseinspanish.ui para coger prestado un libro pasado por parï¿½metro
  * @author danie
  *
  */
@@ -99,13 +99,13 @@ public class PrestarContenidoGUI extends JFrame{
 		
 		JLabel lblD = new JLabel("Introduzca la ID del usuario:");
 		lblD.setPreferredSize(new Dimension(150, 30));
-		lblD.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblD.setFont(ProjectConstants.font12P);
 		IntroduzcaID.add(lblD);
 		
 		textField = new JTextField();
 		textField.setPreferredSize(new Dimension(7, 30));
 		textField.setColumns(15);
-		textField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textField.setFont(ProjectConstants.font12P);
 		IntroduzcaID.add(textField);
 		
 		JEditorPane editorPane = new JEditorPane();
@@ -137,7 +137,7 @@ public class PrestarContenidoGUI extends JFrame{
 		guardarRecibo.setBackground(SystemColor.controlHighlight);
 		guardarRecibo.setHorizontalAlignment(SwingConstants.LEFT);
 		guardarRecibo.setSelected(true);
-		guardarRecibo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		guardarRecibo.setFont(ProjectConstants.font12P);
 		GridBagConstraints gbc_guardarRecibo = new GridBagConstraints();
 		gbc_guardarRecibo.insets = new Insets(10, 0, 5, 0);
 		gbc_guardarRecibo.gridx = 0;
@@ -155,7 +155,7 @@ public class PrestarContenidoGUI extends JFrame{
 				try {
 					dni= Integer.parseInt(textField.getText());
 				} catch(NumberFormatException e1) {
-					JOptionPane.showMessageDialog(null, "No se ha reconocido un número en el campo \"ID\"", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
+					JOptionPane.showMessageDialog(null, "No se ha reconocido un nï¿½mero en el campo \"ID\"", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					textField.setBorder(new LineBorder(Color.RED,3));
 				}
 				
@@ -165,13 +165,13 @@ public class PrestarContenidoGUI extends JFrame{
 					JOptionPane.showMessageDialog(null, "No se ha reconocido un usuario con el DNI"+dni, "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					textField.setBorder(new LineBorder(Color.RED,3));
 				} catch (ExcepcionPerfil e1) {
-					JOptionPane.showMessageDialog(null, "Ha habido un error la identificación de usuario", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
+					JOptionPane.showMessageDialog(null, "Ha habido un error la identificaciï¿½n de usuario", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					textField.setBorder(new LineBorder(Color.RED,3));
 				}
 				
 				if(perfil != null && dni != 0) {
 					try {
-						int opt = JOptionPane.showConfirmDialog(null, "¿Confirma que quiere que "+perfil.getDNI()+" coja prestado el es.library.databaseinspanish.contenido "+c.getID()+"?", "Confirmación",JOptionPane.YES_NO_OPTION);
+						int opt = JOptionPane.showConfirmDialog(null, "ï¿½Confirma que quiere que "+perfil.getDNI()+" coja prestado el es.library.databaseinspanish.contenido "+c.getID()+"?", "Confirmaciï¿½n",JOptionPane.YES_NO_OPTION);
 						if(opt == 0) {
 							Prestar(c, perfil);
 							if(guardarRecibo.isSelected()) new Recibo(((Component)e.getSource()).getParent().getParent(),c,perfil);
@@ -181,7 +181,7 @@ public class PrestarContenidoGUI extends JFrame{
 						}
 					} catch (ExcepcionContenido | ExcepcionPerfil e1) {
 						e1.printStackTrace();
-						JOptionPane.showMessageDialog(null, "Ha habido un error con el préstamo del es.library.databaseinspanish.contenido", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
+						JOptionPane.showMessageDialog(null, "Ha habido un error con el prï¿½stamo del es.library.databaseinspanish.contenido", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 					}
 				}
 				
@@ -192,22 +192,22 @@ public class PrestarContenidoGUI extends JFrame{
 	
 	public String getDescripcion() {
 		return "<html><body><p>"+
-				"<FONT FACE=\"Segoe UI\" SIZE=5 COLOR=\"black\"<b>Título: </b>"+c.getTitulo()+"</FONT>"+
+				"<FONT FACE=\"Segoe UI\" SIZE=5 COLOR=\"black\"<b>Tï¿½tulo: </b>"+c.getTitulo()+"</FONT>"+
 				"<FONT FACE=\"Segoe UI\" SIZE=4 COLOR=\"black\">"+
 				"<br><b>Autor: </b>"+c.getAutor()+
-				"<br><b>Año: </b>"+c.getAno()+
+				"<br><b>Aï¿½o: </b>"+c.getAno()+
 				"<br><b>Idioma: </b>"+c.getIdioma()+
 				"<br><b>Soporte: </b>"+c.getSoporte()+
 				((c instanceof Libro)? 
 					"<br><b>ISBN: </b>"+((Libro)c).getISBN()+
-					"<br><b>Páginas: </b>"+((Libro)c).getPaginas()+
+					"<br><b>Pï¿½ginas: </b>"+((Libro)c).getPaginas()+
 					"<br><b>Editorial: </b>"+((Libro)c).getEditorial() 
 				:"")+
 				((c instanceof Audio)?
-					"<br><b>Duración: </b>"+((Audio)c).getDuracion()+" minutos"+
+					"<br><b>Duraciï¿½n: </b>"+((Audio)c).getDuracion()+" minutos"+
 					((c instanceof Video)?
-						"<br><b>Edad Recomendada: </b>"+((Video)c).getEdadRecomendada()+" años"+
-						"<br><b>Calidad: </b>"+((Video)c).getCalidad()+" píxeles"
+						"<br><b>Edad Recomendada: </b>"+((Video)c).getEdadRecomendada()+" aï¿½os"+
+						"<br><b>Calidad: </b>"+((Video)c).getCalidad()+" pï¿½xeles"
 					:"")
 				:"")+
 				"<br><br><b>ID: </b>"+c.getID()+
@@ -263,7 +263,7 @@ class Recibo extends JFileChooser {
 		
 		try {
 			text = "Elementos prestados el "+(new SimpleDateFormat("dd/MM/yyyy hh:mm")).format(new Date())+"\nA "+p.getApellido()+", "+p.getNombre()+"\n\n"+
-					"Título del elemento: "+c.getTitulo()+"\n"+
+					"Tï¿½tulo del elemento: "+c.getTitulo()+"\n"+
 					"Fecha de vencimiento: "+c.getFechaDisponibilidad();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -288,7 +288,7 @@ class Recibo extends JFileChooser {
 			d.println(text);
 		} catch (IOException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Ha habido un error con el recibo del préstamo", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
+			JOptionPane.showMessageDialog(null, "Ha habido un error con el recibo del prï¿½stamo", "Error", JOptionPane.WARNING_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
 		} finally {
 			if(d != null) {
 				d.close();

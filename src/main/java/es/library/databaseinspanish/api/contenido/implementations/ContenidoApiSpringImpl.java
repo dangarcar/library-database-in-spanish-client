@@ -19,7 +19,7 @@ import es.library.databaseinspanish.exceptions.contenido.ContenidoNotFoundExcept
 import es.library.databaseinspanish.exceptions.contenido.IllegalContenidoException;
 import es.library.databaseinspanish.exceptions.contenido.UnexpectedContenidoException;
 import es.library.databaseinspanish.model.contenido.Contenido;
-import es.library.databaseinspanish.model.contenido.ContenidoModel;
+import es.library.databaseinspanish.model.contenido.modeltypes.ContenidoModel;
 
 @Component
 public class ContenidoApiSpringImpl implements ContenidoApi{
@@ -118,7 +118,7 @@ public class ContenidoApiSpringImpl implements ContenidoApi{
 	}
 
 	@Override
-	public List<Contenido> getContenidosMasPrestados() {
+	public List<? extends ContenidoModel> getContenidosMasPrestados() {
 		URI uri = apiUtils.uriBuilder()
 				.path("contenidos/search/topprestamos")
 				.build()
@@ -128,12 +128,12 @@ public class ContenidoApiSpringImpl implements ContenidoApi{
 				uri, 
 				HttpMethod.GET, 
 				null, 
-				new ParameterizedTypeReference<List<Contenido>>() {})
+				new ParameterizedTypeReference<List<? extends ContenidoModel>>() {})
 			.getBody();
 	}
 	
 	@Override
-	public List<Contenido> getNContenidosMasPrestados(int n) {
+	public List<? extends ContenidoModel> getNContenidosMasPrestados(int n) {
 		URI uri = apiUtils.uriBuilder()
 				.path("contenidos/search/topprestamos")
 				.queryParam("limit", n)
@@ -144,7 +144,7 @@ public class ContenidoApiSpringImpl implements ContenidoApi{
 				uri, 
 				HttpMethod.GET, 
 				null, 
-				new ParameterizedTypeReference<List<Contenido>>() {})
+				new ParameterizedTypeReference<List<? extends ContenidoModel>>() {})
 			.getBody();
 	}
 	
