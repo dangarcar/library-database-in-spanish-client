@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import es.library.databaseinspanish.model.perfil.Perfil;
+import es.library.databaseinspanish.model.perfil.Roles;
 import es.library.databaseinspanish.ui.pantallainicio.PantallaInicio;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
 
@@ -17,24 +18,46 @@ import es.library.databaseinspanish.ui.utils.ProjectConstants;
  *
  */
 public class SwingApp extends JFrame {
+	
 	private PantallaInicio home;	
 	private Perfil userLoggenIn;
 	
-	private CardLayout cardLayout = new CardLayout();
-	
+	private CardLayout cardLayout = new CardLayout();	
 	private JPanel main = new JPanel();
 	
-	/*public SwingApp() {
-		home = PantallaInicio.getInstance(this, Roles.ROLE_GUEST);
-		
-		initUI();
-	}*/
-	
+	private boolean guest;
+
 	public SwingApp(Perfil user) {
 		userLoggenIn = user;		
 		home = PantallaInicio.getInstance(this,user.getRole());
 		
 		initUI();
+	}
+	
+	private SwingApp() {
+		this.guest = true;
+		home = PantallaInicio.getInstance(this, Roles.ROLE_GUEST);
+		initUI();
+	}
+	
+	public static SwingApp createGuestApp() {
+		return new SwingApp();
+	}
+	
+	public SwingApp changeToGuestApp() {
+		this.guest = true;
+		this.userLoggenIn = null;
+		home = PantallaInicio.getInstance(this, Roles.ROLE_GUEST);
+		initUI();
+		return this;
+	}
+	
+	public SwingApp changeToUserApp(Perfil user) {
+		this.guest = false;
+		this.userLoggenIn = user;
+		home = PantallaInicio.getInstance(this, user.getRole());
+		initUI();
+		return this;
 	}
 	
 	private void initUI() {
@@ -51,8 +74,7 @@ public class SwingApp extends JFrame {
 		
 		this.getContentPane().add(main);
 		
-		this.pack();
-		setBounds(100,100,ProjectConstants.SCREEN_WIDTH,ProjectConstants.SCREEN_HEIGHT);
+		setSize(ProjectConstants.SCREEN_WIDTH,ProjectConstants.SCREEN_HEIGHT);
 		this.setLocationRelativeTo(null);
 		
 		setVisible(true);
@@ -66,6 +88,9 @@ public class SwingApp extends JFrame {
 	public void returnHome() {
 		cardLayout.show(main, home.getName());
 	}
+	
+	public PantallaInicio getHome() {return this.home;}
+	public boolean isGuest() {return guest;}
 	
 	public Perfil getUserLoggenIn() {return userLoggenIn;}
 	public void setUserLoggenIn(Perfil userLoggenIn) {this.userLoggenIn = userLoggenIn;}

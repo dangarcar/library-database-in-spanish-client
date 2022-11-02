@@ -13,7 +13,7 @@ import javax.swing.border.LineBorder;
 import es.library.databaseinspanish.model.contenido.modeltypes.ContenidoModel;
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.utils.ImageLabel;
-import es.library.databaseinspanish.utils.Utils;
+import es.library.databaseinspanish.utils.ImageUtils;
 
 public class ContenidoPicture extends JButton {
 
@@ -29,7 +29,7 @@ public class ContenidoPicture extends JButton {
 		setVerticalTextPosition(SwingConstants.BOTTOM);
 		setFont(new Font("Segoe UI", Font.PLAIN,12));
 		this.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		this.setIcon(new ImageLabel(Utils.getContenidoImageIcon(contenido.toContenido()),width,height - getFontMetrics(getFont()).getHeight()).getIcon());
+		this.setIcon(new ImageLabel(ImageUtils.getImagenFromContenido(contenido.toContenido()),width,height - getFontMetrics(getFont()).getHeight()).getIcon());
 		this.setHorizontalAlignment(CENTER);
 		this.addMouseListener(new MouseAdapter() {
 			@Override

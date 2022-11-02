@@ -13,6 +13,16 @@ public class LoginWindow extends JFrame {
 	public LoginWindow() {
 		this.loginController = new LoginController(new LoginPanel(), this);
 		
+		initUI();
+	}
+	
+	public LoginWindow(SwingApp parent) {
+		this.loginController = new LoginController(parent, new LoginPanel(), this);
+		
+		initUI();
+	}
+	
+	private void initUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SwingApp.class.getResource("/es/library/databaseinspanish/ui/images/icon.png")));
@@ -21,7 +31,6 @@ public class LoginWindow extends JFrame {
 		
 		this.pack();
 		this.setLocationRelativeTo(null);
-//		this.setShape(new RoundRectangle2D.Double(10, 10, this.getWidth()-1, this.getHeight()-1, 50, 50));
 		this.setVisible(true);
 	}
 	

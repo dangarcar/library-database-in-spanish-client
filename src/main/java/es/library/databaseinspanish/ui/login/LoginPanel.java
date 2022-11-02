@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,15 +18,19 @@ import javax.swing.JTextField;
 
 import es.library.databaseinspanish.ui.utils.ImageLabel;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
-import es.library.databaseinspanish.ui.utils.RoundedBorder;
+import es.library.databaseinspanish.ui.utils.RoundedFilledBorder;
+import es.library.databaseinspanish.utils.Utils;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.Box;
 
 public class LoginPanel extends JPanel {
 
 	private JTextField username;
 	private JPasswordField password;
+	
 	private JButton registerBoton;
-	private JButton botonLogin;	
+	private JButton botonLogin;
+	private JButton guestBoton;	
 	
 	public LoginPanel() {
 		this.setBackground(Color.WHITE);
@@ -50,7 +55,7 @@ public class LoginPanel extends JPanel {
 		title.setFont(new Font("Segoe UI", Font.BOLD, 24));
 		GridBagConstraints gbc_title = new GridBagConstraints();
 		gbc_title.gridwidth = 2;
-		gbc_title.insets = new Insets(0, 0, 5, 5);
+		gbc_title.insets = new Insets(0, 0, 5, 0);
 		gbc_title.gridx = 0;
 		gbc_title.gridy = 1;
 		this.add(title, gbc_title);
@@ -63,7 +68,7 @@ public class LoginPanel extends JPanel {
 		gbc_loginPanel.gridx = 0;
 		gbc_loginPanel.gridy = 2;
 		loginPanel.setLayout(new MigLayout("", "[grow]", "[][][][][]"));
-		loginPanel.setBorder(new RoundedBorder(20,new Color(240,240,240)));
+		loginPanel.setBorder(new RoundedFilledBorder(20,new Color(240,240,240)));
 		this.add(loginPanel, gbc_loginPanel);
 		
 		JLabel usernameLabel = new JLabel("Correo electrónico");
@@ -93,13 +98,13 @@ public class LoginPanel extends JPanel {
 		botonLogin.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		botonLogin.setBorder(null);
 		JPanel auxPanel = new JPanel();
-		auxPanel.setBorder(new RoundedBorder(5,new Color(11, 84, 30)));
+		auxPanel.setBorder(new RoundedFilledBorder(5,new Color(11, 84, 30)));
 		auxPanel.setBackground(new Color(240,240,240));
 		auxPanel.add(botonLogin);
 		loginPanel.add(auxPanel, "cell 0 4,aligny bottom,growx");
 		
 		JPanel newAccountPanel = new JPanel();
-		newAccountPanel.setBorder(new RoundedBorder(20,new Color(240,240,240)));
+		newAccountPanel.setBorder(new RoundedFilledBorder(20,new Color(240,240,240)));
 		GridBagConstraints gbc_newAccountPanel = new GridBagConstraints();
 		gbc_newAccountPanel.gridwidth = 2;
 		gbc_newAccountPanel.insets = new Insets(10, 10, 10, 10);
@@ -107,44 +112,30 @@ public class LoginPanel extends JPanel {
 		gbc_newAccountPanel.gridx = 0;
 		gbc_newAccountPanel.gridy = 3;
 		this.add(newAccountPanel, gbc_newAccountPanel);
+		newAccountPanel.setLayout(new BoxLayout(newAccountPanel, BoxLayout.Y_AXIS));
 		
-		registerBoton = new JButton("¿Nuevo en la biblioteca? Crear cuenta.");
+		registerBoton = new JButton(Utils.getHtmlText("¿Nuevo en la biblioteca? <b>Crear cuenta.</b>"));
+		registerBoton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		registerBoton.setBackground(new Color(240,240,240));
 		registerBoton.setFont(ProjectConstants.font12P);
 		registerBoton.setBorder(null);
 		newAccountPanel.add(registerBoton);
+		
+		Component verticalStrut = Box.createVerticalStrut(20);
+		newAccountPanel.add(verticalStrut);
+		
+		guestBoton = new JButton(Utils.getHtmlText("<span style=\"color:blue\">O continuar <b>como invitado</b></span>"));
+		guestBoton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		guestBoton.setBackground(new Color(240,240,240));
+		guestBoton.setFont(ProjectConstants.font12P);
+		guestBoton.setBorder(null);
+		newAccountPanel.add(guestBoton);
 	}
 
-	JTextField getUsername() {
-		return username;
-	}
-
-	void setUsername(JTextField username) {
-		this.username = username;
-	}
-
-	JPasswordField getPassword() {
-		return password;
-	}
-
-	void setPassword(JPasswordField password) {
-		this.password = password;
-	}
-
-	JButton getRegisterBoton() {
-		return registerBoton;
-	}
-
-	void setRegisterBoton(JButton registerBoton) {
-		this.registerBoton = registerBoton;
-	}
-
-	JButton getBotonLogin() {
-		return botonLogin;
-	}
-
-	void setBotonLogin(JButton botonLogin) {
-		this.botonLogin = botonLogin;
-	}
+	JTextField getUsername() {return username;}
+	JPasswordField getPassword() {return password;}
+	JButton getRegisterBoton() {return registerBoton;}
+	JButton getBotonLogin() {return botonLogin;}
+	JButton getGuestBoton() {return guestBoton;}
 	
 }

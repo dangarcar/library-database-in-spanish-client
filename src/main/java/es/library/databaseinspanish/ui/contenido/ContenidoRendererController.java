@@ -28,7 +28,8 @@ public class ContenidoRendererController {
 		
 		renderContenido();
 		
-		renderer.getBotonPrestar().addActionListener(prestarFunction);
+		if(!app.isGuest()) 
+			renderer.getBotonPrestar().addActionListener(prestarFunction);
 	}
 	
 	private void renderContenido() {

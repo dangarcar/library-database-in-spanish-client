@@ -18,7 +18,6 @@ import es.library.databaseinspanish.model.contenido.modeltypes.AudioModel;
 import es.library.databaseinspanish.model.contenido.modeltypes.ContenidoModel;
 import es.library.databaseinspanish.model.contenido.modeltypes.LibroModel;
 import es.library.databaseinspanish.model.contenido.modeltypes.VideoModel;
-import es.library.databaseinspanish.model.perfil.Roles;
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.utils.BotonRetroceso;
 import es.library.databaseinspanish.ui.utils.ImageLabel;
@@ -31,7 +30,7 @@ public class ContenidoRenderer extends JPanel {
 	private SwingApp app;	
 	private ContenidoModel model;
 	
-	public ContenidoRenderer(SwingApp app, ContenidoModel model) {
+	ContenidoRenderer(SwingApp app, ContenidoModel model) {
 		super();
 		this.app = app;
 		this.model = model;
@@ -71,16 +70,10 @@ public class ContenidoRenderer extends JPanel {
 		this.copiasPanel = new CopiasPanel();
 		add(copiasPanel, "cell 1 8,grow");
 		
-		//TODO no se resizea bien
-		
 		this.prestarPanel = new PrestarPanel();
 		add(prestarPanel, "cell 4 1 1 7,alignx center,growy");
 	}
 	
-	public String getHtmlText(String title, Object text) {
-		return "<html><b>"+title+"</b><br>"+text.toString()+"</html>";
-	}
-
 	public JButton getBotonPrestar() {
 		return prestarPanel.getBotonPrestar();
 	}
@@ -101,7 +94,7 @@ public class ContenidoRenderer extends JPanel {
 		public PrestarPanel() {
 			super();
 			
-			if(app.getUserLoggenIn().getRole().equals(Roles.ROLE_GUEST)) {
+			if(app.isGuest()) {
 				setOpaque(false);
 				return;	
 			}
@@ -143,15 +136,15 @@ public class ContenidoRenderer extends JPanel {
 			this.setBackground(ProjectConstants.BACKGROUND_COLOR);
 			this.setLayout(new MigLayout("", "[grow][grow][grow]", "[grow][grow]"));
 			
-			JLabel ano = new JLabel(getHtmlText("Año", model.getAno()));
+			JLabel ano = new JLabel(Utils.getHtmlTextWithBr("Año", model.getAno()));
 			ano.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			this.add(ano, "cell 0 0");
 			
-			JLabel idioma = new JLabel(getHtmlText("Idioma",model.getIdioma()));
+			JLabel idioma = new JLabel(Utils.getHtmlTextWithBr("Idioma",model.getIdioma()));
 			this.add(idioma, "cell 1 0");
 			idioma.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			
-			JLabel soporte = new JLabel(getHtmlText("Soporte",model.getSoporte()));
+			JLabel soporte = new JLabel(Utils.getHtmlTextWithBr("Soporte",model.getSoporte()));
 			this.add(soporte, "cell 2 0");
 			soporte.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			
@@ -172,17 +165,17 @@ public class ContenidoRenderer extends JPanel {
 			this.add(spec_3, "cell 2 1");
 			
 			if(model instanceof VideoModel m) {
-				spec_1.setText(getHtmlText("Duración",m.getDuracion()));
-				spec_2.setText(getHtmlText("Calificación de edad",m.getEdadRecomendada()));
-				spec_3.setText(getHtmlText("Calidad (en píxeles)",m.getCalidad()));
+				spec_1.setText(Utils.getHtmlTextWithBr("Duración",m.getDuracion()));
+				spec_2.setText(Utils.getHtmlTextWithBr("Calificación de edad",m.getEdadRecomendada()));
+				spec_3.setText(Utils.getHtmlTextWithBr("Calidad (en píxeles)",m.getCalidad()));
 			}
 			else if(model instanceof LibroModel m) {
-				spec_1.setText(getHtmlText("ISBN",m.getISBN()));
-				spec_2.setText(getHtmlText("Páginas",m.getPaginas()));
-				spec_3.setText(getHtmlText("Editorial",m.getEditorial()));
+				spec_1.setText(Utils.getHtmlTextWithBr("ISBN",m.getISBN()));
+				spec_2.setText(Utils.getHtmlTextWithBr("Páginas",m.getPaginas()));
+				spec_3.setText(Utils.getHtmlTextWithBr("Editorial",m.getEditorial()));
 			}
 			else if(model instanceof AudioModel m) {
-				spec_1.setText(getHtmlText("Duración",m.getDuracion()));		
+				spec_1.setText(Utils.getHtmlTextWithBr("Duración",m.getDuracion()));		
 			}
 		}
 		
@@ -195,11 +188,11 @@ public class ContenidoRenderer extends JPanel {
 			this.setBackground(ProjectConstants.BACKGROUND_COLOR);
 			this.setLayout(new MigLayout("", "[grow][grow]", "[]"));
 			
-			JLabel copiasTotal = new JLabel(getHtmlText("Total copias",model.getIds().size()));
+			JLabel copiasTotal = new JLabel(Utils.getHtmlTextWithBr("Total copias",model.getIds().size()));
 			copiasTotal.setFont(ProjectConstants.font12P);
 			this.add(copiasTotal, "cell 0 0");
 			
-			JLabel copiasDisponible = new JLabel(getHtmlText("Copias disponibles",model.getContenidos().stream().filter(c -> c.getDisponible()).count()));
+			JLabel copiasDisponible = new JLabel(Utils.getHtmlTextWithBr("Copias disponibles",model.getContenidos().stream().filter(c -> c.getDisponible()).count()));
 			copiasDisponible.setFont(ProjectConstants.font12P);
 			this.add(copiasDisponible, "cell 1 0");
 		}

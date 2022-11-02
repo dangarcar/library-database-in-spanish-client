@@ -28,6 +28,7 @@ public class RegisterController {
 	private RegisterPanel registerPanel;
 	private RegisterWindow window;
 	private boolean createNewApp;
+	private SwingApp parent;
 	
 	public RegisterController(RegisterPanel registerPanel, RegisterWindow window) {
 		this.registerPanel = registerPanel;
@@ -35,10 +36,11 @@ public class RegisterController {
 		this.createNewApp = true;
 	}
 	
-	public RegisterController(RegisterPanel registerPanel, RegisterWindow window, boolean createNewApp) {
+	public RegisterController(SwingApp parent, RegisterPanel registerPanel, RegisterWindow window) {
 		this.registerPanel = registerPanel;
 		this.window = window;
-		this.createNewApp = createNewApp;
+		this.parent = parent;
+		this.createNewApp = false;
 	}
 	
 	public void init() {
@@ -142,6 +144,7 @@ public class RegisterController {
 			OptionPanes.info("Bienvenido "+user.getNombre());
 			window.destroy();
 			if(createNewApp) new SwingApp(user);
+			else parent.changeToUserApp(user);
 		} catch (NotValidPasswordException|UsernameNotFoundException|EmailAlreadyExistPerfilException|UnexpectedSecurityException e1) {
 			OptionPanes.errorBlocking(e1.getMessage());
 		}

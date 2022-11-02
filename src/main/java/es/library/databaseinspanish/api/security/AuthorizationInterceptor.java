@@ -41,10 +41,12 @@ public class AuthorizationInterceptor implements ClientHttpRequestInterceptor {
 		logger.info("Ejecutando "+getClass().getName()+" interceptor...");
 		try {
 			if(!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-				request.getHeaders().setBearerAuth(TokenManager.getInstance().getUserTokens().getAccessToken());
-				logger.info("Se ha añadido el access token a la request");
-			}	
-		}
+					request.getHeaders().setBearerAuth(TokenManager.getInstance().getUserTokens().getAccessToken());
+					logger.info("Se ha añadido el access token a la request");
+			}
+		} catch (IOException e) {
+			logger.debug(e);
+		}	
 		catch (Exception e) {
 			logger.error("Error en la autenticación",e);
 			throw new UnathorizedException("Error mientras se intentaba autenticar",e);

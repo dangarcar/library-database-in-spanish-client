@@ -23,6 +23,7 @@ public class LoginController {
 	private LoginPanel loginPanel;
 	private LoginWindow window;
 	private boolean createNewApp;
+	private SwingApp parent;
 	
 	public LoginController(LoginPanel panel, LoginWindow window) {
 		this.loginPanel = panel;
@@ -30,15 +31,17 @@ public class LoginController {
 		this.createNewApp = true;
 	}
 	
-	public LoginController(LoginPanel panel, LoginWindow window, boolean createNewApp) {
+	public LoginController(SwingApp parent, LoginPanel panel, LoginWindow window) {
 		this.loginPanel = panel;
 		this.window = window;
-		this.createNewApp = createNewApp;
+		this.createNewApp = false;
+		this.parent = parent;
 	}
 	
 	public void init() {
 		loginPanel.getRegisterBoton().addActionListener(registerButtonAction);
 		loginPanel.getBotonLogin().addActionListener(loginButtonAction);
+		loginPanel.getGuestBoton().addActionListener(guestBotonAction);
 		
 		window.add(loginPanel);
 	}
@@ -89,6 +92,7 @@ public class LoginController {
 			OptionPanes.info("Bienvenido "+user.getNombre());
 			window.destroy();
 			if(createNewApp) new SwingApp(user);
+			else parent.changeToUserApp(user);
 		} catch (NotValidPasswordException|UsernameNotFoundException|EmailAlreadyExistPerfilException|UnexpectedSecurityException e1) {
 			OptionPanes.errorBlocking(e1.getMessage());
 		}
@@ -96,6 +100,13 @@ public class LoginController {
 		
 	private ActionListener registerButtonAction = (ActionEvent e) -> {
 		window.destroy();
-		new RegisterWindow();
+		if(createNewApp) new RegisterWindow();
+		else new RegisterWindow(parent);
+	};
+	
+	private ActionListener guestBotonAction = (ActionEvent e) -> {
+		window.destroy();
+		if(createNewApp) SwingApp.createGuestApp();
+		else parent.changeToGuestApp();
 	};
 }

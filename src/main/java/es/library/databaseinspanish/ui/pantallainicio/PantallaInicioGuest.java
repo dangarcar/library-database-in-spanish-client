@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import es.library.databaseinspanish.ui.SwingApp;
+import es.library.databaseinspanish.ui.user.GuestButton;
 import es.library.databaseinspanish.ui.utils.ImageLabel;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
 import net.miginfocom.swing.MigLayout;
@@ -60,6 +61,9 @@ public class PantallaInicioGuest extends PantallaInicio {
 
 		slideShow = new ContenidosSlideShow(parent);
 		add(slideShow, "cell 0 7 3 1,grow");
+		
+		if(parent.isGuest()) 
+			add(new GuestButton(parent), "cell 0 1 1 4");
 	}
 
 }

@@ -11,7 +11,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
 import es.library.databaseinspanish.model.contenido.Contenido;
-import es.library.databaseinspanish.utils.Utils;
+import es.library.databaseinspanish.utils.ImageUtils;
 
 public class ListaContenido extends JList<Contenido> {
 
@@ -37,7 +37,7 @@ class ListaRenderer extends JLabel implements ListCellRenderer<Contenido> {
 		Color bg = null;
 		Color fg = null;
 		
-		setIcon(Utils.getScaledIcon(Utils.getContenidoImageIcon(c), 64, 64));
+		setIcon(ImageUtils.getScaledIcon(ImageUtils.getImagenFromContenido(c), 64, 64));
 		setText("<html>"+"<b>ID interna: </b>"+c.getID()+"<br><b>Prestable: </b>"+formatBooleanHtml(c.getPrestable())+"<br><b>Disponible: </b>"+formatBooleanHtml(c.getDisponible())+"</html>");
 		
         if (isSelected) {

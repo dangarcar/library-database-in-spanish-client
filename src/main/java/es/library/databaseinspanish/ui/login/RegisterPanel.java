@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 
 import es.library.databaseinspanish.ui.utils.ImageLabel;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
-import es.library.databaseinspanish.ui.utils.RoundedBorder;
+import es.library.databaseinspanish.ui.utils.RoundedFilledBorder;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Dimension;
 
@@ -63,7 +63,7 @@ public class RegisterPanel extends JPanel {
 		this.add(title, gbc_title);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new RoundedBorder(20, new Color(240,240,240)));
+		panel.setBorder(new RoundedFilledBorder(20, new Color(240,240,240)));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(10, 10, 5, 10);
 		gbc_panel.fill = GridBagConstraints.BOTH;
@@ -123,7 +123,7 @@ public class RegisterPanel extends JPanel {
 		panel.add(passwordField, "cell 1 3 3 1,growx");
 		
 		JPanel newPanel = new JPanel();
-		newPanel.setBorder(new RoundedBorder(20, new Color(11, 84, 30)));
+		newPanel.setBorder(new RoundedFilledBorder(20, new Color(11, 84, 30)));
 		GridBagConstraints gbc_newPanel = new GridBagConstraints();
 		gbc_newPanel.insets = new Insets(10, 10, 10, 10);
 		gbc_newPanel.fill = GridBagConstraints.BOTH;

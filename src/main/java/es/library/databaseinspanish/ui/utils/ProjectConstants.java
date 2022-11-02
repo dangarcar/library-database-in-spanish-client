@@ -3,6 +3,9 @@ package es.library.databaseinspanish.ui.utils;
 import java.awt.Color;
 import java.awt.Font;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.Locale;
 import java.util.Map;
 
 public interface ProjectConstants {
@@ -28,5 +31,11 @@ public interface ProjectConstants {
 		);
 	
 	Font font12P = new Font("Segoe UI", Font.PLAIN, 12);
+	
+	DateTimeFormatter LOCAL_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	
+	DateTimeFormatter ZONED_DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
+			.appendPattern("dd MMM. yyyy - hh:mm")
+			.toFormatter(new Locale("es","ES"));
 	
 }
