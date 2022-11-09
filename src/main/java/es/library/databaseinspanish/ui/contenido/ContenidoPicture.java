@@ -2,6 +2,7 @@ package es.library.databaseinspanish.ui.contenido;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -31,6 +32,7 @@ public class ContenidoPicture extends JButton {
 		this.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.setIcon(new ImageLabel(ImageUtils.getImagenFromContenido(contenido.toContenido()),width,height - getFontMetrics(getFont()).getHeight()).getIcon());
 		this.setHorizontalAlignment(CENTER);
+		setPreferredSize(new Dimension(width, height));
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -41,6 +43,9 @@ public class ContenidoPicture extends JButton {
 			public void mouseExited(MouseEvent e) {
 				setBorderPainted(false);
 			}
+		});
+		this.addActionListener((e) -> {
+			new ContenidoRendererController(app, contenido);
 		});
 	}
 

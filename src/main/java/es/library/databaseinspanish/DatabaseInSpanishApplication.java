@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.library.databaseinspanish.api.security.token.TokenManager;
 import es.library.databaseinspanish.ui.login.AuthenticationManager;
 
 /**
@@ -31,7 +30,7 @@ public class DatabaseInSpanishApplication {
 		springApplicationBuilder().run(args);
 		
 		EventQueue.invokeLater(() -> {
-//			TokenManager.getInstance().deleteUserTokens();
+//			TokenManager.getInstance().deleteUserTokens();			
 			new AuthenticationManager();
 		});
 	}

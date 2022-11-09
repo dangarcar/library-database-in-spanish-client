@@ -38,4 +38,8 @@ public interface ProjectConstants {
 			.appendPattern("dd MMM. yyyy - hh:mm")
 			.toFormatter(new Locale("es","ES"));
 	
+	Color GREEN_COLOR = new Color(11, 84, 30);
+	
+	int EDAD_MINIMA = 12;
+	
 }

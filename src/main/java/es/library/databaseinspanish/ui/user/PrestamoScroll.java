@@ -1,16 +1,12 @@
 package es.library.databaseinspanish.ui.user;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,13 +16,13 @@ import es.library.databaseinspanish.api.utils.StaticApis;
 import es.library.databaseinspanish.model.prestamo.Prestamo;
 import es.library.databaseinspanish.model.prestamo.PrestamoContenidoModel;
 import es.library.databaseinspanish.ui.SwingApp;
+import es.library.databaseinspanish.ui.utils.NoContentLabel;
 import es.library.databaseinspanish.ui.utils.OptionPanes;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
 
 public class PrestamoScroll extends JScrollPane {
 
 	private JPanel viewport = new JPanel();
-	private JLabel noContentLabel;
 	private List<PrestamoPicture> contenidoModels = new ArrayList<>();
 	private GridLayout gridLayout;
 	private SwingApp parent;
@@ -38,10 +34,6 @@ public class PrestamoScroll extends JScrollPane {
 		setBorder(null);
 		this.setViewportView(viewport);
 		viewport.setBackground(ProjectConstants.BACKGROUND_COLOR);		
-		
-		noContentLabel = new JLabel("No tiene ningún contenido en préstamo actualmente");
-		noContentLabel.setFont(ProjectConstants.font12P.deriveFont(Font.BOLD,24f));
-		noContentLabel.setForeground(Color.gray);
 		
 		setPrestamos();
 		setPictures();
@@ -94,7 +86,7 @@ public class PrestamoScroll extends JScrollPane {
 		boolean empty = false;
 		if(contenidoModels.isEmpty()) {
 			empty = true;
-			viewport.add(noContentLabel);
+			viewport.add(new NoContentLabel("No tiene ningún contenido en préstamo actualmente"));
 		}
 		return empty;
 	}

@@ -1,13 +1,15 @@
 package es.library.databaseinspanish.ui.user;
 
+import java.awt.Font;
+
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.login.LoginWindow;
 import es.library.databaseinspanish.ui.utils.ImageButton;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
-import javax.swing.SwingConstants;
-import java.awt.Font;
+import es.library.databaseinspanish.utils.Utils;
 
 public class GuestButton extends ImageButton {
 	
@@ -17,7 +19,7 @@ public class GuestButton extends ImageButton {
 		setVerticalTextPosition(SwingConstants.BOTTOM);
 		setHorizontalTextPosition(SwingConstants.CENTER);
 
-		this.setText("Iniciar sesión");
+		this.setText(Utils.getHtmlText("<span style=\"color:#027000\">Iniciar sesión</span>"));
 		
 		this.setBackground(ProjectConstants.BACKGROUND_COLOR);
 		this.setBorder(null);

@@ -1,6 +1,7 @@
 package es.library.databaseinspanish.ui;
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 
@@ -22,8 +23,7 @@ public class SwingApp extends JFrame {
 	private PantallaInicio home;	
 	private Perfil userLoggenIn;
 	
-	private CardLayout cardLayout = new CardLayout();	
-	private JPanel main = new JPanel();
+	private CardLayout cardLayout = new CardLayout();
 	
 	private boolean guest;
 
@@ -67,26 +67,25 @@ public class SwingApp extends JFrame {
 		setBackground(SystemColor.controlDkShadow);
 		setTitle("Library Database In Spanish");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SwingApp.class.getResource("/es/library/databaseinspanish/ui/images/icon.png")));
-		main.setLayout(cardLayout);
+		this.getContentPane().setLayout(cardLayout);
 		
-		main.add(home, home.getName());
-		cardLayout.show(main, home.getName());
-		
-		this.getContentPane().add(main);
+		this.getContentPane().add(home, home.getName());
+		cardLayout.show(this.getContentPane(), home.getName());
 		
 		setSize(ProjectConstants.SCREEN_WIDTH,ProjectConstants.SCREEN_HEIGHT);
-		this.setLocationRelativeTo(null);
+		setMinimumSize(new Dimension(256,256));
+		setLocationRelativeTo(null);
 		
 		setVisible(true);
 	}
 	
 	public void changePanel(JPanel panel) {
-		main.add(panel, panel.getName());
-		cardLayout.show(main, panel.getName());
+		this.getContentPane().add(panel, panel.getName());
+		cardLayout.show(this.getContentPane(), panel.getName());
 	}
 	
 	public void returnHome() {
-		cardLayout.show(main, home.getName());
+		cardLayout.show(this.getContentPane(), home.getName());
 	}
 	
 	public PantallaInicio getHome() {return this.home;}

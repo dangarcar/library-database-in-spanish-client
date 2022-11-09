@@ -11,7 +11,7 @@ public class PantallaInicioUser extends PantallaInicioGuest {
 	}
 
 	private void init() {
-		add(new UserButton(parent), "cell 0 1 1 4");
+		add(new UserButton(parent), "cell 0 0 1 2");
 	}
 	
 }

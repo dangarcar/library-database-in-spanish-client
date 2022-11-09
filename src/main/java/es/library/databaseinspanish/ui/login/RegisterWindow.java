@@ -2,11 +2,12 @@ package es.library.databaseinspanish.ui.login;
 
 import java.awt.Toolkit;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import es.library.databaseinspanish.ui.SwingApp;
 
-public class RegisterWindow extends JFrame {
+public class RegisterWindow extends JDialog {
 	
 	private RegisterController controller;
 	

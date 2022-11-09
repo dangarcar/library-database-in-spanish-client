@@ -150,6 +150,7 @@ public class ContenidoApiSpringImpl implements ContenidoApi{
 	
 	private URI addNonNullFieldsToUri(ContenidoParamsDto dto, UriComponentsBuilder builder) {
 		
+		if(dto.getQuery() != null)		builder.queryParam("q",  dto.getQuery());
 		if(dto.getTitulo() != null) 	builder.queryParam("titulo", dto.getTitulo());
 		if(dto.getAutor() != null) 		builder.queryParam("autor", dto.getAutor());
 		if(dto.getMinAno() != null) 	builder.queryParam("minAno", dto.getMinAno());

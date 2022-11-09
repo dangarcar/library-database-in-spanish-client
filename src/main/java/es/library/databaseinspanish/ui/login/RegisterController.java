@@ -2,7 +2,6 @@ package es.library.databaseinspanish.ui.login;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,7 +19,6 @@ import es.library.databaseinspanish.exceptions.security.UsernameNotFoundExceptio
 import es.library.databaseinspanish.model.perfil.Perfil;
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.utils.OptionPanes;
-import es.library.databaseinspanish.ui.utils.ProjectConstants;
 
 public class RegisterController {
 
@@ -89,15 +87,7 @@ public class RegisterController {
 		perfil.setContrasena(password);
 		AuthenticationManager.setValidJTextField(registerPanel.getPasswordField());
 		
-		try {
-			LocalDate fechaNacimiento = LocalDate.of(
-					(Integer) registerPanel.getYearComboBox().getSelectedItem(),
-					ProjectConstants.MONTHS.get(registerPanel.getMonthComboBox().getSelectedItem()), 
-					(Integer) registerPanel.getDayComboBox().getSelectedItem());
-			perfil.setFechaNacimiento(fechaNacimiento);
-		} catch (Exception e) {
-			throw new IllegalPerfilException("La fecha de nacimiento no es correcta",e);
-		}
+		perfil.setFechaNacimiento(registerPanel.getDateSelector().getLocalDate());
 		
 		JPanel panel = new JPanel();
 		JPasswordField passwordField = new JPasswordField(32);
@@ -112,7 +102,7 @@ public class RegisterController {
 		return perfil;
 	}
 	
-	private void confirmPassword(JPanel panel, JPasswordField passwordField) throws IllegalPerfilException {
+	public static void confirmPassword(JPanel panel, JPasswordField passwordField) throws IllegalPerfilException {
 		String[] options = {"OK","Cancelar"};
 		int opt = JOptionPane.showOptionDialog(null, panel, "Confirmar contraseña", JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
 		if(opt != 0) {

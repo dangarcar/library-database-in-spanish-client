@@ -6,24 +6,20 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.time.Month;
-import java.time.Year;
-import java.util.stream.IntStream;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import es.library.databaseinspanish.ui.utils.ImageLabel;
+import es.library.databaseinspanish.ui.utils.LocalDateSelector;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
+import es.library.databaseinspanish.ui.utils.RoundedButton;
 import es.library.databaseinspanish.ui.utils.RoundedFilledBorder;
 import net.miginfocom.swing.MigLayout;
-import java.awt.Dimension;
 
 public class RegisterPanel extends JPanel {
 	
@@ -31,9 +27,7 @@ public class RegisterPanel extends JPanel {
 	private JTextField emailTextField;
 	private JPasswordField passwordField;
 	private JButton registerButton;
-	private JComboBox<Integer> dayComboBox;
-	private JComboBox<String> monthComboBox;
-	private JComboBox<Integer> yearComboBox;
+	private LocalDateSelector dateSelector;
 
 	public RegisterPanel() {
 		setBackground(Color.WHITE);
@@ -85,25 +79,9 @@ public class RegisterPanel extends JPanel {
 		fecha.setFont(ProjectConstants.font12P);
 		panel.add(fecha, "cell 0 1,alignx trailing,gapx 0 10");
 		
-		dayComboBox = new JComboBox<Integer>();
-		dayComboBox.setMinimumSize(new Dimension(64, 22));
-		dayComboBox.setFont(ProjectConstants.font12P);
-		panel.add(dayComboBox, "cell 1 1,growx");
-
-		String[] months = ProjectConstants.MONTHS.keySet().stream().sorted((s1,s2) -> ProjectConstants.MONTHS.get(s1).compareTo(ProjectConstants.MONTHS.get(s2))).toArray(String[]::new);
-		monthComboBox = new JComboBox<String>(months);
-		monthComboBox.setMinimumSize(new Dimension(64, 22));
-		monthComboBox.setFont(ProjectConstants.font12P);
-		monthComboBox.addActionListener((e)->{
-			dayComboBox.setModel(new DefaultComboBoxModel<>(getDaysFromMonth(ProjectConstants.MONTHS.get(monthComboBox.getSelectedItem()))));
-		});
-		panel.add(monthComboBox, "cell 2 1,growx");
-		
-		Integer[] years = IntStream.rangeClosed(1, Year.now().getValue()).boxed().sorted((f1,f2) -> Integer.compare(f2, f1)).toArray(Integer[]::new);
-		yearComboBox = new JComboBox<Integer>(years);
-		yearComboBox.setMinimumSize(new Dimension(64, 22));
-		yearComboBox.setFont(ProjectConstants.font12P);
-		panel.add(yearComboBox, "cell 3 1,growx");
+		dateSelector = new LocalDateSelector();
+		dateSelector.setFont(ProjectConstants.font12P);
+		panel.add(dateSelector, "cell 1 1 3 1,growx");
 		
 		JLabel email = new JLabel("Correo electrónico");
 		email.setFont(ProjectConstants.font12P);
@@ -122,21 +100,17 @@ public class RegisterPanel extends JPanel {
 		passwordField.setFont(ProjectConstants.font12P);
 		panel.add(passwordField, "cell 1 3 3 1,growx");
 		
-		JPanel newPanel = new JPanel();
-		newPanel.setBorder(new RoundedFilledBorder(20, new Color(11, 84, 30)));
-		GridBagConstraints gbc_newPanel = new GridBagConstraints();
-		gbc_newPanel.insets = new Insets(10, 10, 10, 10);
-		gbc_newPanel.fill = GridBagConstraints.BOTH;
-		gbc_newPanel.gridx = 0;
-		gbc_newPanel.gridy = 3;
-		add(newPanel, gbc_newPanel);
+		RoundedButton button = new RoundedButton("Registrar");
+		registerButton = button.getBtnAnadir();
+		button.setBackgroundBorder(ProjectConstants.GREEN_COLOR);
+		button.setBackground(Color.WHITE);
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.insets = new Insets(10, 10, 10, 10);
+		gbc_button.fill = GridBagConstraints.BOTH;
+		gbc_button.gridx = 0;
+		gbc_button.gridy = 3;
+		add(button, gbc_button);
 		
-		registerButton = new JButton("Registrar");
-		registerButton.setBackground(new Color(11, 84, 30));
-		registerButton.setForeground(Color.white);
-		registerButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		registerButton.setBorder(null);
-		newPanel.add(registerButton);	
 	}
 
 	public JTextField getNameTextField() {
@@ -170,33 +144,12 @@ public class RegisterPanel extends JPanel {
 	public void setRegisterButton(JButton registerButton) {
 		this.registerButton = registerButton;
 	}
-
-	public JComboBox<Integer> getDayComboBox() {
-		return dayComboBox;
-	}
-
-	public void setDayComboBox(JComboBox<Integer> dayComboBox) {
-		this.dayComboBox = dayComboBox;
-	}
-
-	public JComboBox<String> getMonthComboBox() {
-		return monthComboBox;
-	}
-
-	public void setMonthComboBox(JComboBox<String> monthComboBox) {
-		this.monthComboBox = monthComboBox;
-	}
-
-	public JComboBox<Integer> getYearComboBox() {
-		return yearComboBox;
-	}
-
-	public void setYearComboBox(JComboBox<Integer> yearComboBox) {
-		this.yearComboBox = yearComboBox;
+	
+	public LocalDateSelector getDateSelector() {
+		return dateSelector;
 	}
 	
-	public Integer[] getDaysFromMonth(Month m) {
-		return IntStream.rangeClosed(1, m.maxLength()).boxed().toArray(Integer[]::new);
+	public void setDateSelector(LocalDateSelector dateSelector) {
+		this.dateSelector = dateSelector;
 	}
-	
 }

@@ -6,20 +6,19 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.List;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.web.client.ResourceAccessException;
 
 import es.library.databaseinspanish.api.utils.StaticApis;
+import es.library.databaseinspanish.exceptions.contenido.ContenidoNotFoundException;
 import es.library.databaseinspanish.model.contenido.modeltypes.ContenidoModel;
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.contenido.ContenidoPicture;
-import es.library.databaseinspanish.ui.contenido.ContenidoRendererController;
+import es.library.databaseinspanish.ui.utils.NoContentLabel;
 import es.library.databaseinspanish.ui.utils.OptionPanes;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
 
@@ -29,8 +28,7 @@ public class ContenidosSlideShow extends JScrollPane {
 	
 	private List<? extends ContenidoModel> contenidos;
 	
-	private GridBagLayout layout = new GridBagLayout();
-	
+	private GridBagLayout layout = new GridBagLayout();	
 	private GridBagConstraints constraints = new GridBagConstraints();
 	
 	private JPanel viewport = new JPanel();
@@ -41,9 +39,10 @@ public class ContenidosSlideShow extends JScrollPane {
 		this.app = app;
 		
 		setBorder(new LineBorder(Color.BLACK, 5, true));
+		setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		viewport.setBackground(ProjectConstants.BACKGROUND_COLOR);
 		viewport.setLayout(layout);
-		this.getViewport().add(viewport);
+		this.setViewportView(viewport);
 		
 		constraints.fill = GridBagConstraints.VERTICAL;
 		constraints.insets = new Insets(0, 5, 0, 5);
@@ -52,7 +51,7 @@ public class ContenidosSlideShow extends JScrollPane {
 		setContenidos();
 
 		if(contenidos==null || contenidos.isEmpty()) {
-			viewport.add(new JLabel("No hay contenidos disponibles"));
+			viewport.add(new NoContentLabel("No hay contenidos en recomendados"));
 			return;
 		}
 		
@@ -63,16 +62,15 @@ public class ContenidosSlideShow extends JScrollPane {
 	
 	private void addRenderer(ContenidoModel c) {
 		var picture = new ContenidoPicture(c, 200, 200, app);
-		picture.addActionListener((e) -> {
-			new ContenidoRendererController(app, c);
-		});
 		viewport.add(picture, constraints);
 	}
 	
 	private void setContenidos() {
 		try{
 			contenidos = StaticApis.contenidoApi().getContenidosMasPrestados();
-		} catch(ResourceAccessException e) {
+		} catch(ContenidoNotFoundException e) {
+			logger.warn(e);
+		} catch(Exception e) {
 			logger.error(e);
 			OptionPanes.error(e.getMessage());
 		}

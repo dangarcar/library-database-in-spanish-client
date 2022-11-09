@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 
 import es.library.databaseinspanish.ui.utils.ImageLabel;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
+import es.library.databaseinspanish.ui.utils.RoundedButton;
 import es.library.databaseinspanish.ui.utils.RoundedFilledBorder;
 import es.library.databaseinspanish.utils.Utils;
 import net.miginfocom.swing.MigLayout;
@@ -92,16 +93,11 @@ public class LoginPanel extends JPanel {
 		password.setFont(ProjectConstants.font12P);
 		loginPanel.add(password, "cell 0 3,growx");
 		
-		botonLogin = new JButton("Entrar");
-		botonLogin.setBackground(new Color(11, 84, 30));
-		botonLogin.setForeground(Color.WHITE);
-		botonLogin.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		botonLogin.setBorder(null);
-		JPanel auxPanel = new JPanel();
-		auxPanel.setBorder(new RoundedFilledBorder(5,new Color(11, 84, 30)));
-		auxPanel.setBackground(new Color(240,240,240));
-		auxPanel.add(botonLogin);
-		loginPanel.add(auxPanel, "cell 0 4,aligny bottom,growx");
+		RoundedButton button = new RoundedButton("Entrar");
+		botonLogin = button.getBtnAnadir();
+		button.setBackground(new Color(240,240,240));
+		button.setBackgroundBorder(ProjectConstants.GREEN_COLOR);
+		loginPanel.add(button, "cell 0 4,aligny bottom,growx");
 		
 		JPanel newAccountPanel = new JPanel();
 		newAccountPanel.setBorder(new RoundedFilledBorder(20,new Color(240,240,240)));
@@ -120,9 +116,8 @@ public class LoginPanel extends JPanel {
 		registerBoton.setFont(ProjectConstants.font12P);
 		registerBoton.setBorder(null);
 		newAccountPanel.add(registerBoton);
-		
-		Component verticalStrut = Box.createVerticalStrut(20);
-		newAccountPanel.add(verticalStrut);
+
+		newAccountPanel.add(Box.createVerticalStrut(20));
 		
 		guestBoton = new JButton(Utils.getHtmlText("<span style=\"color:blue\">O continuar <b>como invitado</b></span>"));
 		guestBoton.setAlignmentX(Component.CENTER_ALIGNMENT);
