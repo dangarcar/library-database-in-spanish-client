@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -19,16 +18,18 @@ import es.library.databaseinspanish.model.contenido.modeltypes.ContenidoModel;
 import es.library.databaseinspanish.model.contenido.modeltypes.LibroModel;
 import es.library.databaseinspanish.model.contenido.modeltypes.VideoModel;
 import es.library.databaseinspanish.ui.SwingApp;
-import es.library.databaseinspanish.ui.utils.BotonRetroceso;
-import es.library.databaseinspanish.ui.utils.ImageLabel;
+import es.library.databaseinspanish.ui.utils.ImageUtils;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
-import es.library.databaseinspanish.utils.Utils;
+import es.library.databaseinspanish.ui.utils.Utils;
+import es.library.databaseinspanish.ui.utils.components.BotonRetroceso;
+import es.library.databaseinspanish.ui.utils.components.ImageLabel;
 import net.miginfocom.swing.MigLayout;
 
 public class ContenidoRenderer extends JPanel {
 
 	private SwingApp app;	
 	private ContenidoModel model;
+	private BotonRetroceso retroceso;
 	
 	ContenidoRenderer(SwingApp app, ContenidoModel model) {
 		super();
@@ -38,9 +39,10 @@ public class ContenidoRenderer extends JPanel {
 		this.setBackground(ProjectConstants.BACKGROUND_COLOR);
 		this.setLayout(new MigLayout("", "[][][][][grow]", "[][][][][][growprio 75][][][grow]"));
 		
-		add(new BotonRetroceso(app), "cell 0 0");
+		retroceso = new BotonRetroceso(app);
+		add(retroceso, "cell 0 0");
 		
-		ImageLabel imagen = new ImageLabel(new ImageIcon(model.getImagen()),300,300);
+		ImageLabel imagen = new ImageLabel(ImageUtils.getImagenFromContenido(model.toContenido()),300,300);
 		imagen.setPreferredSize(new Dimension(300,300));
 		add(imagen, "cell 1 1 1 7");
 		
@@ -80,6 +82,10 @@ public class ContenidoRenderer extends JPanel {
 	
 	public JList<Contenido> getSelectionList(){
 		return prestarPanel.getSelectionList();
+	}
+	
+	public BotonRetroceso getRetroceso() {
+		return retroceso;
 	}
 	
 	private PrestarPanel prestarPanel;

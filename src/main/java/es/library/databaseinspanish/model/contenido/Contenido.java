@@ -129,6 +129,6 @@ public class Contenido implements Model {
 	public String toString() {
 		return "Contenido [ID=" + ID + ", titulo=" + titulo + ", autor=" + autor + ", ano=" + ano + ", idioma=" + idioma
 				+ ", soporte=" + soporte + ", prestable=" + prestable + ", diasDePrestamo=" + diasDePrestamo
-				+ ", disponible=" + disponible +  "]";
+				+ ", disponible=" + disponible + ", imagen=" + imagen + "]";
 	}
 }

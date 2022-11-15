@@ -60,7 +60,7 @@ public class SwingApp extends JFrame {
 		return this;
 	}
 	
-	private void initUI() {
+	private void initUI() {		
 		setResizable(true);
 		setFocusable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,7 +71,7 @@ public class SwingApp extends JFrame {
 		
 		this.getContentPane().add(home, home.getName());
 		cardLayout.show(this.getContentPane(), home.getName());
-		
+
 		setSize(ProjectConstants.SCREEN_WIDTH,ProjectConstants.SCREEN_HEIGHT);
 		setMinimumSize(new Dimension(256,256));
 		setLocationRelativeTo(null);
@@ -88,63 +88,13 @@ public class SwingApp extends JFrame {
 		cardLayout.show(this.getContentPane(), home.getName());
 	}
 	
+	public CardLayout getCardLayout() {
+		return cardLayout;
+	}
+	
 	public PantallaInicio getHome() {return this.home;}
 	public boolean isGuest() {return guest;}
 	
 	public Perfil getUserLoggenIn() {return userLoggenIn;}
 	public void setUserLoggenIn(Perfil userLoggenIn) {this.userLoggenIn = userLoggenIn;}
-	
 }
-
-/*class BotonBuscarContenidos extends JButton implements ActionListener{
-	private static final long serialVersionUID = -3472324132940058042L;
-	private List<Contenido> contenidos;
-	private SwingApp parent;
-	
-	public BotonBuscarContenidos(SwingApp parent) {
-		super("Buscar Contenido");
-		this.parent = parent;
-		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		setFont(new Font("Segoe UI", Font.BOLD, 16));
-		setBorderPainted(false);
-		setBackground(new Color(14, 209, 69));
-		setBounds(750, 535, 200, 34);
-		addActionListener(this);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		try {
-			contenidos = BuscarContenido((parent.getLobby().getTxtFieldContenidos().getText().equals("")? null:parent.getLobby().getTxtFieldContenidos().getText()));
-			parent.getContentPane().add(new ResultadoTXT(contenidos,parent),"Resultado");
-			parent.getWindowSwitcher().show(parent.getContentPane(), "Resultado");
-		} catch (Exception e1) {
-			JOptionPane.showMessageDialog(this, e1.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE, new ImageIcon("src/main/resources/files/images/error.png"));
-		}
-	}
-}
-
-class BotonBuscarPerfiles extends JButton implements ActionListener{
-	private static final long serialVersionUID = -3472324189940058042L;
-	private List<Perfil> perfiles;
-	private SwingApp parent;
-	
-	public BotonBuscarPerfiles(SwingApp parent) {
-		super("Buscar usuario");
-		this.parent = parent;
-		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		setBorderPainted(false);
-		setBackground(new Color(14,209,69));
-		setFont(new Font("Segoe UI", Font.BOLD, 16));
-		setBounds(45, 535, 200, 34);
-		addActionListener(this);
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		perfiles = BuscarPerfiles((parent.getLobby().getTxtFieldPerfiles().getText().equals("")? null:parent.getLobby().getTxtFieldPerfiles().getText()));
-		parent.getContentPane().add(new ResultadoTXT(perfiles,parent),"Resultado");
-		parent.getWindowSwitcher().show(parent.getContentPane(), "Resultado");
-	}
-	
-}*/

@@ -19,6 +19,7 @@ import es.library.databaseinspanish.exceptions.security.UsernameNotFoundExceptio
 import es.library.databaseinspanish.model.perfil.Perfil;
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.utils.OptionPanes;
+import es.library.databaseinspanish.ui.utils.Utils;
 
 public class RegisterController {
 
@@ -53,39 +54,39 @@ public class RegisterController {
 		String name = registerPanel.getNameTextField().getText();
 		if(name.isBlank()) {
 			OptionPanes.warn("El nombre no debe estar en blanco");
-			AuthenticationManager.setNotValidJTextField(registerPanel.getNameTextField());
+			Utils.setNotValidJTextField(registerPanel.getNameTextField());
 			throw new IllegalPerfilException("El nombre no debe estar en blanco");
 		}	
 		perfil.setNombre(name);
-		AuthenticationManager.setValidJTextField(registerPanel.getNameTextField());
+		Utils.setValidJTextField(registerPanel.getNameTextField());
 		
 		String email = registerPanel.getEmailTextField().getText();
 		if(email.isBlank()) {
 			OptionPanes.warn("El correo electrónico no debe estar en blanco");
-			AuthenticationManager.setNotValidJTextField(registerPanel.getEmailTextField());
+			Utils.setNotValidJTextField(registerPanel.getEmailTextField());
 			throw new IllegalPerfilException("El correo electrónico no debe estar en blanco");
 		}
 		if(!email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
 			OptionPanes.warn("El correo electrónico debe ser válido");
-			AuthenticationManager.setNotValidJTextField(registerPanel.getEmailTextField());
+			Utils.setNotValidJTextField(registerPanel.getEmailTextField());
 			throw new IllegalPerfilException("El correo electrónico debe ser válido");
 		}
 		perfil.setCorreoElectronico(email);
-		AuthenticationManager.setValidJTextField(registerPanel.getEmailTextField());
+		Utils.setValidJTextField(registerPanel.getEmailTextField());
 		
 		String password = String.valueOf(registerPanel.getPasswordField().getPassword());
 		if(password.isBlank()) {
 			OptionPanes.warn("La contraseña no debe estar en blanco");
-			AuthenticationManager.setNotValidJTextField(registerPanel.getPasswordField());
+			Utils.setNotValidJTextField(registerPanel.getPasswordField());
 			throw new IllegalPerfilException("El contraseña no debe estar en blanco");
 		}
 		if(!password.matches("^(?=.*[0-9])(?=.*[a-zA-Z])(?=\\S+$).{8,}$")) {
 			OptionPanes.warn("La contraseña debe tener más de 8 caracteres y contener letras y números");
-			AuthenticationManager.setNotValidJTextField(registerPanel.getPasswordField());
+			Utils.setNotValidJTextField(registerPanel.getPasswordField());
 			throw new IllegalPerfilException("La contraseña debe tener más de 8 caracteres y contener letras y números");
 		}
 		perfil.setContrasena(password);
-		AuthenticationManager.setValidJTextField(registerPanel.getPasswordField());
+		Utils.setValidJTextField(registerPanel.getPasswordField());
 		
 		perfil.setFechaNacimiento(registerPanel.getDateSelector().getLocalDate());
 		
@@ -107,7 +108,7 @@ public class RegisterController {
 		int opt = JOptionPane.showOptionDialog(null, panel, "Confirmar contraseña", JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
 		if(opt != 0) {
 			OptionPanes.warnBlocking("La contraseña no se ha confirmado");
-			AuthenticationManager.setNotValidJTextField(passwordField);
+			Utils.setNotValidJTextField(passwordField);
 			throw new IllegalPerfilException("La contraseña no se ha confirmado");
 		}
 	}

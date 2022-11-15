@@ -16,6 +16,7 @@ import es.library.databaseinspanish.exceptions.security.UsernameNotFoundExceptio
 import es.library.databaseinspanish.model.perfil.Perfil;
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.utils.OptionPanes;
+import es.library.databaseinspanish.ui.utils.Utils;
 
 public class LoginController {
 
@@ -52,20 +53,20 @@ public class LoginController {
 		String username = loginPanel.getUsername().getText();
 		if(username.isBlank()) {
 			OptionPanes.warn("El correo electrónico no debe estar en blanco");
-			AuthenticationManager.setNotValidJTextField(loginPanel.getUsername());
+			Utils.setNotValidJTextField(loginPanel.getUsername());
 			throw new IllegalPerfilException("El correo electrónico no debe estar en blanco");
 		}	
 		credentials.setUsername(username);
-		AuthenticationManager.setValidJTextField(loginPanel.getUsername());
+		Utils.setValidJTextField(loginPanel.getUsername());
 		
 		String password = String.valueOf(loginPanel.getPassword().getPassword());
 		if(password.isBlank()) {
 			OptionPanes.warn("La contraseña no debe estar en blanco");
-			AuthenticationManager.setNotValidJTextField(loginPanel.getPassword());
+			Utils.setNotValidJTextField(loginPanel.getPassword());
 			throw new IllegalPerfilException("La contraseña no debe estar en blanco");
 		}
 		credentials.setPassword(password);
-		AuthenticationManager.setValidJTextField(loginPanel.getPassword());
+		Utils.setValidJTextField(loginPanel.getPassword());
 		
 		return credentials;
 	}

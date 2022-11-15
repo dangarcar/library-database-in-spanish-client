@@ -1,4 +1,4 @@
-package es.library.databaseinspanish.ui.user;
+package es.library.databaseinspanish.ui.perfil;
 
 import java.awt.Font;
 
@@ -6,11 +6,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import es.library.databaseinspanish.model.perfil.Perfil;
-import es.library.databaseinspanish.model.perfil.Roles;
-import es.library.databaseinspanish.ui.utils.ImageLabel;
+import es.library.databaseinspanish.ui.utils.ImageUtils;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
-import es.library.databaseinspanish.utils.ImageUtils;
-import es.library.databaseinspanish.utils.Utils;
+import es.library.databaseinspanish.ui.utils.Utils;
+import es.library.databaseinspanish.ui.utils.components.ImageLabel;
 import net.miginfocom.swing.MigLayout;
 
 public class PerfilDescr extends JPanel {
@@ -42,7 +41,7 @@ public class PerfilDescr extends JPanel {
 		JLabel roleLabel = new JLabel();
 		roleLabel.setFont(ProjectConstants.font12P.deriveFont(Font.PLAIN,16f));
 		roleLabel.setText(Utils.getHtmlText("Rol",Utils.getFormattedStringFromRole(perfil.getRole())));
-		if(perfil.getRole() != Roles.ROLE_USER) add(roleLabel, "cell 2 3");
+		add(roleLabel, "cell 2 3");
 	}
 	
 }

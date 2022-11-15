@@ -1,4 +1,4 @@
-package es.library.databaseinspanish.utils;
+package es.library.databaseinspanish.ui.utils;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -13,8 +13,8 @@ import javax.swing.ScrollPaneConstants;
 import es.library.databaseinspanish.model.contenido.modeltypes.ContenidoModel;
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.contenido.ContenidoPicture;
-import es.library.databaseinspanish.ui.utils.NoContentLabel;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
+import es.library.databaseinspanish.ui.utils.components.NoContentLabel;
 import net.miginfocom.swing.MigLayout;
 
 public class ContenidoBusquedaResultScroll extends JScrollPane {

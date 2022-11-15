@@ -1,4 +1,4 @@
-package es.library.databaseinspanish.ui.utils;
+package es.library.databaseinspanish.ui.utils.components;
 
 import java.awt.Cursor;
 import java.awt.Image;

@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,14 +22,14 @@ import es.library.databaseinspanish.exceptions.perfil.IllegalPerfilException;
 import es.library.databaseinspanish.exceptions.perfil.UnexpectedPerfilException;
 import es.library.databaseinspanish.model.perfil.Perfil;
 import es.library.databaseinspanish.ui.SwingApp;
-import es.library.databaseinspanish.ui.login.AuthenticationManager;
 import es.library.databaseinspanish.ui.login.RegisterController;
-import es.library.databaseinspanish.ui.user.PerfilDescr;
-import es.library.databaseinspanish.ui.utils.LocalDateSelector;
+import es.library.databaseinspanish.ui.perfil.PerfilDescr;
 import es.library.databaseinspanish.ui.utils.OptionPanes;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
-import es.library.databaseinspanish.ui.utils.RolesComboBox;
-import es.library.databaseinspanish.ui.utils.RoundedButton;
+import es.library.databaseinspanish.ui.utils.Utils;
+import es.library.databaseinspanish.ui.utils.components.LocalDateSelector;
+import es.library.databaseinspanish.ui.utils.components.RolesComboBox;
+import es.library.databaseinspanish.ui.utils.components.RoundedButton;
 import net.miginfocom.swing.MigLayout;
 
 public class AnadirPerfilDialog extends JDialog {
@@ -40,7 +39,6 @@ public class AnadirPerfilDialog extends JDialog {
 	private JTextField textFieldNombre;
 	private JPasswordField textFieldPassword;
 	private JTextField textFieldCorreo;
-	private JButton btnAnadir;
 	private LocalDateSelector dateSelector;
 	private RolesComboBox roleComboBox;
 	
@@ -100,7 +98,6 @@ public class AnadirPerfilDialog extends JDialog {
 		getContentPane().add(roleComboBox, "cell 2 2,growx");
 
 		RoundedButton button = new RoundedButton("Añadir");
-		btnAnadir = button.getBtnAnadir();
 		button.addActionListener(anadirPerfil);
 		button.setBackgroundBorder(ProjectConstants.GREEN_COLOR);
 		getContentPane().add(button, "cell 0 6 3 1,grow");
@@ -134,7 +131,7 @@ public class AnadirPerfilDialog extends JDialog {
 		} catch(EmailAlreadyExistPerfilException e1) {
 			OptionPanes.error(e1.getMessage());
 			textFieldCorreo.setText("");
-			AuthenticationManager.setNotValidJTextField(textFieldCorreo);
+			Utils.setNotValidJTextField(textFieldCorreo);
 			logger.error("Error en la adición de perfiles a la biblioteca",e1);
 		} catch (UnexpectedPerfilException e1) {
 			OptionPanes.error("No se ha añadido el perfil a la base de datos de la biblioteca");
@@ -148,39 +145,39 @@ public class AnadirPerfilDialog extends JDialog {
 		String name = textFieldNombre.getText();
 		if(name.isBlank()) {
 			OptionPanes.warn("El nombre no debe estar en blanco");
-			AuthenticationManager.setNotValidJTextField(textFieldNombre);
+			Utils.setNotValidJTextField(textFieldNombre);
 			throw new IllegalPerfilException("El nombre no debe estar en blanco");
 		}	
 		perfil.setNombre(name);
-		AuthenticationManager.setValidJTextField(textFieldNombre);
+		Utils.setValidJTextField(textFieldNombre);
 		
 		String email = textFieldCorreo.getText();
 		if(email.isBlank()) {
 			OptionPanes.warn("El correo electrónico no debe estar en blanco");
-			AuthenticationManager.setNotValidJTextField(textFieldCorreo);
+			Utils.setNotValidJTextField(textFieldCorreo);
 			throw new IllegalPerfilException("El correo electrónico no debe estar en blanco");
 		}
 		if(!email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
 			OptionPanes.warn("El correo electrónico debe ser válido");
-			AuthenticationManager.setNotValidJTextField(textFieldCorreo);
+			Utils.setNotValidJTextField(textFieldCorreo);
 			throw new IllegalPerfilException("El correo electrónico debe ser válido");
 		}
 		perfil.setCorreoElectronico(email);
-		AuthenticationManager.setValidJTextField(textFieldCorreo);
+		Utils.setValidJTextField(textFieldCorreo);
 		
 		String password = String.valueOf(textFieldPassword.getPassword());
 		if(password.isBlank()) {
 			OptionPanes.warn("La contraseña no debe estar en blanco");
-			AuthenticationManager.setNotValidJTextField(textFieldPassword);
+			Utils.setNotValidJTextField(textFieldPassword);
 			throw new IllegalPerfilException("El contraseña no debe estar en blanco");
 		}
 		if(!password.matches("^(?=.*[0-9])(?=.*[a-zA-Z])(?=\\S+$).{8,}$")) {
 			OptionPanes.warn("La contraseña debe tener más de 8 caracteres y contener letras y números");
-			AuthenticationManager.setNotValidJTextField(textFieldPassword);
+			Utils.setNotValidJTextField(textFieldPassword);
 			throw new IllegalPerfilException("La contraseña debe tener más de 8 caracteres y contener letras y números");
 		}
 		perfil.setContrasena(password);
-		AuthenticationManager.setValidJTextField(textFieldPassword);
+		Utils.setValidJTextField(textFieldPassword);
 		
 		LocalDate date = dateSelector.getLocalDate();
 		if(date.isAfter(LocalDate.now().minusYears(ProjectConstants.EDAD_MINIMA))) {

@@ -17,10 +17,10 @@ import es.library.databaseinspanish.api.utils.StaticApis;
 import es.library.databaseinspanish.exceptions.contenido.ContenidoNotFoundException;
 import es.library.databaseinspanish.model.contenido.Contenido;
 import es.library.databaseinspanish.ui.SwingApp;
-import es.library.databaseinspanish.ui.login.AuthenticationManager;
 import es.library.databaseinspanish.ui.utils.OptionPanes;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
-import es.library.databaseinspanish.ui.utils.RoundedButton;
+import es.library.databaseinspanish.ui.utils.Utils;
+import es.library.databaseinspanish.ui.utils.components.RoundedButton;
 import net.miginfocom.swing.MigLayout;
 
 public class EliminarContenidoDialog extends JDialog {
@@ -67,12 +67,12 @@ public class EliminarContenidoDialog extends JDialog {
 		} catch (ContenidoNotFoundException|NumberFormatException e1) {
 			OptionPanes.errorBlocking("No existe ningún contenido con id "+idField.getText());
 			logger.warn("No existe contenido con id "+idField.getText(), e1);
-			AuthenticationManager.setNotValidJTextField(idField);
+			Utils.setNotValidJTextField(idField);
 			return;
 		} catch (Exception e1) {
 			OptionPanes.error(e1.getMessage());
 			logger.warn("Error en la eliminación del contenido",e1);
-			AuthenticationManager.setNotValidJTextField(idField);
+			Utils.setNotValidJTextField(idField);
 			return;
 		}
 

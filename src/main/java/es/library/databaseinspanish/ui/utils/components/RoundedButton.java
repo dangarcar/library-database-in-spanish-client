@@ -1,4 +1,4 @@
-package es.library.databaseinspanish.ui.utils;
+package es.library.databaseinspanish.ui.utils.components;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import es.library.databaseinspanish.ui.utils.ProjectConstants;
 
 public class RoundedButton extends JPanel {
 

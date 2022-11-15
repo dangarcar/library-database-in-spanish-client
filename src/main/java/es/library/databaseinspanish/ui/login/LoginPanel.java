@@ -16,11 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import es.library.databaseinspanish.ui.utils.ImageLabel;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
-import es.library.databaseinspanish.ui.utils.RoundedButton;
-import es.library.databaseinspanish.ui.utils.RoundedFilledBorder;
-import es.library.databaseinspanish.utils.Utils;
+import es.library.databaseinspanish.ui.utils.Utils;
+import es.library.databaseinspanish.ui.utils.components.ImageLabel;
+import es.library.databaseinspanish.ui.utils.components.RoundedButton;
+import es.library.databaseinspanish.ui.utils.components.RoundedFilledBorder;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.Box;
 

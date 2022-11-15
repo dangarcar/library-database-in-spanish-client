@@ -16,9 +16,9 @@ import es.library.databaseinspanish.api.utils.StaticApis;
 import es.library.databaseinspanish.model.prestamo.Prestamo;
 import es.library.databaseinspanish.model.prestamo.PrestamoContenidoModel;
 import es.library.databaseinspanish.ui.SwingApp;
-import es.library.databaseinspanish.ui.utils.NoContentLabel;
 import es.library.databaseinspanish.ui.utils.OptionPanes;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
+import es.library.databaseinspanish.ui.utils.components.NoContentLabel;
 
 public class PrestamoScroll extends JScrollPane {
 

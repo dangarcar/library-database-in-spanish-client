@@ -7,9 +7,9 @@ import javax.swing.SwingConstants;
 
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.login.LoginWindow;
-import es.library.databaseinspanish.ui.utils.ImageButton;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
-import es.library.databaseinspanish.utils.Utils;
+import es.library.databaseinspanish.ui.utils.Utils;
+import es.library.databaseinspanish.ui.utils.components.ImageButton;
 
 public class GuestButton extends ImageButton {
 	

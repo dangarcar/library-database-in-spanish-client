@@ -2,6 +2,7 @@ package es.library.databaseinspanish.ui.contenido;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,7 @@ import es.library.databaseinspanish.model.contenido.Contenido;
 import es.library.databaseinspanish.model.contenido.modeltypes.ContenidoModel;
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.utils.OptionPanes;
+import es.library.databaseinspanish.ui.utils.ProjectConstants;
 
 public class ContenidoRendererController {
 
@@ -34,6 +36,9 @@ public class ContenidoRendererController {
 	
 	private void renderContenido() {
 		this.renderer = new ContenidoRenderer(app, contenido);
+		
+		renderer.getRetroceso().addActionListener((e) -> app.getCardLayout().previous(app.getContentPane()));
+		
 		renderer.setName(contenido.getTitulo()+"_renderer");		
 		app.changePanel(renderer);
 	}
@@ -58,7 +63,7 @@ public class ContenidoRendererController {
 			try {
 				StaticApis.userApi().prestar(c.getID());
 				logger.info("Usuario {} cogió prestado el contenido {}", app.getUserLoggenIn().getCorreoElectronico(), c.getID());
-				OptionPanes.infoBlocking("Se ha cogido el contenido con id " + c.getID());
+				OptionPanes.infoBlocking("Se ha prestado el contenido "+c.getID()+" hasta el "+ProjectConstants.ZONED_DATE_TIME_FORMATTER.format(ZonedDateTime.now().plusDays(c.getDiasDePrestamo())));
 			} catch (PrestamoNotAllowedException e1) {
 				logger.warn(e1);
 				OptionPanes.errorBlocking("No puede coger prestado el contenido con id:" + c.getID());

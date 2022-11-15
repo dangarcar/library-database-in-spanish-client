@@ -18,9 +18,9 @@ import es.library.databaseinspanish.exceptions.contenido.ContenidoNotFoundExcept
 import es.library.databaseinspanish.model.contenido.modeltypes.ContenidoModel;
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.contenido.ContenidoPicture;
-import es.library.databaseinspanish.ui.utils.NoContentLabel;
 import es.library.databaseinspanish.ui.utils.OptionPanes;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
+import es.library.databaseinspanish.ui.utils.components.NoContentLabel;
 
 public class ContenidosSlideShow extends JScrollPane {
 	
@@ -40,6 +40,7 @@ public class ContenidosSlideShow extends JScrollPane {
 		
 		setBorder(new LineBorder(Color.BLACK, 5, true));
 		setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		viewport.setBackground(ProjectConstants.BACKGROUND_COLOR);
 		viewport.setLayout(layout);
 		this.setViewportView(viewport);

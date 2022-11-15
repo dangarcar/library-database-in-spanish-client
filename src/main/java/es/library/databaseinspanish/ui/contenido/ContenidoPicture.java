@@ -13,8 +13,8 @@ import javax.swing.border.LineBorder;
 
 import es.library.databaseinspanish.model.contenido.modeltypes.ContenidoModel;
 import es.library.databaseinspanish.ui.SwingApp;
-import es.library.databaseinspanish.ui.utils.ImageLabel;
-import es.library.databaseinspanish.utils.ImageUtils;
+import es.library.databaseinspanish.ui.utils.ImageUtils;
+import es.library.databaseinspanish.ui.utils.components.ImageLabel;
 
 public class ContenidoPicture extends JButton {
 

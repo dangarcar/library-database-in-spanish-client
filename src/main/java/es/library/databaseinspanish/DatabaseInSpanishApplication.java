@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Bean;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.library.databaseinspanish.ui.login.AuthenticationManager;
+import es.library.databaseinspanish.api.utils.StaticApis;
+import es.library.databaseinspanish.ui.SwingApp;
+import es.library.databaseinspanish.ui.login.LoginWindow;
 
 /**
  * Clase principal del programa.
@@ -31,7 +33,11 @@ public class DatabaseInSpanishApplication {
 		
 		EventQueue.invokeLater(() -> {
 //			TokenManager.getInstance().deleteUserTokens();			
-			new AuthenticationManager();
+			try {
+				new SwingApp(StaticApis.userApi().getMyInfo());
+			} catch(Exception e) {
+				new LoginWindow();
+			}
 		});
 	}
 	

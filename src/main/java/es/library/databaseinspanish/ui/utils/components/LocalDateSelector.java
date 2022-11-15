@@ -1,4 +1,4 @@
-package es.library.databaseinspanish.ui.utils;
+package es.library.databaseinspanish.ui.utils.components;
 
 import java.awt.Dimension;
 import java.time.LocalDate;
@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import es.library.databaseinspanish.exceptions.perfil.IllegalPerfilException;
+import es.library.databaseinspanish.ui.utils.ProjectConstants;
 
 public class LocalDateSelector extends JPanel {
 

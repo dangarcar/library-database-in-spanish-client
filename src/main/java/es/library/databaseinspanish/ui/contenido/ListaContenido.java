@@ -11,7 +11,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
 import es.library.databaseinspanish.model.contenido.Contenido;
-import es.library.databaseinspanish.utils.ImageUtils;
+import es.library.databaseinspanish.ui.utils.ImageUtils;
 
 public class ListaContenido extends JList<Contenido> {
 

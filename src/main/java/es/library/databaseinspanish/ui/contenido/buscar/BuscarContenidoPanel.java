@@ -25,9 +25,9 @@ import es.library.databaseinspanish.api.utils.StaticApis;
 import es.library.databaseinspanish.model.contenido.modeltypes.ContenidoModel;
 import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.pantallainicio.PantallaInicioUser;
-import es.library.databaseinspanish.ui.utils.ImageLabel;
 import es.library.databaseinspanish.ui.utils.OptionPanes;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
+import es.library.databaseinspanish.ui.utils.components.ImageLabel;
 import net.miginfocom.swing.MigLayout;
 
 public class BuscarContenidoPanel extends JPanel{

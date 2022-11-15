@@ -1,9 +1,11 @@
-package es.library.databaseinspanish.ui.utils;
+package es.library.databaseinspanish.ui.utils.components;
 
 import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JLabel;
+
+import es.library.databaseinspanish.ui.utils.ProjectConstants;
 
 public class NoContentLabel extends JLabel {
 

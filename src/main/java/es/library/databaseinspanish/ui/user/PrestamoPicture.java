@@ -9,16 +9,16 @@ import java.awt.Insets;
 import java.time.ZonedDateTime;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import es.library.databaseinspanish.model.prestamo.PrestamoContenidoModel;
-import es.library.databaseinspanish.ui.utils.ImageLabel;
+import es.library.databaseinspanish.ui.utils.ImageUtils;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
-import es.library.databaseinspanish.utils.Utils;
+import es.library.databaseinspanish.ui.utils.Utils;
+import es.library.databaseinspanish.ui.utils.components.ImageLabel;
 
 class PrestamoPicture extends JPanel {
 	
@@ -35,7 +35,7 @@ class PrestamoPicture extends JPanel {
 		gridBagLayout.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0};
 		setLayout(gridBagLayout);
 		
-		JLabel imageLabel = new ImageLabel(new ImageIcon(prestamoContenidoModel.getContenido().getImagen()), height, height);
+		JLabel imageLabel = new ImageLabel(ImageUtils.getImagenFromContenido(prestamoContenidoModel.getContenido()), height, height);
 		GridBagConstraints gbc_imageLabel = new GridBagConstraints();
 		gbc_imageLabel.gridheight = 5;
 		gbc_imageLabel.insets = new Insets(0, 0, 0, 5);

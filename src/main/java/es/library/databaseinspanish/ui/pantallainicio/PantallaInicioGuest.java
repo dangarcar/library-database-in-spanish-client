@@ -10,7 +10,7 @@ import es.library.databaseinspanish.ui.SwingApp;
 import es.library.databaseinspanish.ui.contenido.buscar.BuscarContenidoPanel;
 import es.library.databaseinspanish.ui.menu.BotonMenu;
 import es.library.databaseinspanish.ui.user.GuestButton;
-import es.library.databaseinspanish.ui.utils.ImageLabel;
+import es.library.databaseinspanish.ui.utils.components.ImageLabel;
 import net.miginfocom.swing.MigLayout;
 
 public class PantallaInicioGuest extends PantallaInicio {

@@ -11,9 +11,10 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
 import es.library.databaseinspanish.ui.SwingApp;
-import es.library.databaseinspanish.ui.utils.BotonRetroceso;
-import es.library.databaseinspanish.ui.utils.ImageButton;
+import es.library.databaseinspanish.ui.perfil.PerfilDescr;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
+import es.library.databaseinspanish.ui.utils.components.BotonRetroceso;
+import es.library.databaseinspanish.ui.utils.components.ImageButton;
 import net.miginfocom.swing.MigLayout;
 
 public class UserPanel extends JPanel {

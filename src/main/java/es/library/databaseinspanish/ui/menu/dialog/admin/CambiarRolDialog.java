@@ -16,11 +16,11 @@ import es.library.databaseinspanish.api.utils.StaticApis;
 import es.library.databaseinspanish.exceptions.perfil.PerfilNotFoundException;
 import es.library.databaseinspanish.model.perfil.Perfil;
 import es.library.databaseinspanish.ui.SwingApp;
-import es.library.databaseinspanish.ui.login.AuthenticationManager;
 import es.library.databaseinspanish.ui.utils.OptionPanes;
 import es.library.databaseinspanish.ui.utils.ProjectConstants;
-import es.library.databaseinspanish.ui.utils.RolesComboBox;
-import es.library.databaseinspanish.ui.utils.RoundedButton;
+import es.library.databaseinspanish.ui.utils.Utils;
+import es.library.databaseinspanish.ui.utils.components.RolesComboBox;
+import es.library.databaseinspanish.ui.utils.components.RoundedButton;
 import net.miginfocom.swing.MigLayout;
 
 public class CambiarRolDialog extends JDialog {
@@ -74,27 +74,27 @@ public class CambiarRolDialog extends JDialog {
 		
 		if(email.isBlank()) {
 			OptionPanes.warn("El correo electrónico no debe estar en blanco");
-			AuthenticationManager.setNotValidJTextField(usernameField);
+			Utils.setNotValidJTextField(usernameField);
 			return;
 		}
 		if(!email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
 			OptionPanes.warn("El correo electrónico debe ser válido");
-			AuthenticationManager.setNotValidJTextField(usernameField);
+			Utils.setNotValidJTextField(usernameField);
 			return;
 		}
-		AuthenticationManager.setValidJTextField(usernameField);
+		Utils.setValidJTextField(usernameField);
 		
 		try {
 			perfil = StaticApis.perfilApi().getPerfilByUsername(email);
 		} catch (PerfilNotFoundException e1) {
 			OptionPanes.errorBlocking("No existe ningún perfil con el email "+email);
 			logger.warn("No existe perfil con usuario "+email, e1);
-			AuthenticationManager.setNotValidJTextField(usernameField);
+			Utils.setNotValidJTextField(usernameField);
 			return;
 		} catch (Exception e1) {
 			OptionPanes.error(e1.getMessage());
 			logger.warn("Error en el cambio de rol de perfil",e1);
-			AuthenticationManager.setNotValidJTextField(usernameField);
+			Utils.setNotValidJTextField(usernameField);
 			return;
 		}
 		
