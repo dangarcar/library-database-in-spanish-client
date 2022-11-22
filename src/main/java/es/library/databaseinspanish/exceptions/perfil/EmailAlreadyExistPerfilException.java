@@ -1,7 +1,7 @@
 package es.library.databaseinspanish.exceptions.perfil;
 
 /**
- * Excepcion para cuando el correo electrónico del perfil ya existe en la base de datos
+ * Excepcion para cuando el correo electrÃ³nico del perfil ya existe en la base de datos
  * @author Daniel Garcia
  *
  */

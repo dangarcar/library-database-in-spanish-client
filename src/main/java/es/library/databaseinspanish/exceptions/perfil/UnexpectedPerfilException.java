@@ -2,8 +2,8 @@ package es.library.databaseinspanish.exceptions.perfil;
 
 /**
  * 
- * Excepci�n para los errores del servidor de los perfiles
- * @author danie
+ * Excepción para los errores del servidor de los perfiles
+ * @author Daniel García
  *
  */
 public class UnexpectedPerfilException extends RuntimeException{

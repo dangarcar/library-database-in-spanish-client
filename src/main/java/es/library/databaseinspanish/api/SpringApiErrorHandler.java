@@ -34,5 +34,5 @@ public class SpringApiErrorHandler implements ResponseErrorHandler {
 			throw new ForbiddenException("No tiene permiso para hacer esto.");
 		}
 	}
-
+	
 }

@@ -1,7 +1,7 @@
 package es.library.databaseinspanish.exceptions.prestamo;
 
 /**
- * Una excepcion para cuando ha sucedido un error inesperado del lado del servidor de los préstamos
+ * Una excepcion para cuando ha sucedido un error inesperado del lado del servidor de los prÃ©stamos
  * @author Daniel Garcia
  *
  */

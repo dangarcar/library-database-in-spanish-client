@@ -31,8 +31,7 @@ public class DatabaseInSpanishApplication {
 	public static void main(String [] args){
 		springApplicationBuilder().run(args);
 		
-		EventQueue.invokeLater(() -> {
-//			TokenManager.getInstance().deleteUserTokens();			
+		EventQueue.invokeLater(() -> {			
 			try {
 				new SwingApp(StaticApis.userApi().getMyInfo());
 			} catch(Exception e) {

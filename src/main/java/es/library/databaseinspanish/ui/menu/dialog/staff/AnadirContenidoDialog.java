@@ -223,6 +223,7 @@ public class AnadirContenidoDialog extends JDialog {
 						image.setText("");
 					} catch (Exception e1) {
 						OptionPanes.warn("No se ha podido encontrar la imagen");
+						image.setIcon(null);
 						image.setText("<html><body><font size=\"5\" style=\"Segoe UI\">Arrastre una imagen aquí desde el navegador <br>o escriba una URL de imagen <br>en el apartado de URL de imagen</font></body></html>");
 					}
 				}
@@ -296,6 +297,8 @@ public class AnadirContenidoDialog extends JDialog {
 		case "VÍDEO" -> {
 			var v = new Video();
 
+			v.setDuracion((Double) spinnerDuracion.getValue());
+			
 			v.setEdadRecomendada((Integer) spinnerEdad.getValue());
 
 			v.setCalidad((Integer) spinnerCalidad.getValue());
