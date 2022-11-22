@@ -1,38 +1,49 @@
 package es.library.databaseinspanish;
 
-import es.library.databaseinspanish.interfaz.Ventana;
+import java.awt.EventQueue;
+
+import org.springframework.boot.Banner.Mode;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.Bean;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import es.library.databaseinspanish.api.utils.StaticApis;
+import es.library.databaseinspanish.ui.SwingApp;
+import es.library.databaseinspanish.ui.login.LoginWindow;
 
 /**
- * Clase principal del programa.<p>
- * Este es un programa para gestionar una biblioteca, en este caso la biblioteca es ficticia.<p>
- * Se puede gestionar préstamos, añadir nuevos contenidos y es.library.databaseinspanish.perfil y hacer búsquedas dentro de la BBDD.
- * @author Daniel García
+ * Clase principal del programa.
+ * @author Daniel GarcÃ­a
  *
  */
+@SpringBootApplication
 public class DatabaseInSpanishApplication {
-	/*public static final String url = getDatabase();
 	
-	public static String getDatabase() {
-		String result = null;
-		String options = "src/main/resources/options.txt";
-		BufferedReader lector = null;
-		try {
-			lector = new BufferedReader(new FileReader(new File(options)));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			result = lector.readLine();
-			System.out.println(result);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}*/
-	
-	public static final String url = "src/main/java/es/library/databaseinspanish/database/database.db";
+	public static SpringApplicationBuilder springApplicationBuilder() {
+		return new SpringApplicationBuilder(DatabaseInSpanishApplication.class)
+				.headless(false)
+				.bannerMode(Mode.LOG)
+				.logStartupInfo(false);
+	}
 	
 	public static void main(String [] args){
-		new Ventana();
+		springApplicationBuilder().run(args);
+		
+		EventQueue.invokeLater(() -> {			
+			try {
+				new SwingApp(StaticApis.userApi().getMyInfo());
+			} catch(Exception e) {
+				new LoginWindow();
+			}
+		});
+	}
+	
+	@Bean("jsonMapper")
+	public ObjectMapper jsonMapper() {
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.findAndRegisterModules();
+		return objectMapper;
 	}
 }

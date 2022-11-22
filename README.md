@@ -1,22 +1,23 @@
 # Library Database In Spanish
 
-Esta aplicación hecha con Java, Maven, Sqlite y Gson sirve para prestar, devolver y controlar los contenidos y usuarios de una biblioteca.
+Esta aplicación hecha con Java, Maven, Spring Boot y Swing sirve como cliente para la applicación [Library Database In Spanish Server](https://github.com/dangarcar/library-database-in-spanish-server)
 
 ![Imagen de la pantalla de inicio del programa](src/main/resources/files/images/captura.png)
 
 ## Requisitos previos
 - Tener [Java](https://www.java.com/en/) instalado (Como mínimo la versión JRE 17)
-- Tener [Maven](https://maven.apache.org/) instalado (Como mínimo versión 3.8)
-- Tener [Sqlite](https://www.sqlite.org/) instalado (Como mínimo version 3.38)
+
+## Tecnologías usadas
+- [Java](https://www.java.com/en/) 17.0
+- [Spring Boot](https://spring.io/projects/spring-boot/) 2.7
+- [Maven](https://maven.apache.org/) 3.8
+- [Swing](https://es.wikipedia.org/wiki/Swing_(biblioteca_gr%C3%A1fica)
+- [MigLayout](https://www.miglayout.com/) 11.0
+
 ## Cómo ejecutarlo
 1. Abre una terminal en el directorio del proyecto.
 
-2. Ejecuta el siguiente comando para hacer la build de la aplicación:
->```console
->mvn clean package
->```
-
-3. Ejecuta el siguiente comando para ejecutar la aplicación:
+2. Ejecuta el siguiente comando para ejecutar la aplicación:
 >```console 
->java -jar target/DatabaseInSpanish-(version).jar
+>./mvnw spring-boot:run -q
 >```
