@@ -2,6 +2,8 @@
 
 Esta aplicación hecha con Java, Maven, Spring Boot y Swing sirve como cliente para la applicación [Library Database In Spanish Server](https://github.com/dangarcar/library-database-in-spanish-server)
 
+Sirve como cliente de una app que controla los préstamos, contenidos y usuarios de una biblioteca, teniendo funcionalidades para usuarios anónimos, clientes de la biblioteca, trabajadores de la biblioteca y administradores del sistema.
+
 ![Imagen de la pantalla de inicio del programa](src/main/resources/files/images/captura.png)
 
 ## Requisitos previos
