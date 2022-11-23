@@ -25,12 +25,11 @@ public class KeyUtils {
 	private Logger logger = LogManager.getLogger();
 	
 	private static final String ALGORITMO = "DES";	
-	private static final String ALIAS = "Llavesecreta";
+	private static final String ALIAS = "Llavesecreta";	
+	private static final String FILE = "keys.ks";
 	
 	@Value("${crypto.password}") 
 	private String password;
-	@Value("${crypto.filepath}")
-	private String file;
 	
 	private KeyStore keyStore;
 	
@@ -42,10 +41,10 @@ public class KeyUtils {
 	
 	public void loadKeyStore() throws KeyStoreException {
 		keyStore = KeyStore.getInstance("JCEKS");
-		try (InputStream fis = new FileInputStream(file);){
+		try (InputStream fis = new FileInputStream(FILE);){
 			keyStore.load(fis, password.toCharArray());
 		} catch (Exception e) {
-			logger.info("Se ha creado nuevo data.ks");
+			logger.info("Se ha creado nuevo keys.ks");
 			try {
 				keyStore.load(null,password.toCharArray());
 			} catch (NoSuchAlgorithmException | CertificateException | IOException e1) {
@@ -67,7 +66,7 @@ public class KeyUtils {
 		keyStore.deleteEntry(ALIAS);
 		keyStore.setEntry(ALIAS, secretKeyEntry, protectionParameter);
 
-		try (FileOutputStream fos= new FileOutputStream(file)){
+		try (FileOutputStream fos= new FileOutputStream(FILE)){
 			keyStore.store(fos, password.toCharArray());
 		}
 	}
